@@ -68,3 +68,6 @@ UserSettings
 
 # Unity Plugin 
 Assets/Plugins/
+# Unity Cache folder
+UnityTechnologies/
+/Library/PackageCache/
