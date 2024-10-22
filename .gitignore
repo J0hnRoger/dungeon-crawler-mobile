@@ -65,3 +65,6 @@ crashlytics-build.properties
 .vsconfig
 UserSettings
 .vscode
+
+# Unity Plugin 
+Assets/Plugins/
