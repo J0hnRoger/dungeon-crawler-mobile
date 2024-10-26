@@ -23,7 +23,7 @@ namespace DungeonCrawler._Project.Scripts.Skills
         {
             EventBus<SkillLaunchedEvent>.Raise(new SkillLaunchedEvent()
             {
-                SkillName = data.Name,
+                SkillName = data.name,
                 AnimationName = data.animationClip?.name ?? "No Animation",
                 Duration = data.cooldown
             });
