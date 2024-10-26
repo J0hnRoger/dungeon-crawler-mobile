@@ -1,12 +1,13 @@
-using System;
-using _Project.Scripts.Common.EventBus;
 using DungeonCrawler._Project.Scripts.Events;
 using UnityEngine;
 
-public class PlayerController
+namespace DungeonCrawler._Project.Scripts.Player
 {
-    internal void HandleSkillLaunched(SkillLaunchedEvent @event)
+    public class PlayerController
     {
-        Debug.Log($"Player Controller received event and start animation: {@event.AnimationName}");
+        internal void HandleSkillLaunched(SkillLaunchedEvent @event)
+        {
+            Debug.Log($"Player Controller received event and start animation: {@event.AnimationName}");
+        }
     }
 }

@@ -2,32 +2,35 @@ using _Project.Scripts.Common.EventBus;
 using DungeonCrawler._Project.Scripts.Events;
 using UnityEngine;
 
-public class PlayerSystem : MonoBehaviour
+namespace DungeonCrawler._Project.Scripts.Player
 {
-    private EventBinding<SkillLaunchedEvent> _skillLaunchedBinding;
-
-    void OnEnable()
+    public class PlayerSystem : MonoBehaviour
     {
-        _skillLaunchedBinding = new EventBinding<SkillLaunchedEvent>(_controller.HandleSkillLaunched);
-        EventBus<SkillLaunchedEvent>.Register(_skillLaunchedBinding);
+        private EventBinding<SkillLaunchedEvent> _skillLaunchedBinding;
+        private EventBinding<GridClickedEvent> _gridClickedBinding;
+
+        void OnEnable()
+        {
+            _gridClickedBinding = new EventBinding<GridClickedEvent>(HandlePlayerMove);
+            EventBus<GridClickedEvent>.Register(_gridClickedBinding);
+        }
+
+        void OnDisable()
+        {
+            EventBus<GridClickedEvent>.Deregister(_gridClickedBinding);
+        }
+
+
+        private PlayerController _controller;
+
+        void Awake()
+        {
+            _controller = new PlayerController();
+        }
+
+        public void HandlePlayerMove(GridClickedEvent cellClickEvent)
+        {
+            transform.position = cellClickEvent.Position;
+        }
     }
-
-    void OnDisable()
-    {
-        EventBus<SkillLaunchedEvent>.Deregister(_skillLaunchedBinding);
-    }
-
-
-    private PlayerController _controller;
-
-    void Awake()
-    {
-        _controller = new PlayerController();
-    }
-
-    void Update()
-    {
-        // Update animation based on movement
-    }
-
 }
