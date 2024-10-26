@@ -10,16 +10,19 @@ public class GridCell : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField]
     public GridType GridType;
+        [SerializeField]
+        private GameObject outline;
     
     public void OnPointerDown(PointerEventData eventData)
     {
         switch (GridType)
         {
             case GridType.Empty:
+                    outline.SetActive(true);
                 EventBus<GridClickedEvent>.Raise(new GridClickedEvent() 
                 {
                     Position = transform.position
-                });
+                });;
                 break;
             case GridType.Enemy:
                 // TODO - Combat

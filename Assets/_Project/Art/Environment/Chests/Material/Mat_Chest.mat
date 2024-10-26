@@ -112,11 +112,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: a4f562c58379bd54fbc30781862c6f1b, type: 3}
+        m_Texture: {fileID: 2800000, guid: e4d4ddcc2fe0dcf44a5e9cdc6a3fbaf7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskGloss:
-        m_Texture: {fileID: 2800000, guid: 453078cb6703db442acb3375d4cca4c7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2bc55f85560661c4dab064791ad22d71, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskReflection:

@@ -317,6 +317,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 633991987}
     m_Modifications:
+    - target: {fileID: 3154833176656891647, guid: f58d15892fb5ca442ab5dc303f692b71, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3400534644887107901, guid: f58d15892fb5ca442ab5dc303f692b71, type: 3}
       propertyPath: m_Name
       value: TileStandard
@@ -361,6 +365,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7819557813744294351, guid: f58d15892fb5ca442ab5dc303f692b71, type: 3}
+      propertyPath: outline
+      value: 
+      objectReference: {fileID: 1774695586}
     - target: {fileID: 7819557813744294351, guid: f58d15892fb5ca442ab5dc303f692b71, type: 3}
       propertyPath: GridType
       value: 1
@@ -441,9 +449,10 @@ GameObject:
   m_Component:
   - component: {fileID: 667379560}
   - component: {fileID: 667379559}
+  - component: {fileID: 667379564}
   - component: {fileID: 667379558}
-  - component: {fileID: 667379563}
   - component: {fileID: 667379561}
+  - component: {fileID: 667379563}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -494,7 +503,7 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 0}
+    TrackingTarget: {fileID: 1451716371}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
@@ -526,7 +535,7 @@ Transform:
   m_GameObject: {fileID: 667379557}
   serializedVersion: 2
   m_LocalRotation: {x: 0.35355338, y: -0.35355338, z: 0.1464466, w: 0.8535535}
-  m_LocalPosition: {x: 2.9, y: 11.61, z: -3.3}
+  m_LocalPosition: {x: 4.7878447, y: 26.077, z: -6.915585}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -627,6 +636,25 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &667379564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667379557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b617507da6d07e749b7efdb34e1173e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TrackerSettings:
+    BindingMode: 5
+    PositionDamping: {x: 1, y: 1, z: 1}
+    AngularDampingMode: 0
+    RotationDamping: {x: 1, y: 1, z: 1}
+    QuaternionDamping: 1
+  FollowOffset: {x: 0, y: 25, z: -13}
 --- !u!1001 &668926100
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -635,6 +663,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 633991987}
     m_Modifications:
+    - target: {fileID: 3154833176656891647, guid: f58d15892fb5ca442ab5dc303f692b71, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3400534644887107901, guid: f58d15892fb5ca442ab5dc303f692b71, type: 3}
       propertyPath: m_Name
       value: TileStandard
@@ -1113,7 +1145,7 @@ Transform:
   m_GameObject: {fileID: 1397323969}
   serializedVersion: 2
   m_LocalRotation: {x: 0.35355338, y: -0.35355338, z: 0.1464466, w: 0.8535535}
-  m_LocalPosition: {x: 2.9, y: 11.61, z: -3.3}
+  m_LocalPosition: {x: 4.7878447, y: 26.077, z: -6.915585}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1298,6 +1330,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ca8f1003d15ca1449285a4e34336233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1451716371 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2405c85f59c309b48a87d43b1e5da1c0, type: 3}
+  m_PrefabInstance: {fileID: 893351903}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1540205154
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1421,6 +1458,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5286970985506378521, guid: f58d15892fb5ca442ab5dc303f692b71, type: 3}
   m_PrefabInstance: {fileID: 1753271411}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1774695586 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3154833176656891647, guid: f58d15892fb5ca442ab5dc303f692b71, type: 3}
+  m_PrefabInstance: {fileID: 461948468}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1816687803
 PrefabInstance:
