@@ -30,7 +30,7 @@ namespace DungeonCrawler._Project.Scripts.Player
 
         public void HandlePlayerMove(GridClickedEvent cellClickEvent)
         {
-            transform.position = cellClickEvent.Position;
+            transform.position = new Vector3(cellClickEvent.Position.x, transform.position.y, cellClickEvent.Position.z);
         }
     }
 }

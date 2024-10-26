@@ -1,6 +1,7 @@
 ﻿using _Project.Scripts.Common.EventBus;
 using DungeonCrawler._Project.Scripts.Events;
 using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.EventSystems;
 
 namespace DungeonCrawler._Project.Scripts.Grid
@@ -10,19 +11,25 @@ public class GridCell : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField]
     public GridType GridType;
-        [SerializeField]
-        private GameObject outline;
-    
-    public void OnPointerDown(PointerEventData eventData)
+    [SerializeField]
+    private GameObject outline;
+        private GridCell[] gridList;
+
+        public void OnEnable()
+        {
+            gridList = FindObjectsByType<GridCell>(FindObjectsSortMode.None);        
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
     {
         switch (GridType)
         {
             case GridType.Empty:
-                    outline.SetActive(true);
-                EventBus<GridClickedEvent>.Raise(new GridClickedEvent() 
-                {
-                    Position = transform.position
-                });;
+                    OutlinePosition();
+                    EventBus<GridClickedEvent>.Raise(new GridClickedEvent()
+                    {
+                        Position = transform.position
+                    });
                 break;
             case GridType.Enemy:
                 // TODO - Combat
@@ -38,5 +45,16 @@ public class GridCell : MonoBehaviour, IPointerDownHandler
                 break;
         }
     }
+
+        public void OutlinePosition()
+        {
+
+            foreach (GridCell grid in gridList)
+            {
+
+                if (grid != this) grid.outline.SetActive(false);
+                else grid.outline.SetActive(true);
+            }
+        }
 }
 }
