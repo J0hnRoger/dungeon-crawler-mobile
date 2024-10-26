@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DungeonCrawler._Project.Scripts.Player
 {
-    public class PlayerController
+    public class ExploratorController
     {
         internal void HandleSkillLaunched(SkillLaunchedEvent @event)
         {

@@ -12,7 +12,7 @@ namespace DungeonCrawler._Project.Scripts.Skills
     public class SkillCommand : ICommand
     {
         private readonly SkillData data;
-        public float duration => data.duration;
+        public float cooldown => data.cooldown;
 
         public SkillCommand(SkillData data)
         {
@@ -25,7 +25,7 @@ namespace DungeonCrawler._Project.Scripts.Skills
             {
                 SkillName = data.Name,
                 AnimationName = data.animationClip?.name ?? "No Animation",
-                Duration = data.duration
+                Duration = data.cooldown
             });
         }
     }

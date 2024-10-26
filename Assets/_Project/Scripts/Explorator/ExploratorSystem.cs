@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DungeonCrawler._Project.Scripts.Player
 {
-    public class PlayerSystem : MonoBehaviour
+    public class ExploratorSystem : MonoBehaviour
     {
         private EventBinding<SkillLaunchedEvent> _skillLaunchedBinding;
         private EventBinding<GridClickedEvent> _gridClickedBinding;
@@ -21,11 +21,11 @@ namespace DungeonCrawler._Project.Scripts.Player
         }
 
 
-        private PlayerController _controller;
+        private ExploratorController _controller;
 
         void Awake()
         {
-            _controller = new PlayerController();
+            _controller = new ExploratorController();
         }
 
         public void HandlePlayerMove(GridClickedEvent cellClickEvent)

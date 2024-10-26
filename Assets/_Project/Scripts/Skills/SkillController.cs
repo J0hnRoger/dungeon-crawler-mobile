@@ -30,7 +30,7 @@ namespace DungeonCrawler._Project.Scripts.Skills
             if (!_timer.IsRunning && _skillQueue.TryDequeue(out SkillCommand command))
             {
                 command.Execute();
-                _timer.Reset(command.duration);
+                _timer.Reset(command.cooldown);
                 _timer.Start();
             }
         }

@@ -7,7 +7,7 @@ namespace DungeonCrawler.Skills
     {
         public string Name;
         public AnimationClip animationClip;
-        public float duration;
+        public float cooldown;
         public Sprite icon;
 
         private void OnValidate()
