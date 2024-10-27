@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.eflatun.scenereference": {
-      "version": "git+https://github.com/starikcetin/Eflatun.SceneReference.git#4.1.1",
+      "version": "https://github.com/starikcetin/Eflatun.SceneReference.git#4.1.1",
       "depth": 0,
       "source": "git",
       "dependencies": {
@@ -9,6 +9,12 @@
         "com.unity.nuget.newtonsoft-json": "3.0.2"
       },
       "hash": "b849990020c30ac6ead4e4fb4881428f86dcde0d"
+    },
+    "com.unity.2d.sprite": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
     },
     "com.unity.2d.tilemap": {
       "version": "1.0.0",

@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using _Project.Scripts.Common.EventBus;
+using DungeonCrawler._Project.Scripts.Events;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace _Project.Scripts.Common.DependencyInjection
 {
@@ -12,11 +15,24 @@ namespace _Project.Scripts.Common.DependencyInjection
     [DefaultExecutionOrder(-1000)]
     public class Injector : Singleton<Injector>
     {
+        private EventBinding<SceneLoadedEvent> _sceneLoadEventBinding;
+        
         private const BindingFlags BindingFlags = System.Reflection.BindingFlags.Instance |
                                                   System.Reflection.BindingFlags.Public |
                                                   System.Reflection.BindingFlags.NonPublic;
 
         private readonly Dictionary<Type, object> _registry = new();
+
+        private void OnEnable()
+        {
+            _sceneLoadEventBinding = new EventBinding<SceneLoadedEvent>(InjectInScene);
+            EventBus<SceneLoadedEvent>.Register(_sceneLoadEventBinding);
+        }
+        
+        private void OnDisable()
+        {
+            EventBus<SceneLoadedEvent>.Deregister(_sceneLoadEventBinding);
+        }
 
         protected override void Awake()
         {
@@ -31,6 +47,23 @@ namespace _Project.Scripts.Common.DependencyInjection
             foreach (MonoBehaviour injectable in injectables)
             {
                 Inject(injectable);
+            }
+        }
+
+        private void InjectInScene(SceneLoadedEvent sceneLoadedEvent)
+        {
+            if (!sceneLoadedEvent.LoadedScene.isLoaded)
+                throw new Exception($"[Injector]: Scene {sceneLoadedEvent.LoadedScene.name} is not fully loadled");
+            
+            var rootObjects = sceneLoadedEvent.LoadedScene.GetRootGameObjects();
+            foreach (var rootObject in rootObjects)
+            {
+                var injectables = rootObject.GetComponentsInChildren<MonoBehaviour>(true)
+                    .Where(IsInjectable);
+                foreach (var injectable in injectables)
+                {
+                    Inject(injectable);
+                }
             }
         }
 
