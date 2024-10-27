@@ -18,7 +18,7 @@ public class GridCell : MonoBehaviour, IPointerDownHandler
         public void OnEnable()
         {
             gridList = FindObjectsByType<GridCell>(FindObjectsSortMode.None);
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         }
 
         public void OnPointerDown(PointerEventData eventData)
