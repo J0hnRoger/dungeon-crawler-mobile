@@ -11,6 +11,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/Exploration.unity
     guid: a6391b7271c94fd4c93960045f9257f9
+  - enabled: 1
+    path: Assets/_Project/Scenes/MainMenu.unity
+    guid: 5b730b1692e649c4d834cf6b17e9e4ec
+  - enabled: 1
+    path: Assets/_Project/Scenes/Combat.unity
+    guid: 46e5859ac23be604ab33faaea873cfdc
+  - enabled: 1
+    path: Assets/_Project/Scenes/Hub.unity
+    guid: d70ec1944c171cc4a8bd74cd9553ac32
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: cc31c32f1aed32f4fb447ce40897129a, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 54666bc29042e18489596ca925335cf9, type: 2}

@@ -1,4 +1,7 @@
 ﻿using System.Linq;
+using _Project.Scripts.Common.EventBus;
+using DungeonCrawler._Project.Scripts.Events;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 namespace DungeonCrawler._Project.Scripts.Grid
@@ -17,19 +20,64 @@ namespace DungeonCrawler._Project.Scripts.Grid
 
             foreach (GridCell gridCell in _gridCells)
             {
-                gridCell.OnCellSelected += CheckGrid;
+                gridCell.OnCellSelected += UpdateCells;
                 gridCell.gameObject.SetActive(false);
             }
+
             InitializeFirstCell();
         }
 
         public void InitializeFirstCell()
         {
             _cellStart.gameObject.SetActive(true);
-            CheckGrid(_cellStart);
+            UpdateCells(_cellStart);
         }
 
-        public void CheckGrid(GridCell selected)
+        /// <summary>
+        /// Déclenche l'action en fonction du type de case
+        /// </summary>
+        private void UpdateCells(GridCell selected)
+        {
+            switch (selected.GridType)
+            {
+                case GridType.Empty:
+                    MoveOnGridEmptyCell(selected);
+                    break;
+                case GridType.Enemy:
+                    MoveOnCombatCell(selected);
+                    break;
+                case GridType.Treasure:
+                    // TODO - Coffre
+                    MoveOnTreasureCell(selected);
+                    break;
+                case GridType.Boss:
+                    // TODO - Boss
+                    Debug.Log("Combat avec un boss");
+                    break;
+            }
+        }
+
+        private void MoveOnTreasureCell(GridCell selected)
+        {
+            Debug.Log("Move on Treasure cell");
+        }
+
+        private void MoveOnGridEmptyCell(GridCell selected)
+        {
+            EventBus<EmptyCellClickedEvent>.Raise(new EmptyCellClickedEvent() { Position = selected.transform.position });
+            selected.SetOutline(true);
+            // Cell Outline 
+            _gridCells.ToList().ForEach(cell => cell.SetOutline(false));
+            // Reveal neighbours
+            UpdateNextCells(selected);
+        }
+        
+        private void MoveOnCombatCell(GridCell selected)
+        {
+            EventBus<CombatGridClickedEvent>.Raise(new CombatGridClickedEvent() { });
+        }
+
+        private void UpdateNextCells(GridCell selected)
         {
             var coordinates = _grid.WorldToCell(selected.transform.position);
             Debug.Log(coordinates);
@@ -50,7 +98,6 @@ namespace DungeonCrawler._Project.Scripts.Grid
                 if (neighborCell != null)
                 {
                     Debug.Log($"Neighbor found at: {neighborCoords}");
-                    // TODO - retirer le FOG au-dessus, ou changer d'apparence pour passer d'une case "mystère" à une case du jeu
                     neighborCell.Reveal();
                 }
             }

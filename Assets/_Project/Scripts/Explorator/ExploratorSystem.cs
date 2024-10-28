@@ -7,17 +7,17 @@ namespace DungeonCrawler._Project.Scripts.Player
     public class ExploratorSystem : MonoBehaviour
     {
         private EventBinding<SkillLaunchedEvent> _skillLaunchedBinding;
-        private EventBinding<GridClickedEvent> _gridClickedBinding;
+        private EventBinding<EmptyCellClickedEvent> _gridClickedBinding;
 
         void OnEnable()
         {
-            _gridClickedBinding = new EventBinding<GridClickedEvent>(HandlePlayerMove);
-            EventBus<GridClickedEvent>.Register(_gridClickedBinding);
+            _gridClickedBinding = new EventBinding<EmptyCellClickedEvent>(HandlePlayerMove);
+            EventBus<EmptyCellClickedEvent>.Register(_gridClickedBinding);
         }
 
         void OnDisable()
         {
-            EventBus<GridClickedEvent>.Deregister(_gridClickedBinding);
+            EventBus<EmptyCellClickedEvent>.Deregister(_gridClickedBinding);
         }
 
 
@@ -28,7 +28,7 @@ namespace DungeonCrawler._Project.Scripts.Player
             _controller = new ExploratorController();
         }
 
-        public void HandlePlayerMove(GridClickedEvent cellClickEvent)
+        public void HandlePlayerMove(EmptyCellClickedEvent cellClickEvent)
         {
             transform.position = new Vector3(cellClickEvent.Position.x, transform.position.y, cellClickEvent.Position.z);
         }
