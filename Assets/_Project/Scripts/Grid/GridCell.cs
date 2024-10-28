@@ -20,7 +20,6 @@ public class GridCell : MonoBehaviour, IPointerDownHandler
         public void OnEnable()
         {
             gridList = FindObjectsByType<GridCell>(FindObjectsSortMode.None);
-            //gameObject.SetActive(false);
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -60,6 +59,11 @@ public class GridCell : MonoBehaviour, IPointerDownHandler
                 if (grid != this) grid.outline.SetActive(false);
                 else grid.outline.SetActive(true);
             }
+        }
+
+        public void Reveal()
+        {
+            gameObject.SetActive(true);
         }
 }
 }

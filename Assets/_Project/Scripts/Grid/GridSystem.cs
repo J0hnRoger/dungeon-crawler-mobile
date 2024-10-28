@@ -7,6 +7,7 @@ namespace DungeonCrawler._Project.Scripts.Grid
     {
         private UnityEngine.Grid _grid;
         private GridCell[] _gridCells;
+        [SerializeField] private GridCell _cellStart;
 
         public void Awake()
         {
@@ -17,7 +18,15 @@ namespace DungeonCrawler._Project.Scripts.Grid
             foreach (GridCell gridCell in _gridCells)
             {
                 gridCell.OnCellSelected += CheckGrid;
+                gridCell.gameObject.SetActive(false);
             }
+            InitializeFirstCell();
+        }
+
+        public void InitializeFirstCell()
+        {
+            _cellStart.gameObject.SetActive(true);
+            CheckGrid(_cellStart);
         }
 
         public void CheckGrid(GridCell selected)
@@ -42,7 +51,7 @@ namespace DungeonCrawler._Project.Scripts.Grid
                 {
                     Debug.Log($"Neighbor found at: {neighborCoords}");
                     // TODO - retirer le FOG au-dessus, ou changer d'apparence pour passer d'une case "mystère" à une case du jeu
-                    // neighborCell.Reveal() <-- méthode custom;
+                    neighborCell.Reveal();
                 }
             }
         }
