@@ -1,6 +1,9 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
+using _Project.Scripts.Common.DependencyInjection;
 using _Project.Scripts.Common.EventBus;
 using DungeonCrawler._Project.Scripts.Events;
+using DungeonCrawler._Project.Scripts.SceneManagement;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 
@@ -10,6 +13,10 @@ namespace DungeonCrawler._Project.Scripts.Grid
     {
         private UnityEngine.Grid _grid;
         private GridCell[] _gridCells;
+        
+        [Inject] 
+        private SceneLoader _sceneLoader;
+        
         [SerializeField] private GridCell _cellStart;
 
         public void Awake()
@@ -74,7 +81,7 @@ namespace DungeonCrawler._Project.Scripts.Grid
         
         private void MoveOnCombatCell(GridCell selected)
         {
-            EventBus<CombatGridClickedEvent>.Raise(new CombatGridClickedEvent() { });
+            EventBus<CombatStartedEvent>.Raise(new CombatStartedEvent() { });
         }
 
         private void UpdateNextCells(GridCell selected)

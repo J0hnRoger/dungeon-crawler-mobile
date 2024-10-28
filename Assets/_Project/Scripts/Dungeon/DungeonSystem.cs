@@ -1,6 +1,7 @@
 ﻿using _Project.Scripts.Common.DependencyInjection;
 using _Project.Scripts.Common.EventBus;
 using DungeonCrawler._Project.Scripts.Events;
+using DungeonCrawler._Project.Scripts.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,7 +12,7 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
     /// </summary>
     public class DungeonSystem : MonoBehaviour
     {
-        [Inject] private SceneManager _sceneManager;
+        [Inject] private SceneLoader _sceneLoader;
         
         [SerializeField] private int Difficulty;
         [SerializeField] private string Name;
@@ -37,11 +38,12 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
             EventBus<CombatFinishedEvent>.Deregister(_combatFinishedEvent);
         }
         
-        private void HandleCombatStart(CombatStartedEvent combatEvent)
+        private async void HandleCombatStart(CombatStartedEvent combatEvent)
         {
             Debug.Log($"{combatEvent} start");
             // Calculation enemy  
-            
+            await _sceneLoader.LoadSceneGroup(2);
+
             // sceneManager.Load(Additif - CombatScene).OnLoadComplete(() => {
             //   EventBus<CombatReadyEvent>(new CombatReadyEvent {
             //        Enemy enemy
