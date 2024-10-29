@@ -35,11 +35,16 @@ namespace DungeonCrawler._Project.Scripts.Combat
         private void OnPlayerAttack(SkillLaunchedEvent skillLaunchedEvent)
         {
             _model.Enemy.Hp.Set(_model.Enemy.Hp - _model.Player.Damage); 
+            if (_model.Enemy.Hp <= 0 || _model.Enemy.Hp <= 0)
+                EventBus<CombatFinishedEvent>.Raise(new CombatFinishedEvent()
+                {
+                    Win = _model.Enemy.Hp < _model.Player.Hp
+                });
         }
 
         private void ConnectView()
         {
-            
+           _view.SetEnemyName(_model.Enemy.Name); 
         }
         
         private void ConnectModel()

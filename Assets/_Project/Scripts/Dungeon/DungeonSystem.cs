@@ -53,12 +53,26 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
         }
         
 
-        private void HandleCombatFinished(CombatFinishedEvent combatFinishedEvent)
+        private async void HandleCombatFinished(CombatFinishedEvent combatFinishedEvent)
         {
-           Debug.Log("Fin de combat "); 
-           // Si win && Boss --> Hub
+           Debug.Log("Fin de combat ");
            // Si win --> Exploration
+           if (combatFinishedEvent.Win && combatFinishedEvent.IsLastCombat)
+           {
+               Debug.Log("You Win the level");
+               await _sceneLoader.LoadSceneGroup(0);
+           }
            // Si loose --> Popup
+           else if (combatFinishedEvent.Win)
+           {
+               Debug.Log("You Win");
+               await _sceneLoader.LoadSceneGroup(1);
+           }
+           else
+           {
+               await _sceneLoader.LoadSceneGroup(0);
+               Debug.Log("You Loose");
+           }
         }
     }
 }
