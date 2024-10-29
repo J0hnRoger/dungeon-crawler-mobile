@@ -9,12 +9,13 @@ namespace DungeonCrawler._Project.Scripts.SceneManagement.Editor {
 
             SceneLoader sceneLoader = (SceneLoader) target;
 
-            if (EditorApplication.isPlaying && GUILayout.Button("Load First Scene Group")) {
-                LoadSceneGroup(sceneLoader, 0);
-            }
-            
-            if (EditorApplication.isPlaying && GUILayout.Button("Load Second Scene Group")) {
-                LoadSceneGroup(sceneLoader, 1);
+            if (EditorApplication.isPlaying)
+            {
+                for (var i = 0; i < sceneLoader.SceneGroups.Length;i++)
+                {
+                    if(GUILayout.Button($"Load {sceneLoader.SceneGroups[i].GroupName} Scene Group")) 
+                        LoadSceneGroup(sceneLoader, i);
+                }
             }
         }
 

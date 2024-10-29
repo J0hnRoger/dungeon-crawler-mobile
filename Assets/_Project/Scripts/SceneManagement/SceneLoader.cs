@@ -15,6 +15,7 @@ namespace DungeonCrawler._Project.Scripts.SceneManagement
         [SerializeField] private Camera _loadingCamera;
         [SerializeField] private SceneGroup[] _sceneGroups ;
 
+        public SceneGroup[] SceneGroups => _sceneGroups;
         private float _targetProgress;
         private bool _isLoading;
 
