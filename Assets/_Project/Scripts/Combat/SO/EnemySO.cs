@@ -7,5 +7,7 @@ namespace DungeonCrawler._Project.Scripts.Combat.SO
     public class EnemyData : ScriptableObject
     {
         public string EnemyName;
+        public int HP;
+        public int Damage;
     }
 }
