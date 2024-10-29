@@ -72,9 +72,9 @@ namespace DungeonCrawler._Project.Scripts.Grid
         private void MoveOnGridEmptyCell(GridCell selected)
         {
             EventBus<EmptyCellClickedEvent>.Raise(new EmptyCellClickedEvent() { Position = selected.transform.position });
-            selected.SetOutline(true);
             // Cell Outline 
             _gridCells.ToList().ForEach(cell => cell.SetOutline(false));
+            selected.SetOutline(true);
             // Reveal neighbours
             UpdateNextCells(selected);
         }
