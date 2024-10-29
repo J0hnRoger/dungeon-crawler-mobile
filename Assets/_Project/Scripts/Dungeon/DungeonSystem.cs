@@ -43,36 +43,16 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
             Debug.Log($"{combatEvent} start");
             // Calculation enemy  
             await _sceneLoader.LoadSceneGroup(2);
-
-            // sceneManager.Load(Additif - CombatScene).OnLoadComplete(() => {
-            //   EventBus<CombatReadyEvent>(new CombatReadyEvent {
-            //        Enemy enemy
-            //   }) 
-            // OnWin: woss 
-            // })
         }
-        
 
         private async void HandleCombatFinished(CombatFinishedEvent combatFinishedEvent)
         {
-           Debug.Log("Fin de combat ");
-           // Si win --> Exploration
-           if (combatFinishedEvent.Win && combatFinishedEvent.IsLastCombat)
+            // TODO - calculate reward
+           await _sceneLoader.LoadSceneGroup(4);
+           EventBus<CombatResultCalculatedEvent>.Raise(new CombatResultCalculatedEvent()
            {
-               Debug.Log("You Win the level");
-               await _sceneLoader.LoadSceneGroup(0);
-           }
-           // Si loose --> Popup
-           else if (combatFinishedEvent.Win)
-           {
-               Debug.Log("You Win");
-               await _sceneLoader.LoadSceneGroup(1);
-           }
-           else
-           {
-               await _sceneLoader.LoadSceneGroup(0);
-               Debug.Log("You Loose");
-           }
+               Win = true
+           });
         }
     }
 }

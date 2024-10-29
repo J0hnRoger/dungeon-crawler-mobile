@@ -318,6 +318,12 @@ MonoBehaviour:
         asset: {fileID: 102900000, guid: d70ec1944c171cc4a8bd74cd9553ac32, type: 3}
         guid: d70ec1944c171cc4a8bd74cd9553ac32
       SceneType: 0
+  - GroupName: DungeonResultPopup
+    Scenes:
+    - Reference:
+        asset: {fileID: 102900000, guid: 6249f9683b45aa44099e5e5b7cbee55c, type: 3}
+        guid: 6249f9683b45aa44099e5e5b7cbee55c
+      SceneType: 0
 --- !u!4 &1638348379
 Transform:
   m_ObjectHideFlags: 0
