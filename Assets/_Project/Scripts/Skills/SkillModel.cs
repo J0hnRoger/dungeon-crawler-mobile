@@ -15,16 +15,16 @@ namespace DungeonCrawler.Skills
 
     public class Skill
     {
-        public readonly SkillData data;
+        public readonly SkillData Data;
 
         public Skill(SkillData data)
         {
-            this.data = data;
+            this.Data = data;
         }
 
         public SkillCommand CreateCommand()
         {
-            return new SkillCommand(data);
+            return new SkillCommand(Data);
         }
     }
 }

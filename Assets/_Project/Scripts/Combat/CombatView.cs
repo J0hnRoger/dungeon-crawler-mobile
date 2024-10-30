@@ -9,6 +9,7 @@ namespace DungeonCrawler._Project.Scripts.Combat
         [SerializeField] private Image _enemyHealth;
         [SerializeField] private Image _playerHealth;
         [SerializeField] private TMP_Text _enemyName;
+        [SerializeField] private Image _cdGauge;
 
 
         public void SetEnemyName(string enemyName)
@@ -21,18 +22,18 @@ namespace DungeonCrawler._Project.Scripts.Combat
             if (float.IsNaN(progress))
                 progress = 0;
             
-            // Update Visual Countdown
+            _cdGauge.fillAmount = progress; 
         }
         
-        public void UpdateEnemyHealth(int value)
+        public void UpdateEnemyHealth(float percent)
         {
-            _enemyHealth.fillAmount = value / 100f;
+            _enemyHealth.fillAmount = percent;
         }
 
 
-        public void UpdatePlayerHealth(int value)
+        public void UpdatePlayerHealth(float percent)
         {
-            _playerHealth.fillAmount = value / 100f;
+            _playerHealth.fillAmount = percent;
         }
     }
 }

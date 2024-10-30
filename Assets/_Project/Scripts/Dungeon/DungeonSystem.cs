@@ -45,6 +45,7 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
 
         private void HandleCombatFinished(CombatFinishedEvent combatFinishedEvent)
         {
+            // Calculate Rewards
            EventBus<CombatResultCalculatedEvent>.Raise(new CombatResultCalculatedEvent()
            {
                Win = combatFinishedEvent.Win,

@@ -41,7 +41,7 @@ namespace DungeonCrawler._Project.Scripts.Skills
             {
                 if (i < skills.Count)
                 {
-                    buttons[i].UpdateButtonSprite(skills[i].data.icon);
+                    buttons[i].UpdateButtonSprite(skills[i].Data.icon);
                 }
                 else
                 {
