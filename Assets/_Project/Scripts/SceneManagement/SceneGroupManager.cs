@@ -20,17 +20,20 @@ namespace DungeonCrawler._Project.Scripts.SceneManagement
         {
             ActiveSceneGroup = group;
             var loadedScenes = new List<string>();
-
-            await UnloadScenes();
             int sceneCount = SceneManager.sceneCount;
 
             for (var i = 0; i < sceneCount; i++)
-            {
                 loadedScenes.Add(SceneManager.GetSceneAt(i).name);
-            }
 
             var totalScenesToLoad = ActiveSceneGroup.Scenes.Count;
 
+            // We unload only scenes that are not in the next sceneGroup
+            foreach (string loadedScene in loadedScenes)
+            {
+                if (ActiveSceneGroup.Scenes.All(s => s.Name != loadedScene))
+                    await UnloadScenesByName(loadedScene);
+            }
+            
             var operationGroup = new AsyncOperationGroup(totalScenesToLoad);
 
             for (var i = 0; i < totalScenesToLoad; i++)
@@ -98,12 +101,18 @@ namespace DungeonCrawler._Project.Scripts.SceneManagement
             Scene activeScene =
                 SceneManager.GetSceneByName(ActiveSceneGroup.FindSceneNameByType(SceneType.ActiveScene));
 
-            // if (activeScene.IsValid())
-            //     SceneManager.SetActiveScene(activeScene);
+            if (activeScene.IsValid())
+                 SceneManager.SetActiveScene(activeScene);
         }
 
-        private async Task UnloadScenesByName(SceneGroup group, string unloadingSceneName)
+        private async Task UnloadScenesByName(string unloadingSceneName)
         {
+            var activeScene = SceneManager.GetActiveScene().name;
+            
+            // On conserve toujours la scene de démarrage active et la scene de Bootstrap
+            if (unloadingSceneName.Equals(activeScene) || unloadingSceneName == "Bootstrapper") 
+                return;
+            
             var operation = SceneManager.UnloadSceneAsync(unloadingSceneName);
             if (operation == null) return;
 

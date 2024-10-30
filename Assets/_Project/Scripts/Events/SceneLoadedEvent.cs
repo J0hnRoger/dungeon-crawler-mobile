@@ -10,7 +10,6 @@ namespace DungeonCrawler._Project.Scripts.Events
 
         public SceneLoadedEvent(Scene loadedScene)
         {
-            Debug.Log($"SceneLoadedEvent trigger: {loadedScene.name}");
             LoadedScene = loadedScene;
         }
     }

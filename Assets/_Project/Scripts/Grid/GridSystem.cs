@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using _Project.Scripts.Common.DependencyInjection;
 using _Project.Scripts.Common.EventBus;
@@ -58,8 +59,7 @@ namespace DungeonCrawler._Project.Scripts.Grid
                     MoveOnTreasureCell(selected);
                     break;
                 case GridType.Boss:
-                    // TODO - Boss
-                    Debug.Log("Combat avec un boss");
+                    MoveOnCombatCell(selected);
                     break;
             }
         }
@@ -81,13 +81,18 @@ namespace DungeonCrawler._Project.Scripts.Grid
         
         private void MoveOnCombatCell(GridCell selected)
         {
-            EventBus<CombatStartedEvent>.Raise(new CombatStartedEvent() { });
+            if (selected.Enemy == null)
+                throw new Exception("Combat Cell should have one enemy");
+            
+            EventBus<CombatStartedEvent>.Raise(new CombatStartedEvent() { 
+                EnemyData = selected.Enemy,
+                IsBoss = selected.GridType == GridType.Boss
+            });
         }
 
         private void UpdateNextCells(GridCell selected)
         {
             var coordinates = _grid.WorldToCell(selected.transform.position);
-            Debug.Log(coordinates);
             Vector3Int[] offsets =
             {
                 new Vector3Int(1, 0, 0), // Droite
@@ -104,7 +109,6 @@ namespace DungeonCrawler._Project.Scripts.Grid
 
                 if (neighborCell != null)
                 {
-                    Debug.Log($"Neighbor found at: {neighborCoords}");
                     neighborCell.Reveal();
                 }
             }

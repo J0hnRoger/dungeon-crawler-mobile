@@ -11,7 +11,6 @@ namespace DungeonCrawler._Project.Scripts.Combat
         [SerializeField] private TMP_Text _enemyName;
         [SerializeField] private Image _cdGauge;
 
-
         public void SetEnemyName(string enemyName)
         {
             _enemyName.text = enemyName;
@@ -29,7 +28,6 @@ namespace DungeonCrawler._Project.Scripts.Combat
         {
             _enemyHealth.fillAmount = percent;
         }
-
 
         public void UpdatePlayerHealth(float percent)
         {

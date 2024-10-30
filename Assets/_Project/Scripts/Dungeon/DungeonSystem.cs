@@ -1,5 +1,6 @@
 ﻿using _Project.Scripts.Common.DependencyInjection;
 using _Project.Scripts.Common.EventBus;
+using DungeonCrawler._Project.Scripts.Combat.SO;
 using DungeonCrawler._Project.Scripts.Events;
 using DungeonCrawler._Project.Scripts.SceneManagement;
 using UnityEngine;
@@ -9,16 +10,22 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
     /// <summary>
     /// Gérer les coffres, ennemis, progression du joueur
     /// </summary>
-    public class DungeonSystem : MonoBehaviour
+    public class DungeonSystem : MonoBehaviour, IDependencyProvider
     {
         [Inject] private SceneLoader _sceneLoader;
         
         [SerializeField] private int Difficulty;
         [SerializeField] private string Name;
 
-        // [SerializeField]
-        // private EnemySO[] Biome;
-        
+        private CurrentCombat _combat;
+
+        [Provide] 
+        public CurrentCombat CurrentCombat()
+        {
+            _combat = new CurrentCombat();
+            return _combat;
+        }
+
         private EventBinding<CombatStartedEvent> _combatStartBinding;
         private EventBinding<CombatFinishedEvent> _combatFinishedEvent;
 
@@ -38,9 +45,16 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
         
         private async void HandleCombatStart(CombatStartedEvent combatEvent)
         {
+            _combat.Set(combatEvent.EnemyData);
             Debug.Log($"{combatEvent} start");
             // Calculation enemy  
             await _sceneLoader.LoadSceneGroup(2);
+            
+            EventBus<CombatReadyEvent>.Raise(new CombatReadyEvent()
+            {
+                EnemyData = combatEvent.EnemyData,
+                IsBoss = combatEvent.IsBoss 
+            }); 
         }
 
         private void HandleCombatFinished(CombatFinishedEvent combatFinishedEvent)

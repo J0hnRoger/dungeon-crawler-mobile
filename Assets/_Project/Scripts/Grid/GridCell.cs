@@ -1,4 +1,5 @@
 ﻿using System;
+using DungeonCrawler._Project.Scripts.Combat.SO;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,6 +9,7 @@ namespace DungeonCrawler._Project.Scripts.Grid
     {
         [SerializeField] public GridType GridType;
         [SerializeField] private GameObject outline;
+        [SerializeField] public EnemyData Enemy;
         
         public Action<GridCell> OnCellSelected { get; set; }
 

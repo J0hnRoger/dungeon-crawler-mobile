@@ -16,7 +16,7 @@ namespace _Project.Scripts.Common.DependencyInjection
     public class Injector : Singleton<Injector>
     {
         private EventBinding<SceneLoadedEvent> _sceneLoadEventBinding;
-        
+
         private const BindingFlags BindingFlags = System.Reflection.BindingFlags.Instance |
                                                   System.Reflection.BindingFlags.Public |
                                                   System.Reflection.BindingFlags.NonPublic;
@@ -28,7 +28,7 @@ namespace _Project.Scripts.Common.DependencyInjection
             _sceneLoadEventBinding = new EventBinding<SceneLoadedEvent>(InjectInScene);
             EventBus<SceneLoadedEvent>.Register(_sceneLoadEventBinding);
         }
-        
+
         private void OnDisable()
         {
             EventBus<SceneLoadedEvent>.Deregister(_sceneLoadEventBinding);
@@ -54,12 +54,20 @@ namespace _Project.Scripts.Common.DependencyInjection
         {
             if (!sceneLoadedEvent.LoadedScene.isLoaded)
                 throw new Exception($"[Injector]: Scene {sceneLoadedEvent.LoadedScene.name} is not fully loadled");
-            
+
             var rootObjects = sceneLoadedEvent.LoadedScene.GetRootGameObjects();
             foreach (var rootObject in rootObjects)
             {
+                // Search new Providers in scene
+                var providers = rootObject.GetComponentsInChildren<IDependencyProvider>(true);
+                foreach (IDependencyProvider provider in providers)
+                {
+                    RegisterProvider(provider);
+                }
+
                 var injectables = rootObject.GetComponentsInChildren<MonoBehaviour>(true)
                     .Where(IsInjectable);
+
                 foreach (var injectable in injectables)
                 {
                     Inject(injectable);

@@ -73,6 +73,9 @@ namespace DungeonCrawler._Project.Scripts.Combat
 
         private void OnPlayerAttack(SkillLaunchedEvent skillLaunchedEvent)
         {
+            if (CombatIsFinished)
+                return;
+            
             _model.Enemy.Hp.Set(_model.Enemy.Hp - _model.Player.Damage);
             if (CombatIsFinished)
                 EventBus<CombatFinishedEvent>.Raise(
