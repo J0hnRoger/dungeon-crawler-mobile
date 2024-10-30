@@ -48,7 +48,7 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
         private async void HandleCombatFinished(CombatFinishedEvent combatFinishedEvent)
         {
             // TODO - calculate reward
-           await _sceneLoader.LoadSceneGroup(4);
+           await _sceneLoader.LoadSceneByName("DungeonResultPopup");
            EventBus<CombatResultCalculatedEvent>.Raise(new CombatResultCalculatedEvent()
            {
                Win = true

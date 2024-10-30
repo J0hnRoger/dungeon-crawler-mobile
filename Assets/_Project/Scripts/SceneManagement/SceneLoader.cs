@@ -2,6 +2,7 @@
 using _Project.Scripts.Common.EventBus;
 using DungeonCrawler._Project.Scripts.Events;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Scene = UnityEngine.SceneManagement.Scene;
 
@@ -19,13 +20,13 @@ namespace DungeonCrawler._Project.Scripts.SceneManagement
         private float _targetProgress;
         private bool _isLoading;
 
-        public readonly SceneGroupManager manager = new SceneGroupManager();
+        public readonly SceneGroupManager _manager = new SceneGroupManager();
 
         private void Awake()
         {
-            manager.OnSceneLoaded += HandleSceneLoaded;
-            manager.OnSceneUnloaded += scene => Debug.Log($"Unloaded: {scene.name}");
-            manager.OnSceneGroupLoaded += () => Debug.Log($"Scene group loaded");
+            _manager.OnSceneLoaded += HandleSceneLoaded;
+            _manager.OnSceneUnloaded += scene => Debug.Log($"Unloaded: {scene.name}");
+            _manager.OnSceneGroupLoaded += () => Debug.Log($"Scene group loaded");
         }
 
         private void HandleSceneLoaded(Scene scene)
@@ -63,8 +64,13 @@ namespace DungeonCrawler._Project.Scripts.SceneManagement
             progress.Progressed += target => _targetProgress = Mathf.Max(target, _targetProgress);
             
             EnableLoadingCanvas();
-            await manager.LoadScenes(_sceneGroups[index], progress);
+            await _manager.LoadScenes(_sceneGroups[index], progress);
             EnableLoadingCanvas(false);
+        }
+
+        public async Task LoadSceneByName(string sceneName)
+        {
+            await _manager.LoadSceneByName(sceneName);
         }
 
         void EnableLoadingCanvas(bool enable = true)

@@ -10,9 +10,9 @@ namespace DungeonCrawler._Project.Scripts.SceneManagement
 {
     public class SceneGroupManager
     {
-        public event Action<Scene> OnSceneLoaded = s => { }; 
-        public event Action<Scene> OnSceneUnloaded = s => {};
-        public event Action OnSceneGroupLoaded = () => {};
+        public event Action<Scene> OnSceneLoaded = s => { };
+        public event Action<Scene> OnSceneUnloaded = s => { };
+        public event Action OnSceneGroupLoaded = () => { };
 
         SceneGroup ActiveSceneGroup { get; set; }
 
@@ -24,7 +24,8 @@ namespace DungeonCrawler._Project.Scripts.SceneManagement
             await UnloadScenes();
             int sceneCount = SceneManager.sceneCount;
 
-            for (var i = 0; i < sceneCount; i++) {
+            for (var i = 0; i < sceneCount; i++)
+            {
                 loadedScenes.Add(SceneManager.GetSceneAt(i).name);
             }
 
@@ -35,17 +36,17 @@ namespace DungeonCrawler._Project.Scripts.SceneManagement
             for (var i = 0; i < totalScenesToLoad; i++)
             {
                 var sceneData = group.Scenes[i];
-                if (reloadDupScenes == false && loadedScenes.Contains(sceneData.Name)) 
+                if (reloadDupScenes == false && loadedScenes.Contains(sceneData.Name))
                     continue;
 
                 var operation = SceneManager.LoadSceneAsync(sceneData.Reference.Path, LoadSceneMode.Additive);
                 operationGroup.Operations.Add(operation);
-                
-                operation.completed += _ => 
+
+                operation.completed += _ =>
                 {
-                        Scene loadedScene = SceneManager.GetSceneByName(sceneData.Name);
-                        if (loadedScene.IsValid())
-                            OnSceneLoaded.Invoke(loadedScene);
+                    Scene loadedScene = SceneManager.GetSceneByName(sceneData.Name);
+                    if (loadedScene.IsValid())
+                        OnSceneLoaded.Invoke(loadedScene);
                 };
             }
 
@@ -55,12 +56,64 @@ namespace DungeonCrawler._Project.Scripts.SceneManagement
                 await Task.Delay(100);
             }
 
-            Scene activeScene = SceneManager.GetSceneByName(ActiveSceneGroup.FindSceneNameByType(SceneType.ActiveScene));
+            Scene activeScene =
+                SceneManager.GetSceneByName(ActiveSceneGroup.FindSceneNameByType(SceneType.ActiveScene));
 
             if (activeScene.IsValid())
                 SceneManager.SetActiveScene(activeScene);
-        
+
             OnSceneGroupLoaded.Invoke();
+        }
+
+        public async Task LoadSceneByName(string sceneName, bool reloadDupScenes = false)
+        {
+            var loadedScenes = new List<string>();
+
+            int sceneCount = SceneManager.sceneCount;
+
+            for (var i = 0; i < sceneCount; i++)
+            {
+                loadedScenes.Add(SceneManager.GetSceneAt(i).name);
+            }
+
+            if (reloadDupScenes == false && loadedScenes.Contains(sceneName))
+            {
+                return;
+            }
+
+            var sceneToLoaded = ActiveSceneGroup.Scenes.First(s => s.Name == sceneName);
+
+            var operation = SceneManager.LoadSceneAsync(sceneToLoaded.Reference.Path, LoadSceneMode.Additive);
+
+            operation.completed += _ =>
+            {
+                Scene loadedScene = SceneManager.GetSceneByName(sceneToLoaded.Name);
+                if (loadedScene.IsValid())
+                    OnSceneLoaded.Invoke(loadedScene);
+            };
+
+            while (!operation.isDone)
+                await Task.Delay(100);
+
+            Scene activeScene =
+                SceneManager.GetSceneByName(ActiveSceneGroup.FindSceneNameByType(SceneType.ActiveScene));
+
+            // if (activeScene.IsValid())
+            //     SceneManager.SetActiveScene(activeScene);
+        }
+
+        private async Task UnloadScenesByName(SceneGroup group, string unloadingSceneName)
+        {
+            var operation = SceneManager.UnloadSceneAsync(unloadingSceneName);
+            if (operation == null) return;
+
+            while (!operation.isDone)
+                await Task.Delay(100);
+
+            Scene unloadedScene =
+                SceneManager.GetSceneByName(ActiveSceneGroup.FindSceneNameByType(SceneType.ActiveScene));
+
+            OnSceneUnloaded.Invoke(unloadedScene);
         }
 
         public async Task UnloadScenes()
@@ -77,7 +130,7 @@ namespace DungeonCrawler._Project.Scripts.SceneManagement
                 var sceneName = sceneAt.name;
                 // On conserve toujours la scene de démarrage active
                 if (sceneName.Equals(activeScene) || sceneName == "Boostrapper") continue;
-            
+
                 scenes.Add(sceneName);
             }
 
@@ -86,10 +139,10 @@ namespace DungeonCrawler._Project.Scripts.SceneManagement
             foreach (var scene in scenes)
             {
                 var operation = SceneManager.UnloadSceneAsync(scene);
-                if(operation == null) continue;
-            
+                if (operation == null) continue;
+
                 operationGroup.Operations.Add(operation);
-                
+
                 Scene loadedScene = SceneManager.GetSceneByName(scene);
                 OnSceneUnloaded.Invoke(loadedScene);
             }
@@ -100,10 +153,11 @@ namespace DungeonCrawler._Project.Scripts.SceneManagement
             }
 
             await Resources.UnloadUnusedAssets();
-        } 
-    } 
+        }
+    }
 
-    public readonly struct AsyncOperationGroup {
+    public readonly struct AsyncOperationGroup
+    {
         public readonly List<AsyncOperation> Operations;
 
         public float Progress => Operations.Count == 0 ? 0 : Operations.Average(op => op.progress);
