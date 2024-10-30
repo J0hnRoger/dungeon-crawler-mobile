@@ -23,6 +23,8 @@ namespace DungeonCrawler._Project.Scripts.Combat
             _controller = new CombatController(model, _view);
         }
 
+        public void Update() => _controller.Update(Time.deltaTime);
+
         public void OnEnable() => _controller.OnEnable();
         public void OnDisable() => _controller.OnDisable();
     }

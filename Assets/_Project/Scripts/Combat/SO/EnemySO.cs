@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DungeonCrawler.Skills;
+using UnityEngine;
 
 namespace DungeonCrawler._Project.Scripts.Combat.SO
 {
@@ -9,5 +10,6 @@ namespace DungeonCrawler._Project.Scripts.Combat.SO
         public string EnemyName;
         public int HP;
         public int Damage;
+        public SkillData Skill;
     }
 }

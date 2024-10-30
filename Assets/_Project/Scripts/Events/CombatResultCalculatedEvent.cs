@@ -6,6 +6,7 @@ namespace DungeonCrawler._Project.Scripts.Events
 {
     public class CombatResultCalculatedEvent : IEvent
     {
+        public bool IsLastCombat { get; set; }
         public bool Win { get; set; }
         public List<Reward> Rewards { get; set; }
     }

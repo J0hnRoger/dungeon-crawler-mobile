@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyName: Enemy Test
   HP: 20
-  Damage: 2
+  Damage: 10
+  Skill: {fileID: 11400000, guid: bfbebba76bf0e274480aca53d35f95b9, type: 2}

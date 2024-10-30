@@ -36,7 +36,6 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
             _panel.SetActive(true);
             _resultTitleTxt.text = (combatResultCalculatedEvent.Win) ? "You WIN!" : "You Loose";
         }
-        
 
         private void ClosePopup()
         {

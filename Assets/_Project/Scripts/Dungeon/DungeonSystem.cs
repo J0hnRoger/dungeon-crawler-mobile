@@ -3,7 +3,6 @@ using _Project.Scripts.Common.EventBus;
 using DungeonCrawler._Project.Scripts.Events;
 using DungeonCrawler._Project.Scripts.SceneManagement;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace DungeonCrawler._Project.Scripts.Dungeon
 {
@@ -31,7 +30,6 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
             EventBus<CombatFinishedEvent>.Register(_combatFinishedEvent);
         }
 
-
         void OnDisable()
         {
             EventBus<CombatStartedEvent>.Deregister(_combatStartBinding);
@@ -45,13 +43,12 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
             await _sceneLoader.LoadSceneGroup(2);
         }
 
-        private async void HandleCombatFinished(CombatFinishedEvent combatFinishedEvent)
+        private void HandleCombatFinished(CombatFinishedEvent combatFinishedEvent)
         {
-            // TODO - calculate reward
-           await _sceneLoader.LoadSceneByName("DungeonResultPopup");
            EventBus<CombatResultCalculatedEvent>.Raise(new CombatResultCalculatedEvent()
            {
-               Win = true
+               Win = combatFinishedEvent.Win,
+               IsLastCombat = combatFinishedEvent.IsLastCombat
            });
         }
     }

@@ -1,7 +1,8 @@
 ﻿
 using _Project.Scripts.Common.EventBus;
+using DungeonCrawler._Project.Scripts.Common;
 using DungeonCrawler._Project.Scripts.Events;
-using UnityEngine;
+using DungeonCrawler._Project.Scripts.Skills;
 
 namespace DungeonCrawler._Project.Scripts.Combat
 {
@@ -12,6 +13,9 @@ namespace DungeonCrawler._Project.Scripts.Combat
         private readonly CombatView _view;
         private readonly CombatModel _model;
         
+        private readonly CountdownTimer _timer = new CountdownTimer(0);
+        private SkillCommand _enemyAutoCommand;
+
         public CombatController(CombatModel model, CombatView view)
         {
             _view = view;
@@ -32,10 +36,33 @@ namespace DungeonCrawler._Project.Scripts.Combat
             EventBus<SkillLaunchedEvent>.Deregister(_playerAttackEventBinding);
         }
 
+        public void Update(float deltaTime)
+        {
+            _timer.Tick(deltaTime);
+            _view.UpdateRadial(_timer.Progress);
+
+            if (!_timer.IsRunning)
+            {
+                EnemyAttack(_model.Enemy.Damage);
+                _timer.Reset(_model.Enemy.Skill.data.cooldown);
+                _timer.Start();
+            }
+        }
+
+        private void EnemyAttack(int enemyDamage)
+        {
+            _model.Player.Hp.Set(_model.Player.Hp - enemyDamage); 
+            if (_model.Enemy.Hp <= 0 || _model.Player.Hp <= 0)
+                EventBus<CombatFinishedEvent>.Raise(new CombatFinishedEvent()
+                {
+                    Win = _model.Enemy.Hp < _model.Player.Hp
+                });
+        }
+
         private void OnPlayerAttack(SkillLaunchedEvent skillLaunchedEvent)
         {
             _model.Enemy.Hp.Set(_model.Enemy.Hp - _model.Player.Damage); 
-            if (_model.Enemy.Hp <= 0 || _model.Enemy.Hp <= 0)
+            if (_model.Enemy.Hp <= 0 || _model.Player.Hp <= 0)
                 EventBus<CombatFinishedEvent>.Raise(new CombatFinishedEvent()
                 {
                     Win = _model.Enemy.Hp < _model.Player.Hp

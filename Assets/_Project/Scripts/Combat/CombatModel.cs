@@ -1,5 +1,6 @@
 ﻿using DungeonCrawler._Project.Scripts.Combat.SO;
 using DungeonCrawler._Project.Scripts.Common;
+using DungeonCrawler.Skills;
 
 namespace DungeonCrawler._Project.Scripts.Combat
 {
@@ -10,7 +11,7 @@ namespace DungeonCrawler._Project.Scripts.Combat
 
         public CombatModel(EnemyData enemyData, PlayerData player)
         {
-            Enemy = new Enemy(enemyData.EnemyName, enemyData.HP, enemyData.Damage);
+            Enemy = new Enemy(enemyData.EnemyName, enemyData.HP, enemyData.Damage, enemyData.Skill);
             Player = new Player(player.HP, player.Damage);
         }
     }
@@ -19,13 +20,16 @@ namespace DungeonCrawler._Project.Scripts.Combat
     {
         public Observable<int> Hp { get; set; }
         public int Damage { get; set; }
+        public Skill Skill { get; set; }
+
         public string Name;
 
-        public Enemy(string name, int hp, int damage)
+        public Enemy(string name, int hp, int damage, SkillData skillData)
         {
             Hp = new Observable<int>(hp);
             Damage = damage;
             Name = name;
+            Skill = new Skill(skillData);
         }
     }
     

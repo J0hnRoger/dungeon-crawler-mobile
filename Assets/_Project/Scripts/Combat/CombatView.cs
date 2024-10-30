@@ -16,6 +16,14 @@ namespace DungeonCrawler._Project.Scripts.Combat
             _enemyName.text = enemyName;
         }
         
+        public void UpdateRadial(float progress)
+        {
+            if (float.IsNaN(progress))
+                progress = 0;
+            
+            // Update Visual Countdown
+        }
+        
         public void UpdateEnemyHealth(int value)
         {
             _enemyHealth.fillAmount = value / 100f;
