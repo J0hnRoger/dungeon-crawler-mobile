@@ -17,13 +17,13 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
         [SerializeField] private int Difficulty;
         [SerializeField] private string Name;
 
-        private CurrentCombat _combat;
+        private CurrentCombat _currentCombat;
 
         [Provide] 
-        public CurrentCombat CurrentCombat()
+        public ICurrentCombat CurrentCombat()
         {
-            _combat = new CurrentCombat();
-            return _combat;
+            _currentCombat = new CurrentCombat();
+            return _currentCombat;
         }
 
         private EventBinding<CombatStartedEvent> _combatStartBinding;
@@ -45,7 +45,7 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
         
         private async void HandleCombatStart(CombatStartedEvent combatEvent)
         {
-            _combat.Set(combatEvent.EnemyData);
+            _currentCombat.Set(combatEvent.EnemyData);
             Debug.Log($"{combatEvent} start");
             // Calculation enemy  
             await _sceneLoader.LoadSceneGroup(2);

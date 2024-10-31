@@ -8,9 +8,10 @@ namespace DungeonCrawler._Project.Scripts.Combat
 {
     public class CombatSystem : MonoBehaviour
     {
-        [SerializeField] private CombatView _view;
+        [Inject] 
+        private ICurrentCombat _currentCombatState;
 
-        [Inject] private CurrentCombat _currentCombat;
+        [SerializeField] private CombatView _view;
         
         [SerializeField] private EnemyData _enemyData;
         
@@ -18,20 +19,19 @@ namespace DungeonCrawler._Project.Scripts.Combat
         
         private CombatController _controller;
 
-        public void Awake()
+        public void Start()
         {
-            var enemyData = (_currentCombat != null) ? _currentCombat.Enemy : _enemyData;
+            var enemyData = (_currentCombatState != null) ? _currentCombatState.Enemy : _enemyData;
             var model = new CombatModel(enemyData, _playerData);
             
             if (_view == null)
                 throw new Exception("[CombatSystem] View is mandatory component - it's null");
             
             _controller = new CombatController(model, _view);
+            _controller.OnEnable();
         }
 
         public void Update() => _controller.Update(Time.deltaTime);
-
-        public void OnEnable() => _controller.OnEnable();
         public void OnDisable() => _controller.OnDisable();
     }
 }
