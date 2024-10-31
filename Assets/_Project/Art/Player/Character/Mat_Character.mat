@@ -24,13 +24,11 @@ Material:
   - _CUSTOMLIGHTDIRECTIONFOLLOWOBJECTROTATION_OFF
   - _GIFLATSHADE_OFF
   - _GLOSSTEXTUREFOLLOWOBJECTROTATION_OFF
-  - _LIGHTAFFECTOUTLINECOLOR_OFF
   - _LIGHTAFFECTRIMLIGHTCOLOR_OFF
   - _LIGHTAFFECTSHADOW_OFF
   - _LIGHTFALLOFFAFFECTSHADOWT_OFF
   - _LIGIGNOYNORDIR_OFF
   - _MCIALO_OFF
-  - _MIXMAINTEXTOOUTLINE_OFF
   - _MVCOL_OFF
   - _OUTLINEWIDTHAFFECTEDBYVIEWDISTANCE_OFF
   - _PSGLOTEX_OFF
@@ -215,7 +213,7 @@ Material:
     - _Glow_Edge_Width: 1
     - _HighlightColorPower: 1
     - _LigIgnoYNorDir: 0
-    - _LightAffectOutlineColor: 0
+    - _LightAffectOutlineColor: 1
     - _LightAffectRimLightColor: 0
     - _LightAffectShadow: 0
     - _LightFalloffAffectShadowT: 0
@@ -228,7 +226,7 @@ Material:
     - _MaxFadDistance: 2
     - _Metallic: 0
     - _MinFadDistance: 0
-    - _MixMainTexToOutline: 0
+    - _MixMainTexToOutline: 1
     - _N_F_CA: 0
     - _N_F_CLD: 0
     - _N_F_CO: 0
@@ -265,13 +263,13 @@ Material:
     - _N_F_STIS: 0
     - _N_F_TP: 0
     - _NoiseSize: 100
-    - _NoisyOutlineIntensity: 0
+    - _NoisyOutlineIntensity: 0.799
     - _NormalMapIntensity: 1
     - _OcclusionStrength: 1
     - _Opacity: 1
     - _Oper: 0
     - _OutlineExtrudeMethod: 0
-    - _OutlineWidth: 0.5
+    - _OutlineWidth: 1.81
     - _OutlineWidthAffectedByViewDistance: 0
     - _OutlineZPostionInCamera: 0
     - _OverallShadowColorPower: 1
@@ -286,7 +284,7 @@ Material:
     - _QueueOffset: 0
     - _RELG: 1
     - _ReceiveShadows: 1
-    - _ReduSha: 0.5
+    - _ReduSha: 0
     - _RefMetallic: 0
     - _RefVal: 0
     - _ReflectionIntensity: 0
@@ -308,7 +306,7 @@ Material:
     - _SelfShadowRealTimeShadowColorPower: 1
     - _SelfShadowRealtimeShadowIntensity: 1
     - _SelfShadowShadowTAtViewDirection: 0
-    - _SelfShadowThreshold: 0.93
+    - _SelfShadowThreshold: 0.948
     - _ShadowColorTexturePower: 0
     - _ShadowHardness: 0
     - _ShadowTColorPower: 1
@@ -355,7 +353,7 @@ Material:
     - _ObjPosi: {r: 0, g: 0, b: 0, a: 0}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineOffset: {r: 0, g: 0, b: 0, a: 1}
-    - _OverallShadowColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OverallShadowColor: {r: 0.31132078, g: 0.10373659, b: 0.06314526, a: 1}
     - _PTCol: {r: 0, g: 0, b: 0, a: 1}
     - _PrevPosition: {r: 0, g: 0, b: 0, a: 0}
     - _RimLightColor: {r: 1, g: 1, b: 1, a: 1}

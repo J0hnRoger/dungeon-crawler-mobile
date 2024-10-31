@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-761083338860364182
+--- !u!114 &-8737768918057951236
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mat_BossHead
+  m_Name: Mat_KnightCloth
   m_Shader: {fileID: 4800000, guid: 6459b2db96a08ca41b0f9b39dc7ad59e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -32,12 +32,15 @@ Material:
   - N_F_RELGI_ON
   - N_F_SS_ON
   - N_F_TRANSAFFSHA_ON
+  - N_F_TRANS_ON
   m_InvalidKeywords:
   - N_F_TRANSAFFSHA
   - _CUSTOMLIGHTDIRECTIONFOLLOWOBJECTROTATION_OFF
   - _GIFLATSHADE_OFF
   - _GLOSSTEXTUREFOLLOWOBJECTROTATION_OFF
+  - _LIGHTAFFECTOUTLINECOLOR_OFF
   - _LIGHTAFFECTRIMLIGHTCOLOR_OFF
+  - _LIGHTAFFECTSHADOW_OFF
   - _LIGHTFALLOFFAFFECTSHADOWT_OFF
   - _LIGIGNOYNORDIR_OFF
   - _MCIALO_OFF
@@ -58,8 +61,9 @@ Material:
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
@@ -107,7 +111,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: d65314ffbdec67044af18dbd908d0c61, type: 3}
+        m_Texture: {fileID: 2800000, guid: 427748eea525ad0418f4d232f9497977, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskGloss:
@@ -184,8 +188,8 @@ Material:
     - _AlphaBaseCutout: 1
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _BleModDest: 0
-    - _BleModSour: 1
+    - _BleModDest: 10
+    - _BleModSour: 5
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
@@ -226,16 +230,16 @@ Material:
     - _Glow_Edge_Width: 1
     - _HighlightColorPower: 1
     - _LigIgnoYNorDir: 0
-    - _LightAffectOutlineColor: 1
+    - _LightAffectOutlineColor: 0
     - _LightAffectRimLightColor: 0
-    - _LightAffectShadow: 1
+    - _LightAffectShadow: 0
     - _LightFalloffAffectShadowT: 0
     - _LightFalloffSoftness: 1
     - _LightIntensity: 1
     - _MCIALO: 0
     - _MCapIntensity: 1
     - _MVCOL: 0
-    - _MaiColPo: 1
+    - _MaiColPo: 0.8
     - _MaxFadDistance: 2
     - _Metallic: 0
     - _MinFadDistance: 0
@@ -281,8 +285,8 @@ Material:
     - _OcclusionStrength: 1
     - _Opacity: 1
     - _Oper: 0
-    - _OutlineExtrudeMethod: 1
-    - _OutlineWidth: 10.12
+    - _OutlineExtrudeMethod: 0
+    - _OutlineWidth: 0.5
     - _OutlineWidthAffectedByViewDistance: 0
     - _OutlineZPostionInCamera: 0
     - _OverallShadowColorPower: 1
@@ -297,7 +301,7 @@ Material:
     - _QueueOffset: 0
     - _RELG: 1
     - _ReceiveShadows: 1
-    - _ReduSha: 0
+    - _ReduSha: 0.5
     - _RefMetallic: 0
     - _RefVal: 0
     - _ReflectionIntensity: 0
@@ -321,7 +325,7 @@ Material:
     - _SelfShadowShadowTAtViewDirection: 0
     - _SelfShadowThreshold: 0.93
     - _ShadowColorTexturePower: 0
-    - _ShadowHardness: 1
+    - _ShadowHardness: 0
     - _ShadowTColorPower: 1
     - _ShadowTHardness: 1
     - _ShadowTIntensity: 1
@@ -340,11 +344,11 @@ Material:
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _TEXMCOLINT: 1
-    - _TRANSMODE: 0
+    - _TRANSMODE: 1
     - _TexturePatternStyle: 0
     - _TrailSize: 1.5
     - _TransAffSha: 1
-    - _TransparentThreshold: 0
+    - _TransparentThreshold: 0.74
     - _TriPlaBlend: 4
     - _TriPlaTile: 1
     - _UseSecondaryCutout: 0
