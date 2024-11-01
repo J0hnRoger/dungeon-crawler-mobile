@@ -32,6 +32,10 @@ namespace DungeonCrawler._Project.Scripts.Combat
         }
 
         public void Update() => _controller.Update(Time.deltaTime);
-        public void OnDisable() => _controller.OnDisable();
+
+        public void OnDisable()
+        {
+            _controller.OnDisable();
+        }
     }
 }

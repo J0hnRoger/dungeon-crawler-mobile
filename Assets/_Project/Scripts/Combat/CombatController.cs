@@ -8,11 +8,17 @@ namespace DungeonCrawler._Project.Scripts.Combat
 {
     public class CombatController
     {
+        // Event subscribe
         private EventBinding<SkillLaunchedEvent> _playerAttackEventBinding;
+        
+        // 
         private readonly CombatView _view;
         private readonly CombatModel _model;
 
+        // Services
         private CountdownTimer _timer;
+       
+        // Communication interne au module
         private SkillCommand _enemyAutoCommand;
 
         private bool CombatIsFinished => _model.Enemy.Hp <= 0 || _model.Player.Hp <= 0;
@@ -76,7 +82,9 @@ namespace DungeonCrawler._Project.Scripts.Combat
             if (CombatIsFinished)
                 return;
             
+            _view.PlayerAttack(skillLaunchedEvent.AnimationName);
             _model.Enemy.Hp.Set(_model.Enemy.Hp - _model.Player.Damage);
+            
             if (CombatIsFinished)
                 EventBus<CombatFinishedEvent>.Raise(
                     new CombatFinishedEvent() {Win = _model.Enemy.Hp < _model.Player.Hp});

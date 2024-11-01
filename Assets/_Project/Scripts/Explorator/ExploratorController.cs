@@ -7,7 +7,7 @@ namespace DungeonCrawler._Project.Scripts.Player
     {
         internal void HandleSkillLaunched(SkillLaunchedEvent @event)
         {
-            Debug.Log($"Player Controller received event and start animation: {@event.AnimationName}");
+            Debug.Log($"Player Controller received event and start animation: {@event.SkillName}");
         }
     }
 }

@@ -6,7 +6,7 @@ namespace DungeonCrawler.Skills
     public class SkillData : ScriptableObject
     {
         public string skilName;
-        public AnimationClip animationClip;
+        public string animationName;
         public float cooldown;
         public Sprite icon;
     }

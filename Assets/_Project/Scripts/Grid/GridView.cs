@@ -40,6 +40,7 @@ namespace DungeonCrawler._Project.Scripts.Grid
             }
         }
 
+        #region Utils 
         public Vector3Int GetGridCoordinates(Vector3 worldPosition)
         {
            return _grid.WorldToCell(worldPosition);
@@ -55,5 +56,6 @@ namespace DungeonCrawler._Project.Scripts.Grid
         {
             startingCell.gameObject.SetActive(true);
         }
+        #endregion
     }
 }
