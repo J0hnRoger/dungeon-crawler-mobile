@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyName: 'Boss '
   HP: 100
-  Damage: 8
+  Damage: 70
   Skill: {fileID: 11400000, guid: bfbebba76bf0e274480aca53d35f95b9, type: 2}

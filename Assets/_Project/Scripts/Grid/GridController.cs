@@ -11,8 +11,9 @@ namespace DungeonCrawler._Project.Scripts.Grid
         private readonly GridModel _model;
         private readonly GridView _view;
         
-        private EventBinding<CombatFinishedEvent> _combatFinishedEventBinding; 
-        
+        private EventBinding<CombatFinishedEvent> _combatFinishedEventBinding;
+        private bool _pause = false;
+
         public GridController(GridModel model, GridView view)
         {
             _model = model;
@@ -32,6 +33,9 @@ namespace DungeonCrawler._Project.Scripts.Grid
         
         private void OnCombatFinished(CombatFinishedEvent combatFinished)
         {
+            if (!combatFinished.Win)
+                _pause = true;
+            
             if (_model.ActiveCombatCell == null)
                 throw new Exception("A combat was not start");
             var currentCombat = _model.ActiveCombatCell;
@@ -57,6 +61,9 @@ namespace DungeonCrawler._Project.Scripts.Grid
         /// </summary>
         private void UpdateCellState(GridCell selected)
         {
+            if (_pause)
+                return;
+            
             switch (selected.GridType)
             {
                 case GridType.Empty:

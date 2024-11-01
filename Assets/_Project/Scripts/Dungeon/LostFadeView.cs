@@ -51,6 +51,7 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
                 _fadeToBlackImage.color = c;
                 yield return null;
             }
+            EventBus<FadeInCompleteEvent>.Raise(new FadeInCompleteEvent());
         }
     }
 }
