@@ -63,9 +63,12 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
             }); 
         }
 
-        private void HandleCombatFinished(CombatFinishedEvent combatFinishedEvent)
+        private async void HandleCombatFinished(CombatFinishedEvent combatFinishedEvent)
         {
             _currentCombat.Clear();
+            if (_sceneLoader != null)
+                await _sceneLoader.LoadSceneGroup(1);
+            
             // Calculate Rewards
            EventBus<CombatResultCalculatedEvent>.Raise(new CombatResultCalculatedEvent()
            {

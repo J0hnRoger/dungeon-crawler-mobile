@@ -36,6 +36,7 @@ namespace DungeonCrawler._Project.Scripts.Grid
                 throw new Exception("A combat was not start");
             var currentCombat = _model.ActiveCombatCell;
             currentCombat.Complete();
+            MoveOnGridEmptyCell(_model.ActiveCombatCell);
             
             _model.ResetActiveCombatCell();
         }
@@ -90,7 +91,10 @@ namespace DungeonCrawler._Project.Scripts.Grid
         private void MoveOnCombatCell(GridCell selected)
         {
             if (!selected.Active)
+            {
                 MoveOnGridEmptyCell(selected);
+                return;
+            }
             
             if (selected.Enemy == null)
                 throw new Exception("Combat Cell should have one enemy");

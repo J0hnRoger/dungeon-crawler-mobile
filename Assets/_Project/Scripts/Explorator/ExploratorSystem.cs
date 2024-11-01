@@ -20,7 +20,6 @@ namespace DungeonCrawler._Project.Scripts.Player
             EventBus<EmptyCellClickedEvent>.Deregister(_gridClickedBinding);
         }
 
-
         private ExploratorController _controller;
 
         void Awake()
