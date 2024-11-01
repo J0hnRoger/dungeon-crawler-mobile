@@ -11,8 +11,6 @@ namespace DungeonCrawler._Project.Scripts.Grid
         private GridCell[] _gridCells;
 
         public Action<GridCell> OnCellSelected = cell => {};
-        
-        [SerializeField] public GridCell CellStart;
 
         public void Awake()
         {
@@ -51,6 +49,11 @@ namespace DungeonCrawler._Project.Scripts.Grid
         {
             return _gridCells.FirstOrDefault(cell =>
                     _grid.WorldToCell(cell.transform.position) == gridPosition);
+        }
+
+        public void Show(GridCell startingCell)
+        {
+            startingCell.gameObject.SetActive(true);
         }
     }
 }

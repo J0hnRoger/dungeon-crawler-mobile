@@ -647,12 +647,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 650787834}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -8.026099, y: -5.262717, z: 3.4560416}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1720618648}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &650787836
 MonoBehaviour:
@@ -666,6 +666,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3d14ce530c84dcc8c04e70affed8824, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _config: {fileID: 11400000, guid: 0cc79da3ef38d114391a7cdd46cb0cc9, type: 2}
+  _startingPoint: {fileID: 1840687042}
   _view: {fileID: 1179422049}
 --- !u!1 &667379557
 GameObject:
@@ -1176,7 +1178,7 @@ GameObject:
   - component: {fileID: 1179422047}
   - component: {fileID: 1179422049}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: GridView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1239,7 +1241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbf3813dfb9b4730983795bfcd760f6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CellStart: {fileID: 1840687042}
 --- !u!1001 &1234247613
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1797,8 +1798,7 @@ Transform:
   m_LocalPosition: {x: -8.026099, y: -5.262717, z: 3.4560416}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 650787835}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1785093249 stripped
@@ -2337,6 +2337,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1720618648}
+  - {fileID: 650787835}
   - {fileID: 1404699890}
   - {fileID: 1397323972}
   - {fileID: 667379560}

@@ -2,6 +2,7 @@
 using UnityEngine;
 
 namespace DungeonCrawler._Project.Scripts.SceneManagement.Editor {
+    
     [CustomEditor(typeof(SceneLoader))]
     public class SceneLoaderEditor : UnityEditor.Editor {
         public override void OnInspectorGUI() {

@@ -11,6 +11,8 @@ namespace DungeonCrawler._Project.Scripts.Grid
         private readonly GridModel _model;
         private readonly GridView _view;
 
+        private GridCell CellStart { get; set; }
+
         public GridController(GridModel model, GridView view)
         {
             _model = model;
@@ -25,9 +27,10 @@ namespace DungeonCrawler._Project.Scripts.Grid
             _view.OnCellSelected += UpdateCellState;
              
             _view.HideCells();
-            _view.CellStart.gameObject.SetActive(true);
+            var startingCell = _model.CellStart;
+             _view.Show(startingCell);
             // Update first cell
-            UpdateCellState(_view.CellStart);
+            UpdateCellState(startingCell);
         }
 
         /// <summary>
