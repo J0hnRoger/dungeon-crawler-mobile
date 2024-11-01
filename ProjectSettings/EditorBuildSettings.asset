@@ -8,26 +8,26 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_Project/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Project/Scenes/Exploration.unity
     guid: a6391b7271c94fd4c93960045f9257f9
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Project/Scenes/MainMenu.unity
     guid: 5b730b1692e649c4d834cf6b17e9e4ec
   - enabled: 1
     path: Assets/_Project/Scenes/Combat.unity
     guid: 233531642b3a832429b28da43bd1e908
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Project/Scenes/Hub.unity
     guid: d70ec1944c171cc4a8bd74cd9553ac32
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Project/Scenes/Gameplay.unity
     guid: 8dd2709d5687ab84ba3f5fb310631b4e
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Project/Scenes/Combat.unity
     guid: 233531642b3a832429b28da43bd1e908
-  - enabled: 0
-    path: Assets/_Project/Scenes/DungeonResultPopup.unity
+  - enabled: 1
+    path: Assets/_Project/Scenes/UI.unity
     guid: 6249f9683b45aa44099e5e5b7cbee55c
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: cc31c32f1aed32f4fb447ce40897129a, type: 2}
