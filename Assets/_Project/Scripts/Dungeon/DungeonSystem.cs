@@ -1,5 +1,4 @@
-﻿using System;
-using _Project.Scripts.Common.DependencyInjection;
+﻿using _Project.Scripts.Common.DependencyInjection;
 using _Project.Scripts.Common.EventBus;
 using DungeonCrawler._Project.Scripts.Events;
 using DungeonCrawler._Project.Scripts.SceneManagement;
@@ -7,6 +6,14 @@ using UnityEngine;
 
 namespace DungeonCrawler._Project.Scripts.Dungeon
 {
+    public enum DungeonCrawlerScenes
+    {
+        MAIN_MENU = 0,
+        EXPLORATION = 1,
+        COMBAT = 2,
+        HUB = 3
+    }
+    
     /// <summary>
     /// Gérer la progression du joueur dans le donjon
     /// </summary>
@@ -33,6 +40,7 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
 
         private EventBinding<CombatStartedEvent> _combatStartBinding;
         private EventBinding<CombatFinishedEvent> _combatFinishedEvent;
+        private EventBinding<FadeInCompleteEvent> _fadeInCompleteEvent;
 
         void OnEnable()
         {
@@ -40,12 +48,22 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
             EventBus<CombatStartedEvent>.Register(_combatStartBinding);
             _combatFinishedEvent = new EventBinding<CombatFinishedEvent>(HandleCombatFinished);
             EventBus<CombatFinishedEvent>.Register(_combatFinishedEvent);
+            
+            _fadeInCompleteEvent = new EventBinding<FadeInCompleteEvent>(HandleFadeInComplete);
+            EventBus<FadeInCompleteEvent>.Register(_fadeInCompleteEvent);
         }
 
         void OnDisable()
         {
             EventBus<CombatStartedEvent>.Deregister(_combatStartBinding);
             EventBus<CombatFinishedEvent>.Deregister(_combatFinishedEvent);
+            EventBus<FadeInCompleteEvent>.Deregister(_fadeInCompleteEvent);
+        }
+
+        private async void HandleFadeInComplete(FadeInCompleteEvent obj)
+        {
+            if (_sceneLoader != null)
+                await _sceneLoader.LoadSceneGroup((int)DungeonCrawlerScenes.HUB);
         }
         
         private async void HandleCombatStart(CombatStartedEvent combatEvent)

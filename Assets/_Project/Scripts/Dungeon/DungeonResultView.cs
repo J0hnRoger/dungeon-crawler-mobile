@@ -2,7 +2,6 @@
 using _Project.Scripts.Common.EventBus;
 using DungeonCrawler._Project.Scripts.Events;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +16,8 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
         [SerializeField] private float _autoCloseDelay = 3f;
         [SerializeField] private float _fadeOutDuration = 1.5f;
         [SerializeField] private CanvasGroup _canvasGroup;
-        
+
+
         private EventBinding<CombatResultCalculatedEvent> _onCombatFinishedEventBinding;
 
         private Coroutine _autoCloseCoroutine;
@@ -46,6 +46,7 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
                 StopCoroutine(_autoCloseCoroutine);
                 _canvasGroup.alpha = 1;
             }
+
             _panel.SetActive(true);
             _resultTitleTxt.text = (combatResultCalculatedEvent.Win) ? "You WIN!" : "You Loose";
             _autoCloseCoroutine = StartCoroutine(AutoCloseAfterDelay());
@@ -62,6 +63,7 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
                 _canvasGroup.alpha = 1 - (elapsedTime / _fadeOutDuration);
                 yield return null;
             }
+
             ClosePopup();
         }
 
