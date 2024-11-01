@@ -10,9 +10,9 @@ namespace DungeonCrawler._Project.Scripts.Grid
     {
         private readonly GridModel _model;
         private readonly GridView _view;
-
-        private GridCell CellStart { get; set; }
-
+        
+        private EventBinding<CombatFinishedEvent> _combatFinishedEventBinding; 
+        
         public GridController(GridModel model, GridView view)
         {
             _model = model;
@@ -20,6 +20,24 @@ namespace DungeonCrawler._Project.Scripts.Grid
 
             ConnectView();
             ConnectModel();
+            
+            _combatFinishedEventBinding = new EventBinding<CombatFinishedEvent>(OnCombatFinished);
+            EventBus<CombatFinishedEvent>.Register(_combatFinishedEventBinding);
+        }
+
+        public void OnDisable()
+        {
+            EventBus<CombatFinishedEvent>.Deregister(_combatFinishedEventBinding);
+        }
+        
+        private void OnCombatFinished(CombatFinishedEvent combatFinished)
+        {
+            if (_model.ActiveCombatCell == null)
+                throw new Exception("A combat was not start");
+            var currentCombat = _model.ActiveCombatCell;
+            currentCombat.Complete();
+            
+            _model.ResetActiveCombatCell();
         }
 
         private void ConnectView()
@@ -71,8 +89,13 @@ namespace DungeonCrawler._Project.Scripts.Grid
         
         private void MoveOnCombatCell(GridCell selected)
         {
+            if (!selected.Active)
+                MoveOnGridEmptyCell(selected);
+            
             if (selected.Enemy == null)
                 throw new Exception("Combat Cell should have one enemy");
+            
+            _model.ActiveCombatCell = selected; 
             
             EventBus<CombatStartedEvent>.Raise(new CombatStartedEvent() { 
                 EnemyData = selected.Enemy,
@@ -102,6 +125,7 @@ namespace DungeonCrawler._Project.Scripts.Grid
 
         private void ConnectModel()
         {
+            
         }
     }
 }

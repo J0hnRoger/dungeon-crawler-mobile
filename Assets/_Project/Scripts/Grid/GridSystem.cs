@@ -1,8 +1,7 @@
 ﻿using System;
+using System.Linq;
 using _Project.Scripts.Common.DependencyInjection;
-using DungeonCrawler._Project.Scripts.Common.ScriptableObjects;
 using DungeonCrawler._Project.Scripts.Grid.Components;
-using DungeonCrawler._Project.Scripts.Grid.SO;
 using DungeonCrawler._Project.Scripts.SceneManagement;
 using UnityEngine;
 
@@ -13,11 +12,6 @@ namespace DungeonCrawler._Project.Scripts.Grid
         [Inject] 
         private SceneLoader _sceneLoader;
 
-        [Header("Configuration")]
-        
-        [SerializeField, InlineInspector] 
-        private GridConfig _config;
-
         [SerializeField] private GridCell _startingPoint;
         
         [SerializeField] private GridView _view;
@@ -26,11 +20,16 @@ namespace DungeonCrawler._Project.Scripts.Grid
 
         public void Start()
         {
-            var model = new GridModel(_startingPoint);
+            var combatCells = _view.GetCellsOfType(GridType.Enemy);
+            var bossCell = _view.GetCellsOfType(GridType.Boss);
+            var model = new GridModel(_startingPoint, combatCells.Concat(bossCell).ToList());
+            
             if (_view == null)
                 throw new Exception("[GridSystem] View cannot be null");
             
             _controller = new GridController(model, _view);
         }
+
+        private void OnDisable() => _controller.OnDisable();
     }
 }

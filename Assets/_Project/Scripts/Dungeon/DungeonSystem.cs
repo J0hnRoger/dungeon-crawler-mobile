@@ -1,6 +1,6 @@
-﻿using _Project.Scripts.Common.DependencyInjection;
+﻿using System;
+using _Project.Scripts.Common.DependencyInjection;
 using _Project.Scripts.Common.EventBus;
-using DungeonCrawler._Project.Scripts.Combat.SO;
 using DungeonCrawler._Project.Scripts.Events;
 using DungeonCrawler._Project.Scripts.SceneManagement;
 using UnityEngine;
@@ -8,7 +8,7 @@ using UnityEngine;
 namespace DungeonCrawler._Project.Scripts.Dungeon
 {
     /// <summary>
-    /// Gérer les coffres, ennemis, progression du joueur
+    /// Gérer la progression du joueur dans le donjon
     /// </summary>
     public class DungeonSystem : MonoBehaviour, IDependencyProvider
     {
@@ -19,12 +19,16 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
         [SerializeField] private string Name;
 
         private CurrentCombat _currentCombat;
-
+            
         [Provide] 
         public ICurrentCombat CurrentCombat()
         {
-            _currentCombat = new CurrentCombat();
             return _currentCombat;
+        }
+
+        private void Awake()
+        {
+            _currentCombat = new CurrentCombat();
         }
 
         private EventBinding<CombatStartedEvent> _combatStartBinding;
@@ -48,8 +52,9 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
         {
             _currentCombat.Set(combatEvent.EnemyData);
             Debug.Log($"{combatEvent} start");
-            // Calculation enemy  
-            await _sceneLoader.LoadSceneGroup(2);
+            
+            if (_sceneLoader != null)
+                await _sceneLoader.LoadSceneGroup(2);
             
             EventBus<CombatReadyEvent>.Raise(new CombatReadyEvent()
             {
@@ -60,6 +65,7 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
 
         private void HandleCombatFinished(CombatFinishedEvent combatFinishedEvent)
         {
+            _currentCombat.Clear();
             // Calculate Rewards
            EventBus<CombatResultCalculatedEvent>.Raise(new CombatResultCalculatedEvent()
            {

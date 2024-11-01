@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DungeonCrawler._Project.Scripts.Grid.Components;
 using UnityEngine;
@@ -51,11 +52,17 @@ namespace DungeonCrawler._Project.Scripts.Grid
             return _gridCells.FirstOrDefault(cell =>
                     _grid.WorldToCell(cell.transform.position) == gridPosition);
         }
-
+        
         public void Show(GridCell startingCell)
         {
             startingCell.gameObject.SetActive(true);
         }
+
+        public List<GridCell> GetCellsOfType(GridType type)
+        {
+            return _gridCells.Where(g => g.GridType == type).ToList();
+        }
+        
         #endregion
     }
 }

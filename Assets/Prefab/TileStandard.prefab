@@ -256,3 +256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GridType: 0
   outline: {fileID: 3154833176656891647}
+  Enemy: {fileID: 0}
+  _meshRenderer: {fileID: 67080829475845623}
+  _completedMaterial: {fileID: 2100000, guid: 5c6b22dfaee050e4b99ac5c59f0a64eb, type: 2}
+  Active: 1
