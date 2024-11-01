@@ -12,7 +12,8 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
     /// </summary>
     public class DungeonSystem : MonoBehaviour, IDependencyProvider
     {
-        [Inject] private SceneLoader _sceneLoader;
+        [Inject] 
+        public SceneLoader _sceneLoader;
         
         [SerializeField] private int Difficulty;
         [SerializeField] private string Name;

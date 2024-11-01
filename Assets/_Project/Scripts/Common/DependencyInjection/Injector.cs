@@ -109,6 +109,71 @@ namespace _Project.Scripts.Common.DependencyInjection
             }
         }
 
+        public void ValidateDependencies()
+        {
+            var monoBehaviours = FindMonoBehaviours();
+            var providers = monoBehaviours.OfType<IDependencyProvider>();
+            var providedDependencies = GetProvidedDependencies(providers);
+
+            var invalidDependencies = monoBehaviours
+                .SelectMany(mb => mb.GetType().GetFields(BindingFlags), (mb, field) => new {mb, field})
+                .Where(t => Attribute.IsDefined(t.field, typeof(InjectAttribute)))
+                .Where(t => !providedDependencies.Contains(t.field.FieldType) && t.field.GetValue(t.mb) == null)
+                .Select(t =>
+                    $"[Validation] {t.mb.GetType().Name} is missing dependency {t.field.FieldType.Name} on GameObject {t.mb.gameObject.name}");
+
+            var invalidDependencyList = invalidDependencies.ToList();
+
+            if (!invalidDependencyList.Any())
+            {
+                Debug.Log("[Validation] All dependencies are valid.");
+            }
+            else
+            {
+                Debug.LogError($"[Validation] {invalidDependencyList.Count} dependencies are invalid:");
+                foreach (var invalidDependency in invalidDependencyList)
+                {
+                    Debug.LogError(invalidDependency);
+                }
+            }
+        }
+
+        HashSet<Type> GetProvidedDependencies(IEnumerable<IDependencyProvider> providers)
+        {
+            var providedDependencies = new HashSet<Type>();
+            foreach (var provider in providers)
+            {
+                var methods = provider.GetType().GetMethods(BindingFlags);
+
+                foreach (var method in methods)
+                {
+                    if (!Attribute.IsDefined(method, typeof(ProvideAttribute))) continue;
+
+                    var returnType = method.ReturnType;
+                    providedDependencies.Add(returnType);
+                }
+            }
+
+            return providedDependencies;
+        }
+
+        public void ClearDependencies()
+        {
+            foreach (var monoBehaviour in FindMonoBehaviours())
+            {
+                var type = monoBehaviour.GetType();
+                var injectableFields = type.GetFields(BindingFlags)
+                    .Where(member => Attribute.IsDefined(member, typeof(InjectAttribute)));
+
+                foreach (var injectableField in injectableFields)
+                {
+                    injectableField.SetValue(monoBehaviour, null);
+                }
+            }
+
+            Debug.Log("[Injector] All injectable fields cleared.");
+        }
+
         private object Resolve(Type type)
         {
             _registry.TryGetValue(type, out var resolvedInstance);

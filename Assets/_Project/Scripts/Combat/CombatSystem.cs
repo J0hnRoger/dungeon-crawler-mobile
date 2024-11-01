@@ -9,7 +9,7 @@ namespace DungeonCrawler._Project.Scripts.Combat
     public class CombatSystem : MonoBehaviour
     {
         [Inject] 
-        private ICurrentCombat _currentCombatState;
+        public ICurrentCombat _currentCombatState;
 
         [SerializeField] private CombatView _view;
         

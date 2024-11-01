@@ -2,7 +2,6 @@
 using _Project.Scripts.Common.EventBus;
 using DungeonCrawler._Project.Scripts.Events;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Scene = UnityEngine.SceneManagement.Scene;
 
