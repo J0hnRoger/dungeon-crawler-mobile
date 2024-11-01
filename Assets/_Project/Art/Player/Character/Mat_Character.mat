@@ -30,7 +30,6 @@ Material:
   - _LIGIGNOYNORDIR_OFF
   - _MCIALO_OFF
   - _MVCOL_OFF
-  - _OUTLINEWIDTHAFFECTEDBYVIEWDISTANCE_OFF
   - _PSGLOTEX_OFF
   - _SELFSHADOWAFFECTEDBYLIGHTSHADOWSTRENGTH_OFF
   - _SELFSHADOWSHADOWTATVIEWDIRECTION_OFF
@@ -269,8 +268,8 @@ Material:
     - _Opacity: 1
     - _Oper: 0
     - _OutlineExtrudeMethod: 0
-    - _OutlineWidth: 1.81
-    - _OutlineWidthAffectedByViewDistance: 0
+    - _OutlineWidth: 261.98
+    - _OutlineWidthAffectedByViewDistance: 1
     - _OutlineZPostionInCamera: 0
     - _OverallShadowColorPower: 1
     - _PADist: 0
@@ -308,7 +307,7 @@ Material:
     - _SelfShadowShadowTAtViewDirection: 0
     - _SelfShadowThreshold: 0.948
     - _ShadowColorTexturePower: 0
-    - _ShadowHardness: 0
+    - _ShadowHardness: 1
     - _ShadowTColorPower: 1
     - _ShadowTHardness: 1
     - _ShadowTIntensity: 1
@@ -353,7 +352,7 @@ Material:
     - _ObjPosi: {r: 0, g: 0, b: 0, a: 0}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineOffset: {r: 0, g: 0, b: 0, a: 1}
-    - _OverallShadowColor: {r: 0.31132078, g: 0.10373659, b: 0.06314526, a: 1}
+    - _OverallShadowColor: {r: 0.3207547, g: 0, b: 0.102848195, a: 1}
     - _PTCol: {r: 0, g: 0, b: 0, a: 1}
     - _PrevPosition: {r: 0, g: 0, b: 0, a: 0}
     - _RimLightColor: {r: 1, g: 1, b: 1, a: 1}

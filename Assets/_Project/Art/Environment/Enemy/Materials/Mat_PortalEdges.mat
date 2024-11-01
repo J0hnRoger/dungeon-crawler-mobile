@@ -38,7 +38,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Alpha:
-        m_Texture: {fileID: 2800000, guid: 8b12f103a80e77a4286dc286688b0228, type: 3}
+        m_Texture: {fileID: 2800000, guid: 25274107e0282b844a4f2cf3f52e81e4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -86,7 +86,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_ee6b02553e964175bb867fcca5cee223_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 492f3349f92767645a752364a5d18422, type: 3}
+        m_Texture: {fileID: 2800000, guid: 48c3b8f81e989ed499917ee55f8c0642, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
