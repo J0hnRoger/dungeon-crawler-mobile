@@ -3,7 +3,7 @@ using DungeonCrawler._Project.Scripts.Combat.SO;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace DungeonCrawler._Project.Scripts.Grid
+namespace DungeonCrawler._Project.Scripts.Grid.Components
 {
     public class GridCell : MonoBehaviour, IPointerDownHandler
     {
