@@ -120,7 +120,7 @@ namespace DungeonCrawler._Project.Scripts.SceneManagement
                 await Task.Delay(100);
 
             Scene unloadedScene =
-                SceneManager.GetSceneByName(ActiveSceneGroup.FindSceneNameByType(SceneType.ActiveScene));
+                SceneManager.GetSceneByName(unloadingSceneName);
 
             OnSceneUnloaded.Invoke(unloadedScene);
         }

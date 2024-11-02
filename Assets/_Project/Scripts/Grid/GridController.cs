@@ -42,7 +42,7 @@ namespace DungeonCrawler._Project.Scripts.Grid
             currentCombat.Complete();
             MoveOnGridEmptyCell(_model.ActiveCombatCell);
              
-            _model.FinishCurrentCombat();
+            _model.FinishCurrentCombat(combatFinished.Win);
             if (_model.DungeonClear)
             {
                 EventBus<DungeonFinishedEvent>.Raise(new DungeonFinishedEvent()

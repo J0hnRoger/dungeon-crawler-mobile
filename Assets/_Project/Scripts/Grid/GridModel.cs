@@ -27,12 +27,12 @@ namespace DungeonCrawler._Project.Scripts.Grid
                 .ToList();
         }
 
-        public void FinishCurrentCombat()
+        public void FinishCurrentCombat(bool win)
         {
             if (ActiveCombatCell == null)
                 throw new Exception("Aucun combat en cours");
             var enemy = Ennemies.First(e => e.Coordinates == ActiveCombatCell.Coordinates);
-            enemy.IsDefeated = true;
+            enemy.IsDefeated = win;
              
             ActiveCombatCell = null;
         }
