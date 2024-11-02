@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mat_ManaBar
+  m_Name: mat_PlayerBar
   m_Shader: {fileID: -6465566751694194690, guid: 864971c846ab2d543a899f3f631681e8, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -56,6 +56,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: b66a2907486c9cc4691a1369cf255114, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_671f75cdf814418ca4bdf29e9bce3c82_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: c625de3ab92805a459ca4200bf22f8ac, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_86B05A59_Texture_1:
         m_Texture: {fileID: 2800000, guid: 547f51a8eea214bd7a5863356fd25619, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -77,7 +81,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture:
-        m_Texture: {fileID: 2800000, guid: 7359849cff2bfef48866e129779bc3bc, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7addfda82def91c43ab7da2f2b6d19c7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -104,6 +108,7 @@ Material:
     - _Blend: 0
     - _BlendOp: 0
     - _BumpScale: 1
+    - _Contrast: 1
     - _Cull: 2
     - _Cutoff: 0.5
     - _DstBlend: 0
@@ -112,8 +117,10 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _GradientOffset: 0
     - _Metallic: 0
-    - _NoiseScale: 11.77
+    - _NoiseOpacity: 1
+    - _NoiseScale: 2
     - _OcclusionStrength: 1
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -125,7 +132,7 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _TextureSpeed: -0.2
+    - _TextureSpeed: 0.05
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
@@ -134,11 +141,12 @@ Material:
     - NoiseSpeed: {r: 1, g: 0, b: 0, a: 0}
     - TextureSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color2: {r: 0.24756722, g: 0.86039764, b: 0.30164054, a: 1}
+    - _Color: {r: 0, g: 1.4980392, b: 0.20443432, a: 1}
+    - _Color2: {r: 0, g: 0.5294118, b: 0.10890539, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
-    - _NoiseSpeed: {r: 0.61, g: 0, b: 0, a: 0}
+    - _GradientColor: {r: 1, g: 1, b: 1, a: 1}
+    - _NoiseSpeed: {r: -0.5, g: -1, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _TextureSpeed: {r: 0, g: -0.2, b: 0, a: 0}
   m_BuildTextureStacks: []
