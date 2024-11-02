@@ -21,6 +21,7 @@ namespace DungeonCrawler._Project.Scripts.Grid
             foreach (GridCell gridCell in _gridCells)
             {
                 gridCell.OnCellSelected += HandleCellSelected;
+                gridCell.Coordinates = _grid.LocalToCell(gridCell.transform.position);
             }
         }
         

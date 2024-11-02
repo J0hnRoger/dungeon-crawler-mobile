@@ -41,8 +41,14 @@ namespace DungeonCrawler._Project.Scripts.Grid
             var currentCombat = _model.ActiveCombatCell;
             currentCombat.Complete();
             MoveOnGridEmptyCell(_model.ActiveCombatCell);
-            
-            _model.ResetActiveCombatCell();
+             
+            _model.FinishCurrentCombat();
+            if (_model.DungeonClear)
+            {
+                EventBus<DungeonFinishedEvent>.Raise(new DungeonFinishedEvent()
+                { });
+                _pause = true;
+            }
         }
 
         private void ConnectView()

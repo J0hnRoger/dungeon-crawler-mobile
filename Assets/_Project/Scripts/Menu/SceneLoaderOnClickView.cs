@@ -1,5 +1,4 @@
-﻿using System;
-using _Project.Scripts.Common.DependencyInjection;
+﻿using _Project.Scripts.Common.DependencyInjection;
 using DungeonCrawler._Project.Scripts.Dungeon;
 using DungeonCrawler._Project.Scripts.SceneManagement;
 using UnityEngine;

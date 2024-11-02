@@ -22,6 +22,7 @@ namespace DungeonCrawler._Project.Scripts.Grid
         {
             var combatCells = _view.GetCellsOfType(GridType.Enemy);
             var bossCell = _view.GetCellsOfType(GridType.Boss);
+            
             var model = new GridModel(_startingPoint, combatCells.Concat(bossCell).ToList());
             
             if (_view == null)
