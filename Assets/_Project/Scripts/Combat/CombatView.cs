@@ -9,6 +9,7 @@ namespace DungeonCrawler._Project.Scripts.Combat
         [SerializeField] private Image _enemyHealth;
         [SerializeField] private Image _playerHealth;
         [SerializeField] private TMP_Text _enemyName;
+        [SerializeField] private TMP_Text _enemyLevel;
         [SerializeField] private Image _cdGauge;
 
         [SerializeField] private PlayerView _playerView;
@@ -17,7 +18,12 @@ namespace DungeonCrawler._Project.Scripts.Combat
         {
             _enemyName.text = enemyName;
         }
-        
+
+        public void SetEnemyLevel(string enemyLevel)
+        {
+            _enemyLevel.text = enemyLevel;
+        }
+
         public void UpdateRadial(float progress)
         {
             if (float.IsNaN(progress))
