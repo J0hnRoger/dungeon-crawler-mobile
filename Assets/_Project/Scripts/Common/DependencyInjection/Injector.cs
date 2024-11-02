@@ -5,7 +5,6 @@ using System.Reflection;
 using _Project.Scripts.Common.EventBus;
 using DungeonCrawler._Project.Scripts.Events;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace _Project.Scripts.Common.DependencyInjection
 {

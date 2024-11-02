@@ -1,4 +1,5 @@
-﻿using DungeonCrawler._Project.Scripts.Common;
+﻿using System;
+using DungeonCrawler._Project.Scripts.Common;
 using UnityEngine;
 
 namespace _Project.Scripts.Persistence
@@ -17,10 +18,11 @@ namespace _Project.Scripts.Persistence
 
         public void NewGame()
         {
+            string date = DateTime.UtcNow.ToString("D");
             _gameData = new GameData()
             {
                 Name = "New Game",
-                CurrentLevelName = "Demo" 
+                CurrentLevelName = $"Demo {date}" 
             };
         }
 
