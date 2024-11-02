@@ -1,6 +1,7 @@
 ﻿using System;
 using _Project.Scripts.Common;
 using _Project.Scripts.Common.EventBus;
+using DungeonCrawler._Project.Scripts.Events;
 using DungeonCrawler._Project.Scripts.Events.Inputs;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,6 +14,25 @@ namespace DungeonCrawler._Project.Scripts.Common.InputManagement
 
         private InputAction _attackAction;
         private Camera _mainCamera;
+
+        private EventBinding<SceneLoadedEvent> _sceneLoadedeventBinding;
+
+        private void OnEnable()
+        {
+            // Update de la main camera
+            _sceneLoadedeventBinding = new EventBinding<SceneLoadedEvent>(OnSceneLoaded);
+            EventBus<SceneLoadedEvent>.Register(_sceneLoadedeventBinding);
+        }
+
+        public void OnDisable()
+        {
+            EventBus<SceneLoadedEvent>.Deregister(_sceneLoadedeventBinding);
+        }
+
+        private void OnSceneLoaded(SceneLoadedEvent obj)
+        {
+            _mainCamera = Camera.main;
+        }
 
         private void Awake()
         {
