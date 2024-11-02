@@ -1,0 +1,51 @@
+{
+    "name": "DungeonInputs",
+    "maps": [
+        {
+            "name": "Gameplay",
+            "id": "39297923-cb32-4f21-bd7c-73f2db0db311",
+            "actions": [
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "8e2f6c02-1efe-4df3-9e27-355a50da0bef",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Tap",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "312141da-eb0e-4599-8704-a5bfcd6c0783",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a1d4e222-13e8-4da5-99a3-7a4d98d86480",
+                    "path": "<Mouse>/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "DungeonControls",
+            "bindingGroup": "DungeonControls",
+            "devices": []
+        }
+    ]
+}

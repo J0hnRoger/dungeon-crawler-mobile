@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using _Project.Scripts.Common.EventBus;
 using DungeonCrawler._Project.Scripts.Common;
+using DungeonCrawler._Project.Scripts.Events.Inputs;
 using DungeonCrawler.Skills;
 using UnityEngine.EventSystems;
 
@@ -13,6 +15,9 @@ namespace DungeonCrawler._Project.Scripts.Skills
         // Services
         private readonly Queue<SkillCommand> _skillQueue = new();
         private readonly CountdownTimer _timer = new CountdownTimer(0);
+        
+        // Events
+        private EventBinding<TapEvent> _tapEventBinding;
 
         public SkillController(SkillModel model, SkillView view)
         {
@@ -23,6 +28,18 @@ namespace DungeonCrawler._Project.Scripts.Skills
             ConnectView();
         }
 
+        public void OnEnable()
+        {
+            // TODO rendre dynamique  
+            _tapEventBinding = new EventBinding<TapEvent>((_) => OnAbilityButtonPressed(0));
+            EventBus<TapEvent>.Register(_tapEventBinding);
+        }
+
+        public void OnDisable()
+        {
+            EventBus<TapEvent>.Deregister(_tapEventBinding);
+        }
+        
         public void Update(float deltaTime){
             _timer.Tick(deltaTime);
             _view.UpdateRadial(_timer.Progress);
