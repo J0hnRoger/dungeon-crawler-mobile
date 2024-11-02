@@ -109,11 +109,9 @@ namespace DungeonCrawler._Project.Scripts.SceneManagement
         {
             var activeScene = SceneManager.GetActiveScene().name;
             
+            // On conserve toujours la scene de démarrage active et la scene de Bootstrap
             if (unloadingSceneName == "Bootstrapper") 
                 return;
-            // On conserve toujours la scene de démarrage active et la scene de Bootstrap
-            // if (unloadingSceneName.Equals(activeScene) || unloadingSceneName == "Bootstrapper") 
-                //return;
             
             var operation = SceneManager.UnloadSceneAsync(unloadingSceneName);
             if (operation == null) return;

@@ -46,10 +46,7 @@ namespace DungeonCrawler._Project.Scripts.Combat
         public void Update(float deltaTime)
         {
             if (CombatIsFinished)
-            {
-                Debug.Log("[Combat System] Combat finished");
                 return;
-            }
 
             if (_timer == null)
             {
@@ -80,7 +77,10 @@ namespace DungeonCrawler._Project.Scripts.Combat
         private void OnPlayerAttack(SkillLaunchedEvent skillLaunchedEvent)
         {
             if (CombatIsFinished)
+            {
+                Debug.Log("[Combat System] Combat finished");
                 return;
+            }
             
             _view.PlayerAttack(skillLaunchedEvent.AnimationName);
             _model.Enemy.Hp.Set(_model.Enemy.Hp - _model.Player.Damage);

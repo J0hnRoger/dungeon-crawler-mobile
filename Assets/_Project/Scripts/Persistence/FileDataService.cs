@@ -4,17 +4,6 @@ using UnityEngine;
 
 namespace _Project.Scripts.Persistence
 {
-    public interface ISaveable {
-        string Id { get; init; } 
-    }
-
-    public interface IBind<TData> where TData : ISaveable
-    {
-       string Id { get; set; }
-       
-       void Bind(TData data);
-    }
-    
     public class FileDataService : IDataService
     {
         private ISerializer _serializer;

@@ -16,6 +16,8 @@ namespace DungeonCrawler._Project.Scripts.Grid.Components
 
         [SerializeField] public bool Active = true;
 
+        [HideInInspector] public Vector3Int Coordinates;
+        
         public Action<GridCell> OnCellSelected { get; set; }
 
         public void OnPointerDown(PointerEventData eventData)

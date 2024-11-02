@@ -1,3 +1,4 @@
+using System;
 using DungeonCrawler._Project.Scripts.Skills;
 using UnityEngine;
 
@@ -16,7 +17,11 @@ namespace DungeonCrawler.Skills
             _controller = new SkillController.Builder()
                 .WithSkills(_skills)
                 .Build(_view);
+            
+            _controller.OnEnable();
         }
+
+        private void OnDisable() => _controller.OnDisable();
 
         void Update() => _controller.Update(Time.deltaTime);
         
