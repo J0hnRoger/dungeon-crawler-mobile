@@ -16,6 +16,8 @@ namespace DungeonCrawler._Project.Scripts.Grid
         
         [SerializeField] private GridView _view;
         
+        [SerializeField] private GameObject _level;
+        
         private GridController _controller;
 
         public void Start()
