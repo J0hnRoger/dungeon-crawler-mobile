@@ -3,9 +3,9 @@
 namespace DungeonCrawler._Project.Scripts.Combat
 {
     /// <summary>
-    /// Interact with Player (animation, sound, fx) when attack is trigger
+    /// Interact with a Character (player or enemy) (animation, sound, fx)
     /// </summary>
-    public class PlayerView : MonoBehaviour
+    public class CharacterView : MonoBehaviour
     {
         [SerializeField] private Animator _animator;
         [SerializeField] private string _animationName;

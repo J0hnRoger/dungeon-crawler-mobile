@@ -56,7 +56,7 @@ namespace DungeonCrawler._Project.Scripts.Combat
             }
             
             _timer.Tick(deltaTime);
-            _view.UpdateRadial(_timer.Progress);
+            _view.UpdateCooldown(_timer.Progress);
 
             if (!_timer.IsRunning)
             {
@@ -68,6 +68,7 @@ namespace DungeonCrawler._Project.Scripts.Combat
 
         private void EnemyAttack(int enemyDamage)
         {
+            _view.EnemyAttack(_model.Enemy.Skill.Data.animationName);
             _model.Player.Hp.Set(_model.Player.Hp - enemyDamage);
             if (CombatIsFinished)
                 EventBus<CombatFinishedEvent>.Raise(

@@ -493,6 +493,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 570862496}
+  - component: {fileID: 570862497}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -516,6 +517,20 @@ Transform:
   - {fileID: 973439408}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &570862497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570862494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 085c542ccf664a9a83352fa3b71982b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 973439409}
+  _animationName: 
 --- !u!1 &790449872
 GameObject:
   m_ObjectHideFlags: 0
@@ -2113,6 +2128,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5164350504942796470, guid: e60e7cf4a88569245adf929db05c7534, type: 3}
   m_PrefabInstance: {fileID: 973439407}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &973439409 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6715759303540672950, guid: e60e7cf4a88569245adf929db05c7534, type: 3}
+  m_PrefabInstance: {fileID: 973439407}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &983575829
 GameObject:
   m_ObjectHideFlags: 0
@@ -2257,7 +2277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _view: {fileID: 2027025978}
-  _enemyData: {fileID: 11400000, guid: 45877e0c58b6b3f47b56d3effa98bf05, type: 2}
+  _enemyData: {fileID: 11400000, guid: d80edb6967bf53f4f9c4033b034b3f79, type: 2}
   _playerData: {fileID: 11400000, guid: e9014880391e7854a8e78c2289684f81, type: 2}
 --- !u!4 &1222245432
 Transform:
@@ -2835,7 +2855,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7482667652216324306, guid: f875e0387c1b2a943a9dc1a6ee255079, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 2c8cd5776588238459f89377a3ab230d, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3217,6 +3237,7 @@ MonoBehaviour:
   _enemyLevel: {fileID: 0}
   _cdGauge: {fileID: 1759786207}
   _playerView: {fileID: 158247848}
+  _enemyView: {fileID: 570862497}
 --- !u!1 &2075103683
 GameObject:
   m_ObjectHideFlags: 0

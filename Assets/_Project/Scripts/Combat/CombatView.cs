@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace DungeonCrawler._Project.Scripts.Combat
@@ -12,7 +13,8 @@ namespace DungeonCrawler._Project.Scripts.Combat
         [SerializeField] private TMP_Text _enemyLevel;
         [SerializeField] private Image _cdGauge;
 
-        [SerializeField] private PlayerView _playerView;
+        [FormerlySerializedAs("playerView")] [SerializeField] private CharacterView _playerView;
+        [FormerlySerializedAs("enemyView")] [SerializeField] private CharacterView _enemyView;
         
         public void SetEnemyName(string enemyName)
         {
@@ -24,7 +26,7 @@ namespace DungeonCrawler._Project.Scripts.Combat
             _enemyLevel.text = enemyLevel;
         }
 
-        public void UpdateRadial(float progress)
+        public void UpdateCooldown(float progress)
         {
             if (float.IsNaN(progress))
                 progress = 0;
@@ -42,6 +44,11 @@ namespace DungeonCrawler._Project.Scripts.Combat
             _playerHealth.fillAmount = percent;
         }
 
+        public void EnemyAttack(string animationName)
+        {
+           _enemyView.Attack(animationName); 
+        }
+        
         public void PlayerAttack(string animationName)
         {
            _playerView.Attack(animationName); 
