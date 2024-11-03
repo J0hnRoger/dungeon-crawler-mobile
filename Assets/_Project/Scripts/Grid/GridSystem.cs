@@ -13,6 +13,7 @@ namespace DungeonCrawler._Project.Scripts.Grid
     {
         [Inject] private SceneLoader _sceneLoader;
 
+        [SerializeField] private GridUIView _gridUI;
         [SerializeField] private GameObject _levelPrefab;
 
         private GameObject _currentLevel;
@@ -29,6 +30,11 @@ namespace DungeonCrawler._Project.Scripts.Grid
             EventBus<LoadLevelEvent>.Register(_loadLevelBinding);
         }
 
+        private void Start()
+        {
+            Initialize(_levelPrefab);
+        }
+
         private void OnLoadLevel(LoadLevelEvent loadLevelEvent)
         {
             // Nettoyer l'ancien niveau si nécessaire
@@ -36,9 +42,19 @@ namespace DungeonCrawler._Project.Scripts.Grid
                 Destroy(_currentLevel);
 
             // Charger et instancier le nouveau niveau
-            var levelPrefab = Resources.Load<GameObject>(loadLevelEvent.LevelPrefabPath);
-            _currentLevel = Instantiate(levelPrefab, Vector3.zero, Quaternion.identity);
+            var levelPrefab = (loadLevelEvent.LevelPrefab != null) 
+                ? loadLevelEvent.LevelPrefab 
+                : Resources.Load<GameObject>(loadLevelEvent.LevelPrefabPath);
+            
+            Initialize(levelPrefab);
+        }
 
+        private void Initialize(GameObject levelPrefab)
+        {
+            _currentLevel = Instantiate(levelPrefab, Vector3.zero, Quaternion.identity);
+            
+            _gridUI.SetLevelName(levelPrefab.name);
+            
             // Setup du nouveau niveau
             _view = _currentLevel.GetComponentInChildren<GridView>();
             if (_view == null)

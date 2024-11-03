@@ -1,5 +1,6 @@
 ﻿using System;
 using _Project.Scripts.Common;
+using UnityEngine;
 
 namespace DungeonCrawler._Project.Scripts.Events
 {
@@ -12,5 +13,7 @@ namespace DungeonCrawler._Project.Scripts.Events
     {
         [LevelPath]
         public string LevelPrefabPath { get; set; }
+        
+        public GameObject LevelPrefab { get; set; }
     }
 }
