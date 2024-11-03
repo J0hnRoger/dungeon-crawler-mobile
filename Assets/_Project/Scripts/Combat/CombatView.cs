@@ -13,8 +13,13 @@ namespace DungeonCrawler._Project.Scripts.Combat
         [SerializeField] private TMP_Text _enemyLevel;
         [SerializeField] private Image _cdGauge;
 
-        [FormerlySerializedAs("playerView")] [SerializeField] private CharacterView _playerView;
-        [FormerlySerializedAs("enemyView")] [SerializeField] private CharacterView _enemyView;
+        [SerializeField] private CharacterView _playerView;
+        [SerializeField] private CharacterView _enemyView;
+        
+        /// <summary>
+        /// Object instancié à la position de l'attack
+        /// </summary>
+        [FormerlySerializedAs("_attackIndicator")] [SerializeField] private GameObject _attackIndicatorPrefab;
         
         public void SetEnemyName(string enemyName)
         {
@@ -52,6 +57,12 @@ namespace DungeonCrawler._Project.Scripts.Combat
         public void PlayerAttack(string animationName)
         {
            _playerView.Attack(animationName); 
+        }
+
+        public void ShowAttackImpact(Vector3 targetPosition)
+        {
+            GameObject particleInstance = Instantiate(_attackIndicatorPrefab, targetPosition, Quaternion.identity);
+            Destroy(particleInstance, 2f); // Destroy the effect after a short duration    
         }
     }
 }

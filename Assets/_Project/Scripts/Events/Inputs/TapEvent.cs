@@ -6,5 +6,6 @@ namespace DungeonCrawler._Project.Scripts.Events.Inputs
     public class TapEvent : IEvent
     {
         public Vector3 WorldPosition;
+        public Vector2 ScreenPosition { get; set; }
     }
 }

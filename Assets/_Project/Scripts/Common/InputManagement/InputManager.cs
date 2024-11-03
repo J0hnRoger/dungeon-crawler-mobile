@@ -57,7 +57,7 @@ namespace DungeonCrawler._Project.Scripts.Common.InputManagement
 
             Vector3 worldPosition = _mainCamera.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, 0));
 
-            EventBus<TapEvent>.Raise(new TapEvent() {WorldPosition = worldPosition});
+            EventBus<TapEvent>.Raise(new TapEvent() { WorldPosition = worldPosition, ScreenPosition = screenPosition });
         }
     }
 }

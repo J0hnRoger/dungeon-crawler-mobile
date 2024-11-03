@@ -84,7 +84,9 @@ namespace DungeonCrawler._Project.Scripts.Combat
             }
             
             _view.PlayerAttack(skillLaunchedEvent.AnimationName);
-            _model.Enemy.Hp.Set(_model.Enemy.Hp - _model.Player.Damage);
+            _view.ShowAttackImpact(skillLaunchedEvent.HitInfo.HitPosition);
+            float hitCoefficient = skillLaunchedEvent.HitInfo.DamageCoefficient;
+            _model.Enemy.Hp.Set(_model.Enemy.Hp - (int)(_model.Player.Damage * hitCoefficient));
             
             if (CombatIsFinished)
                 EventBus<CombatFinishedEvent>.Raise(

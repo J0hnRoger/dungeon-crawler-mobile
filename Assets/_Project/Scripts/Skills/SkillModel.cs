@@ -1,5 +1,6 @@
 ﻿using DungeonCrawler._Project.Scripts.Common;
 using DungeonCrawler._Project.Scripts.Skills;
+using UnityEngine;
 
 namespace DungeonCrawler.Skills
 {
@@ -22,9 +23,9 @@ namespace DungeonCrawler.Skills
             this.Data = data;
         }
 
-        public SkillCommand CreateCommand()
+        public SkillCommand CreateCommand(float timing, HitInfo target)
         {
-            return new SkillCommand(Data);
+            return new SkillCommand(Data, target, timing);
         }
     }
 }
