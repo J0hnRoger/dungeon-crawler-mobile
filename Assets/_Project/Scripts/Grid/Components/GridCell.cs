@@ -10,7 +10,8 @@ namespace DungeonCrawler._Project.Scripts.Grid.Components
         [SerializeField] public GridType GridType;
         [SerializeField] private GameObject outline;
         [SerializeField] public EnemyData Enemy;
-
+        [SerializeField] public bool IsStartingPoint;
+        
         [SerializeField] private MeshRenderer _meshRenderer;
         [SerializeField] private Material _completedMaterial;
 
