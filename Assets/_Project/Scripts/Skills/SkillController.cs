@@ -120,7 +120,7 @@ namespace DungeonCrawler._Project.Scripts.Skills
 
             // Si on ne touche rien, on retourne le point d'impact à cette profondeur
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, 100));
-            return new HitInfo() { HitPosition = worldPosition, HitZone = "none", DamageCoefficient = 0 };
+            return new HitInfo() { HitPosition = worldPosition, HitZone = "none", DamageCoefficient = 1 };
         }
 
         public class Builder

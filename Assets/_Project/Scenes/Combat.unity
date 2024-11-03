@@ -2418,7 +2418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62e61dc6234549738da8c893bb8a1839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageCoefficient: 1
+  DamageCoefficient: 4
   BodyPart: Full
 --- !u!1 &1534202616
 GameObject:
