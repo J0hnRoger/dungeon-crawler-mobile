@@ -1,12 +1,16 @@
 ﻿using System;
-using DungeonCrawler._Project.Scripts.Common;
+using System.Linq;
+using _Project.Scripts.Common;
+using _Project.Scripts.Common.EventBus;
+using _Project.Scripts.Persistence;
+using DungeonCrawler._Project.Scripts.Events;
 using UnityEngine;
 
-namespace _Project.Scripts.Persistence
+namespace DungeonCrawler._Project.Scripts.Persistence
 {
-    public class SaveLoadSystem : PersistentSingleton<SaveLoadSystem>
+    public class SaveLoadSystem : Singleton<SaveLoadSystem>
     {
-        [SerializeField] public GameData _gameData;
+        [SerializeField] public GameData GameData;
         
         private IDataService _dataService;
 
@@ -19,21 +23,38 @@ namespace _Project.Scripts.Persistence
         public void NewGame()
         {
             string date = DateTime.UtcNow.ToString("D");
-            _gameData = new GameData()
+            GameData = new GameData()
             {
-                Name = "New Game",
-                CurrentLevelName = $"Demo {date}" 
+                Name = $"Demo {date}"
             };
+            
+            EventBus<NewGameEvent>.Raise(new NewGameEvent()
+            {
+               GameData = GameData
+            });
         }
 
         public void SaveGame()
         {
-           _dataService.Save(_gameData); 
+           _dataService.Save(GameData); 
         }
 
+        public void LoadLastGame()
+        {
+            var lastGame = _dataService.ListSaves().FirstOrDefault();
+            if (lastGame == null)
+                throw new Exception("No existing saves, start a new game");
+            LoadGame(lastGame);
+        }
+        
         public void LoadGame(string gameName)
         {
-            _dataService.Load(gameName);
+            var data = _dataService.Load(gameName);
+            EventBus<GameLoadedEvent>.Raise(new GameLoadedEvent()
+            {
+                SaveName = gameName,
+                GameData = data
+            });
         }
         
         public void DeleteGame(string gameName)
@@ -43,7 +64,7 @@ namespace _Project.Scripts.Persistence
 
         public void ReloadGame()
         {
-            LoadGame(_gameData.Name);
+            LoadGame(GameData.Name);
         }
     }
 }

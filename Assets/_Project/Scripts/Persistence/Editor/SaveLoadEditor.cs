@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using DungeonCrawler._Project.Scripts.Persistence;
+using UnityEditor;
 using UnityEngine;
 
 namespace _Project.Scripts.Persistence.Editor
@@ -9,7 +10,7 @@ namespace _Project.Scripts.Persistence.Editor
         public override void OnInspectorGUI()
         {
             SaveLoadSystem saveLoadSystem = (SaveLoadSystem)target;
-            string gameName = saveLoadSystem._gameData.Name;
+            string gameName = saveLoadSystem.GameData.Name;
 
             DrawDefaultInspector();
 

@@ -1,6 +1,7 @@
 using System;
 using _Project.Scripts.Common.DependencyInjection;
 using _Project.Scripts.Persistence;
+using DungeonCrawler._Project.Scripts.Persistence;
 using DungeonCrawler._Project.Scripts.SceneManagement;
 using UnityEngine;
 

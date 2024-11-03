@@ -1,4 +1,5 @@
 ﻿using _Project.Scripts.Common.DependencyInjection;
+using DungeonCrawler._Project.Scripts.Persistence;
 using UnityEngine;
 
 namespace _Project.Scripts.Persistence
@@ -13,6 +14,15 @@ namespace _Project.Scripts.Persistence
                 Debug.LogWarning($"[SaveLoadTrigger] New Game created");
             else
                 _saveLoadSystem.NewGame();
+        }
+        
+        
+        public void LoadGame()
+        {
+            if (_saveLoadSystem == null)
+                Debug.LogWarning($"[SaveLoadTrigger] Load last Game");
+            else
+                _saveLoadSystem.LoadLastGame();
         }
     }
 }

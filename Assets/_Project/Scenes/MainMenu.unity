@@ -390,7 +390,6 @@ GameObject:
   - component: {fileID: 1053674098}
   - component: {fileID: 1053674097}
   - component: {fileID: 1053674096}
-  - component: {fileID: 1053674095}
   - component: {fileID: 1053674094}
   m_Layer: 5
   m_Name: LoadGameBtn
@@ -431,19 +430,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 801d733bc8a44ac689f846eaf5b1271d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1053674095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1053674092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4891a749b6142269ac503bc72eef9b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _scene: 1
 --- !u!114 &1053674096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -487,7 +473,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1053674097}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1053674094}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1053674097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -965,19 +963,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1889748256}
-        m_TargetAssemblyTypeName: DungeonCrawler._Project.Scripts.Menu.SceneLoaderOnClickView,
-          Assembly-CSharp
-        m_MethodName: LoadScene
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1889748257}
         m_TargetAssemblyTypeName: _Project.Scripts.Persistence.SaveLoadTrigger, Assembly-CSharp
         m_MethodName: NewGame
