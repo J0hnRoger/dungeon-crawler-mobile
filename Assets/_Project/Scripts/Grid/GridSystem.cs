@@ -32,7 +32,7 @@ namespace DungeonCrawler._Project.Scripts.Grid
 
         private void Start()
         {
-            Initialize(_levelPrefab);
+            // Initialize(_levelPrefab);
         }
 
         private void OnLoadLevel(LoadLevelEvent loadLevelEvent)

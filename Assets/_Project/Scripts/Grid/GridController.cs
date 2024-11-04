@@ -36,11 +36,12 @@ namespace DungeonCrawler._Project.Scripts.Grid
             if (!combatFinished.Win)
                 _pause = true;
             
-            if (_model.ActiveCombatCell == null)
-                throw new Exception("A combat was not start");
-            var currentCombat = _model.ActiveCombatCell;
-            currentCombat.Complete();
-            MoveOnGridEmptyCell(_model.ActiveCombatCell);
+            if (!_model.CurrentCombatPosition.HasValue)
+                throw new Exception("No pending combat");
+            
+            var currentCombatCell = _view.GetGridCellAt(_model.CurrentCombatPosition.Value);
+            currentCombatCell.Complete();
+            MoveOnGridEmptyCell(currentCombatCell);
              
             _model.FinishCurrentCombat(combatFinished.Win);
             if (_model.DungeonClear)
@@ -56,7 +57,7 @@ namespace DungeonCrawler._Project.Scripts.Grid
             _view.OnCellSelected += UpdateCellState;
              
             _view.HideCells();
-            var startingCell = _model.CellStart;
+            var startingCell = _view.GetGridCellAt(_model.StartPosition);
              _view.Show(startingCell);
             // Update first cell
             UpdateCellState(startingCell);
@@ -112,7 +113,7 @@ namespace DungeonCrawler._Project.Scripts.Grid
             if (selected.Enemy == null)
                 throw new Exception("Combat Cell should have one enemy");
             
-            _model.ActiveCombatCell = selected; 
+            _model.StartCombat(selected); 
             
             EventBus<CombatStartedEvent>.Raise(new CombatStartedEvent() { 
                 EnemyData = selected.Enemy,
