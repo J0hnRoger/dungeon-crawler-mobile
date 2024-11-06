@@ -1,4 +1,7 @@
-﻿using TMPro;
+﻿using System;
+using _Project.Scripts.Common.EventBus;
+using DungeonCrawler._Project.Scripts.Events;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -63,6 +66,11 @@ namespace DungeonCrawler._Project.Scripts.Combat
         {
             GameObject particleInstance = Instantiate(_attackIndicatorPrefab, targetPosition, Quaternion.identity);
             Destroy(particleInstance, 2f); // Destroy the effect after a short duration    
+        }
+
+        public void ShowCleanShotFeedback()
+        {
+            EventBus<CleanHitEvent>.Raise(new CleanHitEvent());
         }
     }
 }

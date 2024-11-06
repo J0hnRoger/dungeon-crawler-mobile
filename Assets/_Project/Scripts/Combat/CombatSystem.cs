@@ -17,6 +17,13 @@ namespace DungeonCrawler._Project.Scripts.Combat
         
         [SerializeField] private PlayerData _playerData;
         
+        [Header("Gameplay")]
+        [Tooltip("Pourcentage restant avant la fin du CD du skill à partir duquel un coup net est appliqué")]
+        [SerializeField] private float _cleanShotPercent = 0.1f;
+
+        [Tooltip("Multiplicateur de dégâts pour un coup net")]
+        [SerializeField] private float _cleanShotMultiplier = 1.5f;
+
         private CombatController _controller;
 
         public void Start()
@@ -27,7 +34,7 @@ namespace DungeonCrawler._Project.Scripts.Combat
             if (_view == null)
                 throw new Exception("[CombatSystem] View is mandatory component - it's null");
             
-            _controller = new CombatController(model, _view);
+            _controller = new CombatController(model, _view, _cleanShotPercent, _cleanShotMultiplier);
             _controller.OnEnable();
         }
 

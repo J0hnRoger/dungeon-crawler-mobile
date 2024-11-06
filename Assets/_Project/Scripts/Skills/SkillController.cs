@@ -14,7 +14,7 @@ namespace DungeonCrawler._Project.Scripts.Skills
     public class SkillController
     {
         private readonly SkillModel _model;
-
+        private readonly Camera _raycastCamera;
         private readonly SkillView _view;
 
         // Services
@@ -24,10 +24,13 @@ namespace DungeonCrawler._Project.Scripts.Skills
         // Events
         private EventBinding<TapEvent> _tapEventBinding;
 
-        public SkillController(SkillModel model, SkillView view)
+        public SkillController(SkillModel model, SkillView view, Camera raycastCamera)
         {
             _model = model;
             _view = view;
+
+            // For raycast input
+            _raycastCamera = raycastCamera;
 
             ConnectModel();
             ConnectView();
@@ -97,7 +100,7 @@ namespace DungeonCrawler._Project.Scripts.Skills
         /// <exception cref="Exception"></exception>
         private HitInfo GetEnemyHitZone(Vector2 screenPosition)
         {
-            if (Camera.main == null)
+            if (_raycastCamera == null)
                 throw new Exception("[Skill System] Pas de camera sur la scene - impossible de calculer le hitpoint");
 
             // Raycast depuis la caméra
@@ -134,11 +137,11 @@ namespace DungeonCrawler._Project.Scripts.Skills
                 return this;
             }
 
-            public SkillController Build(SkillView view)
+            public SkillController Build(SkillView view, Camera raycastCamera)
             {
                 if (view == null)
                     throw new Exception("[SkillSystem] SkillView is not defined");
-                return new SkillController(_model, view);
+                return new SkillController(_model, view, raycastCamera);
             }
         }
     }

@@ -7,6 +7,7 @@ namespace DungeonCrawler.Skills
     // Entry Point
     public class SkillSystem : MonoBehaviour
     {
+        [SerializeField] private Camera _raycastCamera;
         [SerializeField] private SkillView _view;
         [SerializeField] private SkillData[] _skills;
 
@@ -16,7 +17,7 @@ namespace DungeonCrawler.Skills
         {
             _controller = new SkillController.Builder()
                 .WithSkills(_skills)
-                .Build(_view);
+                .Build(_view, _raycastCamera);
             
             _controller.OnEnable();
         }

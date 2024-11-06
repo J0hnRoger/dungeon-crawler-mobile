@@ -1,6 +1,5 @@
 using _Project.Scripts.Common;
 using DungeonCrawler._Project.Scripts.Skills;
-using UnityEngine;
 
 namespace DungeonCrawler._Project.Scripts.Events
 {
