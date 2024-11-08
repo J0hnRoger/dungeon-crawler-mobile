@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
 
 namespace DungeonCrawler._Project.Scripts.Common.ScriptableObjects
@@ -6,7 +7,7 @@ namespace DungeonCrawler._Project.Scripts.Common.ScriptableObjects
     public class InlineInspectorAttribute : PropertyAttribute
     {
     }
-    
+
     [CustomPropertyDrawer(typeof(InlineInspectorAttribute), true)]
     public class ScriptableObjectInspector : PropertyDrawer
     {
@@ -73,3 +74,4 @@ namespace DungeonCrawler._Project.Scripts.Common.ScriptableObjects
         }
     }
 }
+#endif

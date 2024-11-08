@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,7 +18,7 @@ namespace _Project.Scripts.Common.ServiceLocator
 
         private const string GlobalName = "ServiceLocator [Global]";
         private const string SceneName = "ServiceLocator [Scene]";
-        
+
         private readonly ServiceManager services = new ServiceManager();
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -32,37 +34,38 @@ namespace _Project.Scripts.Common.ServiceLocator
             if (this == _global)
             {
                 _global = null;
-            } else if (_sceneContainers.ContainsValue(this))
+            }
+            else if (_sceneContainers.ContainsValue(this))
             {
                 _sceneContainers.Remove(gameObject.scene);
             }
         }
-        
+
 #if UNITY_EDITOR
         [MenuItem("GameObject/ServiceLocator/Add Global")]
         static void AddGlobal()
         {
             var go = new GameObject(GlobalName, typeof(ServiceLocatorGlobalBootstrapper));
         }
-        
+
         [MenuItem("GameObject/ServiceLocator/Add Scene")]
         static void AddScene()
         {
             var go = new GameObject(SceneName, typeof(ServiceLocatorSceneBootstrapper));
         }
-#endif 
-        
+#endif
+
         internal void ConfigureAsGlobal(bool dontDestroyOnLoad)
         {
-           if(_global == this)
-               Debug.LogWarning("ServiceLocator.ConfigureAsGlobal: Already configured as global", this);
-           else if (_global != null)
-               Debug.LogError("ServiceLocator.ConfigureAsGlobal: Another ServiceLocator is already configured in global", this);
-           else
-           {
-               _global = this;
-               if (dontDestroyOnLoad) DontDestroyOnLoad(gameObject);
-           }
+            if (_global == this)
+                Debug.LogWarning("ServiceLocator.ConfigureAsGlobal: Already configured as global", this);
+            else if (_global != null)
+                Debug.LogError("ServiceLocator.ConfigureAsGlobal: Another ServiceLocator is already configured in global", this);
+            else
+            {
+                _global = this;
+                if (dontDestroyOnLoad) DontDestroyOnLoad(gameObject);
+            }
         }
 
         internal void ConfigureForScene()
@@ -85,15 +88,15 @@ namespace _Project.Scripts.Common.ServiceLocator
                 {
                     found.BootstrapOnDemand();
                     return _global;
-                }  
-                
+                }
+
                 //Boostraping
                 var container = new GameObject(GlobalName, typeof(ServiceLocator));
                 container.AddComponent<ServiceLocatorGlobalBootstrapper>().BootstrapOnDemand();
                 return _global;
             }
         }
-        
+
         public static ServiceLocator For(MonoBehaviour mb)
         {
             var sl = mb.GetComponentInParent<ServiceLocator>();
@@ -101,10 +104,10 @@ namespace _Project.Scripts.Common.ServiceLocator
                 sl = ForSceneOf(mb);
             if (sl == null)
                 sl = Global;
-            
+
             return sl;
         }
-        
+
         public static ServiceLocator ForSceneOf(MonoBehaviour mb)
         {
             Scene scene = mb.gameObject.scene;
@@ -125,7 +128,7 @@ namespace _Project.Scripts.Common.ServiceLocator
                 {
                     bootstrapper.BootstrapOnDemand();
                     return bootstrapper.Container;
-                } 
+                }
             }
 
             return Global;
@@ -136,7 +139,7 @@ namespace _Project.Scripts.Common.ServiceLocator
             services.Register(service);
             return this;
         }
-        
+
         public ServiceLocator Register(Type type, object service)
         {
             services.Register(type, service);
@@ -153,12 +156,12 @@ namespace _Project.Scripts.Common.ServiceLocator
             }
             throw new ArgumentException($"ServiceLocator.Get: Service of type {typeof(T).FullName} not registered");
         }
-        
+
         bool TryGetService<T>(out T service) where T : class
         {
             return services.TryGet(out service);
         }
-        
+
         bool TryGetNextInHierarchy(out ServiceLocator container)
         {
             if (this == _global)
@@ -179,7 +182,7 @@ namespace _Project.Scripts.Common.ServiceLocator
 
     public class MockLocalization : ILocalization
     {
-        private readonly List<string> _words = new List<string>() {"hund", "katt", "fisk"};
+        private readonly List<string> _words = new List<string>() { "hund", "katt", "fisk" };
         readonly System.Random _random = new System.Random();
 
         public string GetLocalizedWord(string key)
@@ -239,7 +242,7 @@ namespace _Project.Scripts.Common.ServiceLocator
     {
         private IAudioService _audioService;
         private IGameService _gameService;
-        
+
         private void Start()
         {
             ServiceLocator.For(this).Get(out _audioService)
@@ -251,6 +254,6 @@ namespace _Project.Scripts.Common.ServiceLocator
             // utilisation des services instanciés
             _gameService.StartGame();
             _audioService.Play();
-        } 
+        }
     }
 }

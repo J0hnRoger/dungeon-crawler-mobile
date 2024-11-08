@@ -25,6 +25,7 @@ namespace DungeonCrawler._Project.Scripts
         
         private EventBinding<NewGameEvent> _newGameBinding;
         private EventBinding<GameLoadedEvent> _loadGameBinding;
+        private EventBinding<StartNewLevelEvent> _startNewLevelBinding;
 
         private void OnEnable()
         {
@@ -33,6 +34,9 @@ namespace DungeonCrawler._Project.Scripts
 
             _loadGameBinding = new EventBinding<GameLoadedEvent>(HandleLoadGameRequested);
             EventBus<GameLoadedEvent>.Register(_loadGameBinding);
+
+            _startNewLevelBinding = new EventBinding<StartNewLevelEvent>(HandleStartNewLevelRequestedAsync);
+            EventBus<StartNewLevelEvent>.Register(_startNewLevelBinding);
         }
 
         private void OnDisable()
@@ -46,10 +50,7 @@ namespace DungeonCrawler._Project.Scripts
             var firstLevel = _levelSequenceData.Levels.First();
             
             _gameData = newGameEvent.GameData;
-            _gameData.LevelProgressions.Add(new LevelProgression()
-            {
-                LevelName = firstLevel.name, IsActive = true, NbRuns = 0
-            });
+            _gameData.UpdateProgression(firstLevel.name);
 
             await _sceneLoader.LoadSceneGroup((int)DungeonCrawlerScenes.EXPLORATION);
 
@@ -72,5 +73,20 @@ namespace DungeonCrawler._Project.Scripts
             // Charger le niveau en cours
             EventBus<LoadLevelEvent>.Raise(new LoadLevelEvent {LevelPrefab = currentLevel});
         }
+
+        private async void HandleStartNewLevelRequestedAsync(StartNewLevelEvent startLevelEvent)
+        {
+            var firstLevel = _levelSequenceData.Levels
+                .Where(l => l.name == startLevelEvent.LevelName)
+                .First();
+
+            _gameData.UpdateProgression(firstLevel.name);
+
+            await _sceneLoader.LoadSceneGroup((int)DungeonCrawlerScenes.EXPLORATION);
+
+            // Charger le premier niveau
+            EventBus<LoadLevelEvent>.Raise(new LoadLevelEvent { LevelPrefab = firstLevel });
+        }
+
     }
 }

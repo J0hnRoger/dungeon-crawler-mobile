@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -221,7 +222,7 @@ namespace DungeonCrawler._Project.Scripts.Common.EventBus
                 // Déclenche l'événement
                 var eventBusType = typeof(EventBus<>).MakeGenericType(eventType);
                 var raiseMethod = eventBusType.GetMethod("Raise");
-                raiseMethod?.Invoke(null, new object[] {evt});
+                raiseMethod?.Invoke(null, new object[] { evt });
 
                 Debug.Log($"Event triggered: {eventType.Name}");
             }
@@ -232,3 +233,4 @@ namespace DungeonCrawler._Project.Scripts.Common.EventBus
         }
     }
 }
+#endif

@@ -80,3 +80,5 @@ Assets/TextMesh Pro.meta
 /Assets/SineVFX
 /Assets/ShaderGraph_Dissolve
 Assets/RealToon
+.aider*
+.env

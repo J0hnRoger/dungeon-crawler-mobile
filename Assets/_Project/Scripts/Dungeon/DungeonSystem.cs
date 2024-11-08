@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Threading.Tasks;
 using _Project.Scripts.Common.DependencyInjection;
 using _Project.Scripts.Common.EventBus;
 using DungeonCrawler._Project.Scripts.Events;
@@ -64,11 +66,6 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
                 .Build();
         }
 
-        private async void HandleDungeonFinished(DungeonFinishedEvent obj)
-        {
-            if (_sceneLoader != null)
-                await _sceneLoader.LoadSceneGroup((int)DungeonCrawlerScenes.HUB);
-        }
         
         private async void HandleFadeInComplete(FadeInCompleteEvent obj)
         {
@@ -100,6 +97,13 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
             {
                 Win = combatFinishedEvent.Win, IsLastCombat = combatFinishedEvent.IsLastCombat
             });
+        }
+
+        private async void HandleDungeonFinished(DungeonFinishedEvent obj)
+        {
+            await Task.Delay(4500);
+            if (_sceneLoader != null)
+                await _sceneLoader.LoadSceneGroup((int)DungeonCrawlerScenes.HUB);
         }
     }
 }

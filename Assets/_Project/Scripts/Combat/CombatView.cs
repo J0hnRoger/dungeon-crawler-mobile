@@ -1,5 +1,4 @@
-﻿using System;
-using _Project.Scripts.Common.EventBus;
+﻿using _Project.Scripts.Common.EventBus;
 using DungeonCrawler._Project.Scripts.Events;
 using TMPro;
 using UnityEngine;

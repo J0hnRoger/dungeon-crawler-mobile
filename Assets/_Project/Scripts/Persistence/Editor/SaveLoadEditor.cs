@@ -1,7 +1,10 @@
 ﻿using DungeonCrawler._Project.Scripts.Persistence;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
+#if UNITY_EDITOR
 namespace _Project.Scripts.Persistence.Editor
 {
     [CustomEditor(typeof(SaveLoadSystem))]
@@ -16,12 +19,13 @@ namespace _Project.Scripts.Persistence.Editor
 
             if (GUILayout.Button("Save Game"))
                 saveLoadSystem.SaveGame();
-            
+
             if (GUILayout.Button("Load Game"))
                 saveLoadSystem.LoadGame(gameName);
-            
+
             if (GUILayout.Button("Delete Game"))
                 saveLoadSystem.DeleteGame(gameName);
         }
     }
 }
+#endif

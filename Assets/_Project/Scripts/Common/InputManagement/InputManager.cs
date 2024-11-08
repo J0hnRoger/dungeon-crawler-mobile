@@ -22,11 +22,14 @@ namespace DungeonCrawler._Project.Scripts.Common.InputManagement
             // Update de la main camera
             _sceneLoadedeventBinding = new EventBinding<SceneLoadedEvent>(OnSceneLoaded);
             EventBus<SceneLoadedEvent>.Register(_sceneLoadedeventBinding);
+
+            _attackAction.performed += OnTapPerformed;
         }
 
         public void OnDisable()
         {
             EventBus<SceneLoadedEvent>.Deregister(_sceneLoadedeventBinding);
+            _attackAction.performed -= OnTapPerformed;
         }
 
         private void OnSceneLoaded(SceneLoadedEvent obj)
@@ -40,8 +43,6 @@ namespace DungeonCrawler._Project.Scripts.Common.InputManagement
             _attackAction = _allInputs.FindActionMap("Gameplay")
                 .FindAction("Attack");
 
-            _attackAction.performed += OnTapPerformed;
-            
             _allInputs.Enable();
         }
 

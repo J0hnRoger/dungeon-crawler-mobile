@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using _Project.Scripts.Common.EventBus;
 using DungeonCrawler._Project.Scripts.Events;
 using DungeonCrawler._Project.Scripts.Grid.Components;
@@ -41,14 +42,15 @@ namespace DungeonCrawler._Project.Scripts.Grid
             
             var currentCombatCell = _view.GetGridCellAt(_model.CurrentCombatPosition.Value);
             currentCombatCell.Complete();
+
             MoveOnGridEmptyCell(currentCombatCell);
              
             _model.FinishCurrentCombat(combatFinished.Win);
+
             if (_model.DungeonClear)
             {
-                EventBus<DungeonFinishedEvent>.Raise(new DungeonFinishedEvent()
-                { });
                 _pause = true;
+                EventBus<DungeonFinishedEvent>.Raise(new DungeonFinishedEvent());
             }
         }
 

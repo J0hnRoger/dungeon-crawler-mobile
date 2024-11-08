@@ -107,16 +107,17 @@ namespace DungeonCrawler._Project.Scripts.Skills
             Ray ray = Camera.main.ScreenPointToRay(screenPosition);
             // Ignorer le raycast sur l'UI
             int layerMask = ~LayerMask.GetMask("UI");
-            RaycastHit hit; 
+            RaycastHit hit;
             Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red, 1f); // Visualiser le ray dans la scène
-            Debug.Log($"Ray Origin: {ray.origin}, Direction: {ray.direction}");           
-            if (Physics.Raycast(ray, out hit, 1000, layerMask)){
+            Debug.Log($"Ray Origin: {ray.origin}, Direction: {ray.direction}");
+            if (Physics.Raycast(ray, out hit, 1000, layerMask))
+            {
                 // Vérifier si on a touché une zone de hit
                 var hitZoneComponent = hit.collider.GetComponent<HitZone>();
                 return new HitInfo()
                 {
                     HitPosition = hit.point,
-                    HitZone = hitZoneComponent.BodyPart,
+                    HitZone = hitZoneComponent?.BodyPart ?? "nothing",
                     DamageCoefficient = hitZoneComponent.DamageCoefficient
                 };
             }

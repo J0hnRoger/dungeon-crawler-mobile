@@ -5,9 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/_Project/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/_Project/Scenes/Bootstrapper.unity
+    guid: 53aae34768ca6d54aab3ad89d2623591
   - enabled: 1
     path: Assets/_Project/Scenes/Exploration.unity
     guid: a6391b7271c94fd4c93960045f9257f9
@@ -20,9 +20,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/Hub.unity
     guid: d70ec1944c171cc4a8bd74cd9553ac32
-  - enabled: 1
-    path: Assets/_Project/Scenes/Gameplay.unity
-    guid: 8dd2709d5687ab84ba3f5fb310631b4e
   - enabled: 1
     path: Assets/_Project/Scenes/Combat.unity
     guid: 233531642b3a832429b28da43bd1e908

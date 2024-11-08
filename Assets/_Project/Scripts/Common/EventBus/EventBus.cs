@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace _Project.Scripts.Common.EventBus
@@ -8,7 +6,7 @@ namespace _Project.Scripts.Common.EventBus
     public static class EventBus<T> where T : IEvent
     {
         private static readonly HashSet<IEventBinding<T>> _bindings = new HashSet<IEventBinding<T>>();
-        
+
         public static void Register(EventBinding<T> binding) => _bindings.Add(binding);
         public static void Deregister(EventBinding<T> binding) => _bindings.Remove(binding);
 
@@ -18,7 +16,7 @@ namespace _Project.Scripts.Common.EventBus
             {
                 eventBinding.OnEvent.Invoke(@event);
                 eventBinding.OnEventNoArgs.Invoke();
-            } 
+            }
         }
 
         static void Clear()
