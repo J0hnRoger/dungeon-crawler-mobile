@@ -104,7 +104,7 @@ namespace DungeonCrawler._Project.Scripts.Skills
                 throw new Exception("[Skill System] Pas de camera sur la scene - impossible de calculer le hitpoint");
 
             // Raycast depuis la caméra
-            Ray ray = Camera.main.ScreenPointToRay(screenPosition);
+            Ray ray = _raycastCamera.ScreenPointToRay(screenPosition);
             // Ignorer le raycast sur l'UI
             int layerMask = ~LayerMask.GetMask("UI");
             RaycastHit hit;
