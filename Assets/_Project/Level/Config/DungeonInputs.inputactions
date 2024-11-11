@@ -22,7 +22,7 @@
                     "path": "<Touchscreen>/Press",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "DungeonControls",
                     "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -33,7 +33,7 @@
                     "path": "<Mouse>/press",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "DungeonControls",
                     "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false

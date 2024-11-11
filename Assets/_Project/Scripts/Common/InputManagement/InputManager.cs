@@ -22,8 +22,6 @@ namespace DungeonCrawler._Project.Scripts.Common.InputManagement
             // Update de la main camera
             _sceneLoadedeventBinding = new EventBinding<SceneLoadedEvent>(OnSceneLoaded);
             EventBus<SceneLoadedEvent>.Register(_sceneLoadedeventBinding);
-
-            _attackAction.performed += OnTapPerformed;
         }
 
         public void OnDisable()
@@ -43,6 +41,10 @@ namespace DungeonCrawler._Project.Scripts.Common.InputManagement
             _attackAction = _allInputs.FindActionMap("Gameplay")
                 .FindAction("Attack");
 
+            if (_attackAction == null)
+                throw new Exception("[InputManager] Pas d'action 'Attack' trouvée dans le fichier Inputs");
+
+            _attackAction.performed += OnTapPerformed;
             _allInputs.Enable();
         }
 
@@ -50,11 +52,8 @@ namespace DungeonCrawler._Project.Scripts.Common.InputManagement
         {
             if (!context.performed) return;
 
-            Vector2 screenPosition = Mouse.current.position.ReadValue();
-            if (Touchscreen.current != null && Touchscreen.current.primaryTouch.isInProgress)
-            {
-                screenPosition = Touchscreen.current.primaryTouch.position.ReadValue();
-            }
+            // TODO - gérer la récupération de la position indépendament de la source (mouse ou touchscreen)
+            Vector2 screenPosition = context.ReadValue<Vector2>();
 
             Vector3 worldPosition = _mainCamera.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, 0));
 
