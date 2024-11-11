@@ -27,6 +27,7 @@ EditorBuildSettings:
     path: Assets/_Project/Scenes/UI.unity
     guid: 6249f9683b45aa44099e5e5b7cbee55c
   m_configObjects:
+    com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: 4ceca2d00132f104e918fa91d0cbfcff, type: 2}
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: cc31c32f1aed32f4fb447ce40897129a, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 54666bc29042e18489596ca925335cf9, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: da08aa956c92f594aa3d8bff88b1057d, type: 2}
