@@ -27,6 +27,7 @@ namespace DungeonCrawler._Project.Scripts.Common.InputManagement
         public void OnDisable()
         {
             EventBus<SceneLoadedEvent>.Deregister(_sceneLoadedeventBinding);
+            _allInputs.Disable();
             _attackAction.performed -= OnTapPerformed;
         }
 
@@ -35,29 +36,37 @@ namespace DungeonCrawler._Project.Scripts.Common.InputManagement
             _mainCamera = Camera.main;
         }
 
-        private void Awake()
+        private new void Awake()
         {
             _mainCamera = Camera.main;
+
             _attackAction = _allInputs.FindActionMap("Gameplay")
-                .FindAction("Attack");
+            .FindAction("Attack");
 
             if (_attackAction == null)
                 throw new Exception("[InputManager] Pas d'action 'Attack' trouvée dans le fichier Inputs");
 
             _attackAction.performed += OnTapPerformed;
-            _allInputs.Enable();
         }
 
         private void OnTapPerformed(InputAction.CallbackContext context)
         {
             if (!context.performed) return;
+            Debug.Log("OnTapPerformed");
+            Vector2? screenPosition;
+            if (Mouse.current != null)
+                screenPosition = Mouse.current.position.ReadValue();
+            else if (Touchscreen.current != null)
+                screenPosition = Touchscreen.current.primaryTouch.position.ReadValue();
+            else
+            {
+                Debug.LogWarning("No mouse or touch input detected");
+                return;
+            }
 
-            // TODO - gérer la récupération de la position indépendament de la source (mouse ou touchscreen)
-            Vector2 screenPosition = context.ReadValue<Vector2>();
+            Vector3 worldPosition = _mainCamera.ScreenToWorldPoint(new Vector3(screenPosition.Value.x, screenPosition.Value.y, 0));
 
-            Vector3 worldPosition = _mainCamera.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, 0));
-
-            EventBus<TapEvent>.Raise(new TapEvent() { WorldPosition = worldPosition, ScreenPosition = screenPosition });
+            EventBus<TapEvent>.Raise(new TapEvent() { WorldPosition = worldPosition, ScreenPosition = screenPosition.Value });
         }
     }
 }
