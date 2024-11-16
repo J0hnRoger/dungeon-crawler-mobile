@@ -20,13 +20,6 @@ namespace DungeonCrawler._Project.Scripts.Player
             EventBus<EmptyCellClickedEvent>.Deregister(_gridClickedBinding);
         }
 
-        private ExploratorController _controller;
-
-        void Awake()
-        {
-            _controller = new ExploratorController();
-        }
-
         public void HandlePlayerMove(EmptyCellClickedEvent cellClickEvent)
         {
             transform.position = new Vector3(cellClickEvent.Position.x, transform.position.y, cellClickEvent.Position.z);

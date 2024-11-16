@@ -67,9 +67,9 @@ namespace DungeonCrawler._Project.Scripts.Combat
             Destroy(particleInstance, 2f); // Destroy the effect after a short duration    
         }
 
-        public void ShowCleanShotFeedback()
+        public void ShowCriticalHitFeedback()
         {
-            EventBus<CleanHitEvent>.Raise(new CleanHitEvent());
+            EventBus<DirectHitEvent>.Raise(new DirectHitEvent());
         }
     }
 }

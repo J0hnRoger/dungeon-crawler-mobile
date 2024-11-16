@@ -71,7 +71,7 @@ MonoBehaviour:
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
-  m_FillClockwise: 1
+  m_FillClockwise: 0
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
@@ -237,6 +237,7 @@ GameObject:
   - component: {fileID: 2656364585499347589}
   - component: {fileID: 4771091380785359922}
   - component: {fileID: 5790629731405877859}
+  - component: {fileID: 2741004631077412214}
   m_Layer: 5
   m_Name: TimingVisual
   m_TagString: Untagged
@@ -329,6 +330,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2741004631077412214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3569369123859392469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 077761f4289e43fe93db1b45762158f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radialImage: {fileID: 5390253013667940298}
+  index: 0
+  _animator: {fileID: 5790629731405877859}
 --- !u!1 &5248748013391177151
 GameObject:
   m_ObjectHideFlags: 0

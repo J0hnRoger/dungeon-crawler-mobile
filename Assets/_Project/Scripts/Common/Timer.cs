@@ -47,6 +47,8 @@ namespace DungeonCrawler._Project.Scripts.Common
     public class CountdownTimer : Timer
     {
         public CountdownTimer(float value) : base(value) { }
+    
+        public bool IsTimeRemaining(float seconds) => IsRunning && Time <= seconds && Time > 0;
 
         public override void Tick(float deltaTime)
         {

@@ -14,8 +14,8 @@ namespace DungeonCrawler._Project.Scripts.Combat
         // 
         private readonly CombatView _view;
         private readonly CombatModel _model;
-        private readonly float _cleanShot;
-        private readonly float _cleanShotMultiplier;
+        private readonly float _directHit;
+        private readonly float _directHitMultiplier;
 
         // Services
         private CountdownTimer _timer;
@@ -25,12 +25,13 @@ namespace DungeonCrawler._Project.Scripts.Combat
 
         private bool CombatIsFinished => _model.Enemy.Hp <= 0 || _model.Player.Hp <= 0;
 
-        public CombatController(CombatModel model, CombatView view, float cleanShot, float cleanShotMultiplier)
+        public CombatController(CombatModel model, CombatView view, float directHit, float directHitMultiplier)
         {
             _view = view;
             _model = model;
-            _cleanShot = cleanShot;
-            _cleanShotMultiplier = cleanShotMultiplier;
+            _directHit = directHit;
+            _directHitMultiplier = directHitMultiplier;
+            
             ConnectView();
             ConnectModel();
         }
@@ -92,12 +93,12 @@ namespace DungeonCrawler._Project.Scripts.Combat
             float hitCoefficient = skillLaunchedEvent.HitInfo.DamageCoefficient;
 
             // si l'appuie est déclenché assez près de la fin du CD du skill, on applique un coup net
-            bool IsCriticalHit = skillLaunchedEvent.Timing < _cleanShot;
-            if (IsCriticalHit)
+            bool isDirectHit = skillLaunchedEvent.Timing < _directHit;
+            if (isDirectHit)
             {
                 Debug.Log("[Combat System] Clean shot");
-                hitCoefficient *= _cleanShotMultiplier;
-                _view.ShowCleanShotFeedback();
+                hitCoefficient *= _directHitMultiplier;
+                EventBus<DirectHitEvent>.Raise(new DirectHitEvent()); 
             }
 
             _model.Enemy.Hp.Set(_model.Enemy.Hp - (int)(_model.Player.Damage * hitCoefficient));

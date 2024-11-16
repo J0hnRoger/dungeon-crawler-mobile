@@ -3,6 +3,6 @@ using UnityEngine;
 
 namespace DungeonCrawler._Project.Scripts.Events
 {
-    public class CleanHitEvent : IEvent
+    public class DirectHitEvent : IEvent
     { }
 } 

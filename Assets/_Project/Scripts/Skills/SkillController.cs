@@ -52,7 +52,10 @@ namespace DungeonCrawler._Project.Scripts.Skills
         {
             _timer.Tick(deltaTime);
             _view.UpdateRadial(_timer.Progress);
-
+            
+            if (_timer.IsTimeRemaining(1f))
+               _view.StartCooldownAnimation(); 
+            
             if (!_timer.IsRunning && _skillQueue.TryDequeue(out SkillCommand command))
             {
                 command.Execute();
@@ -63,19 +66,10 @@ namespace DungeonCrawler._Project.Scripts.Skills
 
         private void ConnectModel()
         {
-            _model._skills.AnyValueChanged += UpdateButtons;
         }
-
-        private void UpdateButtons(IList<Skill> skills) => _view.UpdateButtonSprites(skills);
 
         private void ConnectView()
         {
-            for (int i = 0; i < _view.buttons.Length; i++)
-            {
-                // _view.buttons[i].RegisterListener(OnAbilityButtonPressed);
-            }
-
-            _view.UpdateButtonSprites(_model._skills);
         }
 
         private void OnScreenClicked(TapEvent tapEvent)

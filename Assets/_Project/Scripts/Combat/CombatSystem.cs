@@ -3,6 +3,7 @@ using _Project.Scripts.Common.DependencyInjection;
 using DungeonCrawler._Project.Scripts.Combat.SO;
 using DungeonCrawler._Project.Scripts.Dungeon;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DungeonCrawler._Project.Scripts.Combat
 {
@@ -19,10 +20,10 @@ namespace DungeonCrawler._Project.Scripts.Combat
         
         [Header("Gameplay")]
         [Tooltip("Pourcentage restant avant la fin du CD du skill à partir duquel un coup net est appliqué")]
-        [SerializeField] private float _cleanShotPercent = 0.1f;
+        [SerializeField] private float _directShotPercent = 0.1f;
 
         [Tooltip("Multiplicateur de dégâts pour un coup net")]
-        [SerializeField] private float _cleanShotMultiplier = 1.5f;
+        [SerializeField] private float _directShotMultiplier = 1.5f;
 
         private CombatController _controller;
 
@@ -34,7 +35,7 @@ namespace DungeonCrawler._Project.Scripts.Combat
             if (_view == null)
                 throw new Exception("[CombatSystem] View is mandatory component - it's null");
             
-            _controller = new CombatController(model, _view, _cleanShotPercent, _cleanShotMultiplier);
+            _controller = new CombatController(model, _view, _directShotPercent, _directShotMultiplier);
             _controller.OnEnable();
         }
 
