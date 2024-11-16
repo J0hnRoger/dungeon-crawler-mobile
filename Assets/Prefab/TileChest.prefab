@@ -125,6 +125,11 @@ MonoBehaviour:
   GridType: 2
   outline: {fileID: 8197371440549359635}
   Enemy: {fileID: 0}
+  IsStartingPoint: 0
+  _meshRenderer: {fileID: 0}
+  _completedMaterial: {fileID: 0}
+  Active: 1
+  Coordinates: {x: 0, y: 0, z: 0}
 --- !u!1 &2990858320257136909
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,6 +667,7 @@ GameObject:
   - component: {fileID: 3736123512878047382}
   - component: {fileID: 101949958903945547}
   - component: {fileID: 8462304775126592371}
+  - component: {fileID: 5135096822058275676}
   m_Layer: 0
   m_Name: PopUp
   m_TagString: Untagged
@@ -756,6 +762,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &5135096822058275676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5453778051979064857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aed80b0f8ce3a784295e0ce414aa5bd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5825617556196379867
 GameObject:
   m_ObjectHideFlags: 0
