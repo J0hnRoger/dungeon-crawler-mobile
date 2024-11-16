@@ -64,12 +64,12 @@ namespace DungeonCrawler._Project.Scripts.Combat
         public void ShowAttackImpact(Vector3 targetPosition)
         {
             GameObject particleInstance = Instantiate(_attackIndicatorPrefab, targetPosition, Quaternion.identity);
-            Destroy(particleInstance, 2f); // Destroy the effect after a short duration    
+            Destroy(particleInstance, 0.1f); // Destroy the effect after a short duration    
         }
 
         public void ShowCriticalHitFeedback()
         {
-            EventBus<DirectHitEvent>.Raise(new DirectHitEvent());
+            Debug.Log("[Combat View] Show critical hit feedback");
         }
     }
 }

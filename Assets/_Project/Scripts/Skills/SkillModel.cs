@@ -23,9 +23,9 @@ namespace DungeonCrawler.Skills
             this.Data = data;
         }
 
-        public SkillCommand CreateCommand(float timing, HitInfo target)
+        public SkillCommand CreateCommand(HitInfo target, float timingPressed)
         {
-            return new SkillCommand(Data, target, timing);
+            return new SkillCommand(Data, target, timingPressed);
         }
     }
 }

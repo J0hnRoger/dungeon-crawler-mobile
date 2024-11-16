@@ -11,9 +11,7 @@ namespace DungeonCrawler._Project.Scripts.Skills
         [SerializeField] private Animator _animator;
 
         public void Initialize()
-        {
-            
-        }
+        { }
         
         public void UpdateRadialFill(float progress)
         {

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using DungeonCrawler.Skills;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace DungeonCrawler._Project.Scripts.Skills
 {
     public class SkillView : MonoBehaviour
     {
         [SerializeField] private string _cooldownAnimationName = "SkillReady";
-        [SerializeField] public string _directHitAnimationName = "SkillCleanHit";
+        [SerializeField] public string _directHitAnimationName = "SkillDirectHit";
         
         [SerializeField] public TimingVisualView _timingVisual;
 
@@ -31,8 +28,9 @@ namespace DungeonCrawler._Project.Scripts.Skills
             _timingVisual.TriggerAnimation(_cooldownAnimationName);
         }
         
-        public void LaunchCleanHitAnimation()
+        public void LaunchDirectHitAnimation()
         {
+            Debug.Log("[SkillView] Direct Hit Anim Triggered");
             _timingVisual.TriggerAnimation(_directHitAnimationName);
         }
     }

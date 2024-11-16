@@ -7,7 +7,7 @@ namespace DungeonCrawler._Project.Scripts.Skills
 {
     public interface ICommand
     {
-        void Execute();
+        void Execute(float timing);
     }
     
     public class SkillCommand : ICommand
@@ -15,22 +15,22 @@ namespace DungeonCrawler._Project.Scripts.Skills
         private readonly SkillData data;
         public float Cooldown => data.cooldown;
         public HitInfo Target;
-        public float Timing;
+        public float TimingPressed;
 
-        public SkillCommand(SkillData data, HitInfo targetPoint, float timing)
+        public SkillCommand(SkillData data, HitInfo targetPoint, float timingPressed)
         {
             this.data = data;
             this.Target = targetPoint;
-            this.Timing = timing;
+            this.TimingPressed = timingPressed;
         }
         
-        public void Execute()
+        public void Execute(float timing)
         {
             EventBus<SkillLaunchedEvent>.Raise(new SkillLaunchedEvent()
             {
                 SkillName = data.name,
                 HitInfo = Target,
-                Timing = Timing,
+                Timing = TimingPressed,
                 AnimationName = data.animationName,
                 Duration = data.cooldown
             });

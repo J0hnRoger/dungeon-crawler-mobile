@@ -93,10 +93,11 @@ namespace DungeonCrawler._Project.Scripts.Combat
             float hitCoefficient = skillLaunchedEvent.HitInfo.DamageCoefficient;
 
             // si l'appuie est déclenché assez près de la fin du CD du skill, on applique un coup net
-            bool isDirectHit = skillLaunchedEvent.Timing < _directHit;
+            bool isDirectHit = skillLaunchedEvent.Timing <= _directHit;
+
             if (isDirectHit)
             {
-                Debug.Log("[Combat System] Clean shot");
+            Debug.Log($"[Combat System] Timing: {skillLaunchedEvent.Timing * 100}% de la fin");
                 hitCoefficient *= _directHitMultiplier;
                 EventBus<DirectHitEvent>.Raise(new DirectHitEvent()); 
             }

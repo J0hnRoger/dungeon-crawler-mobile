@@ -14,7 +14,6 @@ namespace DungeonCrawler._Project.Scripts.Combat
         [SerializeField] private float _shakeAmplitude = 6f;
         [SerializeField] private float _shakeFrequency = 2.0f;
         
-        private EventBinding<DirectHitEvent> _cleanHitEventBinding;
         private CinemachineImpulseSource _impulseSource;
         private float _shakeTimer;
         
@@ -38,13 +37,10 @@ namespace DungeonCrawler._Project.Scripts.Combat
 
         private void OnEnable()
         {
-            _cleanHitEventBinding = new EventBinding<DirectHitEvent>(OnCleanHit);
-            EventBus<DirectHitEvent>.Register(_cleanHitEventBinding);
         }
 
         private void OnDisable()
         {
-            EventBus<DirectHitEvent>.Deregister(_cleanHitEventBinding);
         }
 
         private void OnCleanHit(DirectHitEvent evt)

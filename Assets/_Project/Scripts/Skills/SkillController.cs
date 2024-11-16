@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using _Project.Scripts.Common.EventBus;
 using DungeonCrawler._Project.Scripts.Common;
+using DungeonCrawler._Project.Scripts.Events;
 using DungeonCrawler._Project.Scripts.Events.Inputs;
 using DungeonCrawler._Project.Scripts.Skills.Components;
 using DungeonCrawler.Skills;
@@ -23,6 +24,7 @@ namespace DungeonCrawler._Project.Scripts.Skills
 
         // Events
         private EventBinding<TapEvent> _tapEventBinding;
+        private EventBinding<DirectHitEvent> _directHitEventBinding;
 
         public SkillController(SkillModel model, SkillView view, Camera raycastCamera)
         {
@@ -58,7 +60,7 @@ namespace DungeonCrawler._Project.Scripts.Skills
             
             if (!_timer.IsRunning && _skillQueue.TryDequeue(out SkillCommand command))
             {
-                command.Execute();
+                command.Execute(_timer.Progress);
                 _timer.Reset(command.Cooldown);
                 _timer.Start();
             }
@@ -70,15 +72,26 @@ namespace DungeonCrawler._Project.Scripts.Skills
 
         private void ConnectView()
         {
+            _directHitEventBinding = new EventBinding<DirectHitEvent>(OnDirectHit);
+            EventBus<DirectHitEvent>.Register(_directHitEventBinding);
+        }
+
+        private void OnDirectHit(DirectHitEvent directHitEvent)
+        {
+            _view.LaunchDirectHitAnimation();
         }
 
         private void OnScreenClicked(TapEvent tapEvent)
         {
-            if (_timer.Progress < 0.25f || !_timer.IsRunning)
+            // Buffer pour éviter de lancer le skill si on est pas encore au début du cooldown
+            // défini à 25% de la fin du cooldown
+            if ((_timer.Progress < 0.25f && _timer.Progress > 0) || !_timer.IsRunning)
             {
                 var hitPoint = GetEnemyHitZone(tapEvent.ScreenPosition);
+                // Défini à combien de pourcent de la fin parfaite du timer le joueur a cliqué 
+                float timingPressed = (!_timer.IsRunning) ? float.MaxValue : _timer.Progress; 
                 var currentSkill = _model._skills.First()
-                    .CreateCommand(_timer.Progress, hitPoint);
+                    .CreateCommand(hitPoint, timingPressed);
 
                 _skillQueue.Enqueue(currentSkill);
             }
@@ -103,7 +116,7 @@ namespace DungeonCrawler._Project.Scripts.Skills
             int layerMask = ~LayerMask.GetMask("UI");
             RaycastHit hit;
             Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red, 1f); // Visualiser le ray dans la scène
-            Debug.Log($"Ray Origin: {ray.origin}, Direction: {ray.direction}");
+
             if (Physics.Raycast(ray, out hit, 1000, layerMask))
             {
                 // Vérifier si on a touché une zone de hit

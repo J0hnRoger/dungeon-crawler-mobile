@@ -21,8 +21,7 @@ namespace DungeonCrawler._Project.Scripts.Combat
         /// <param name="triggerName"></param>
         public void Attack(string triggerName)
         {
-            Debug.Log($"Player attack with {triggerName}");
-            PlayAnimation(triggerName);
+            // PlayAnimation(triggerName);
         }
 
         private void PlayAnimation(string triggerName)
