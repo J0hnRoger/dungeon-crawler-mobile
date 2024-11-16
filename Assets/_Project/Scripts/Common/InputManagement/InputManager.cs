@@ -36,7 +36,7 @@ namespace DungeonCrawler._Project.Scripts.Common.InputManagement
             _mainCamera = Camera.main;
         }
 
-        private new void Awake()
+        protected override void AwakeAsSingleton()
         {
             _mainCamera = Camera.main;
 
@@ -52,7 +52,7 @@ namespace DungeonCrawler._Project.Scripts.Common.InputManagement
         private void OnTapPerformed(InputAction.CallbackContext context)
         {
             if (!context.performed) return;
-            Debug.Log("OnTapPerformed");
+
             Vector2? screenPosition;
             if (Mouse.current != null)
                 screenPosition = Mouse.current.position.ReadValue();

@@ -14,9 +14,8 @@ namespace DungeonCrawler._Project.Scripts.Persistence
         
         private IDataService _dataService;
 
-        protected override void Awake()
+        protected override void AwakeAsSingleton()
         {
-            base.Awake();
             _dataService = new FileDataService(new JsonSerializer());
         }
 

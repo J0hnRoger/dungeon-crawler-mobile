@@ -33,9 +33,8 @@ namespace _Project.Scripts.Common.DependencyInjection
             EventBus<SceneLoadedEvent>.Deregister(_sceneLoadEventBinding);
         }
 
-        protected override void Awake()
+        protected override void AwakeAsSingleton()
         {
-            base.Awake();
             var providers = FindMonoBehaviours().OfType<IDependencyProvider>();
             foreach (IDependencyProvider provider in providers)
             {

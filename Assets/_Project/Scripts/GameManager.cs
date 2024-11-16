@@ -88,5 +88,7 @@ namespace DungeonCrawler._Project.Scripts
             EventBus<LoadLevelEvent>.Raise(new LoadLevelEvent { LevelPrefab = firstLevel });
         }
 
+        protected override void AwakeAsSingleton()
+        { }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace _Project.Scripts.Common
 {
 
-    public class Singleton<T> : MonoBehaviour where T : Component
+    public abstract class Singleton<T> : MonoBehaviour where T : Component
     {
         protected static T _instance;
         public static bool HasInstance => _instance != null;
@@ -29,13 +29,23 @@ namespace _Project.Scripts.Common
             }
         }
 
-        protected virtual void Awake() => InitializeSingleton();
+        private void Awake() => InitializeSingleton();
 
         protected virtual void InitializeSingleton()
         {
             if (!Application.isPlaying)
                 return;
-            _instance = this as T;
+            if (_instance == null){
+                _instance = this as T;
+                AwakeAsSingleton();
+            }
+            else if (_instance != this)
+            {
+                Debug.Log($"Duplicate singleton of type {typeof(T)} detected. Destroying duplicate on GameObject '{gameObject.name}'");
+                Destroy(gameObject);
+            }
         }
+
+        protected abstract void AwakeAsSingleton();
     }
 }
