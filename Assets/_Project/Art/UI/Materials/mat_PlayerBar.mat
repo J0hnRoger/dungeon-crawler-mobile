@@ -141,8 +141,8 @@ Material:
     - NoiseSpeed: {r: 1, g: 0, b: 0, a: 0}
     - TextureSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0, g: 1.4980392, b: 0.20443432, a: 1}
-    - _Color2: {r: 0, g: 0.5294118, b: 0.10890539, a: 1}
+    - _Color: {r: 0, g: 1.1486983, b: 0.0064581526, a: 1}
+    - _Color2: {r: 0, g: 0.3018868, b: 0.10598049, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
     - _GradientColor: {r: 1, g: 1, b: 1, a: 1}
