@@ -95,8 +95,6 @@ namespace DungeonCrawler._Project.Scripts.Skills
 
                 _skillQueue.Enqueue(currentSkill);
             }
-
-            EventSystem.current.SetSelectedGameObject(null);
         }
 
         /// <summary>

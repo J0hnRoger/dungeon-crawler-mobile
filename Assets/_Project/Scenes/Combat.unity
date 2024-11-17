@@ -638,9 +638,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7acb1836e7f943e3b2eb7372102d428f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cooldownAnimationName: SkillReady
+  _cooldownAnimationName: TimingVisual_SkillReady
   _directHitAnimationName: SkillDirectHit
-  _timingVisual: {fileID: 0}
+  _timingVisual: {fileID: 2004558407}
 --- !u!1 &848891639
 GameObject:
   m_ObjectHideFlags: 0
@@ -3134,6 +3134,17 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: ab09877e2e707104187f6f83e2f62510, type: 2}
+--- !u!114 &2004558407 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1738013798487995576, guid: 1fd26e454850a9540977ed8c9900517c, type: 3}
+  m_PrefabInstance: {fileID: 1773580840}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 077761f4289e43fe93db1b45762158f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2027025976
 GameObject:
   m_ObjectHideFlags: 0
