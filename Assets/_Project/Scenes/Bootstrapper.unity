@@ -400,11 +400,11 @@ MonoBehaviour:
     - Reference:
         asset: {fileID: 102900000, guid: a6391b7271c94fd4c93960045f9257f9, type: 3}
         guid: a6391b7271c94fd4c93960045f9257f9
-      SceneType: 0
+      SceneType: 5
     - Reference:
         asset: {fileID: 102900000, guid: 233531642b3a832429b28da43bd1e908, type: 3}
         guid: 233531642b3a832429b28da43bd1e908
-      SceneType: 5
+      SceneType: 0
     - Reference:
         asset: {fileID: 102900000, guid: 6249f9683b45aa44099e5e5b7cbee55c, type: 3}
         guid: 6249f9683b45aa44099e5e5b7cbee55c

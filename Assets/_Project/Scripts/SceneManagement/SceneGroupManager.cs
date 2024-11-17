@@ -49,7 +49,9 @@ namespace DungeonCrawler._Project.Scripts.SceneManagement
                 {
                     Scene loadedScene = SceneManager.GetSceneByName(sceneData.Name);
                     if (loadedScene.IsValid())
+                    {
                         OnSceneLoaded.Invoke(loadedScene);
+                    }
                 };
             }
 
