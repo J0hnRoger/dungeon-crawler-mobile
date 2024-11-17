@@ -8,7 +8,6 @@ using DungeonCrawler._Project.Scripts.Events.Inputs;
 using DungeonCrawler._Project.Scripts.Skills.Components;
 using DungeonCrawler.Skills;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace DungeonCrawler._Project.Scripts.Skills
 {

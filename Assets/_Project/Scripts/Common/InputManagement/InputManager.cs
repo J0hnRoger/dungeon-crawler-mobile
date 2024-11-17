@@ -28,12 +28,15 @@ namespace DungeonCrawler._Project.Scripts.Common.InputManagement
         {
             EventBus<SceneLoadedEvent>.Deregister(_sceneLoadedeventBinding);
             _allInputs.Disable();
-            _attackAction.performed -= OnTapPerformed;
+            // check if null, if disabled by Singleton baseclass
+            if (_attackAction != null)
+                _attackAction.performed -= OnTapPerformed;
         }
 
         private void OnSceneLoaded(SceneLoadedEvent obj)
         {
             _mainCamera = Camera.main;
+            Debug.Log($"Main Camera set to: {_mainCamera?.name}");
         }
 
         protected override void AwakeAsSingleton()
