@@ -21,7 +21,8 @@ namespace DungeonCrawler._Project.Scripts.Skills
 
         public void TriggerAnimation(string animationName)
         {
-            _animator.SetTrigger(animationName);
+            //_animator.SetTrigger(animationName);
+            _animator.Play(animationName);
         }
     }
 }
