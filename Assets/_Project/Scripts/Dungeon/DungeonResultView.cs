@@ -10,7 +10,7 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
         [SerializeField] private GameObject _panel;
         [SerializeField] private Button _close;
 
-        private EventBinding<DungeonFinishedEvent> _onDungeonFinishedEvent;
+        private EventBinding<DungeonResultEvent> _onDungeonResultEvent;
 
         private void Start()
         {
@@ -20,16 +20,16 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
 
         public void OnEnable()
         {
-            _onDungeonFinishedEvent = new EventBinding<DungeonFinishedEvent>(ShowDungeonResult);
-            EventBus<DungeonFinishedEvent>.Register(_onDungeonFinishedEvent);
+            _onDungeonResultEvent = new EventBinding<DungeonResultEvent>(ShowDungeonResult);
+            EventBus<DungeonResultEvent>.Register(_onDungeonResultEvent);
         }
 
         public void OnDisable()
         {
-            EventBus<DungeonFinishedEvent>.Deregister(_onDungeonFinishedEvent);
+            EventBus<DungeonResultEvent>.Deregister(_onDungeonResultEvent);
         }
 
-        private void ShowDungeonResult(DungeonFinishedEvent combatResultCalculatedEvent)
+        private void ShowDungeonResult(DungeonResultEvent dungeonResultEvent)
         {
             _panel.SetActive(true);
         }
@@ -37,6 +37,7 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
         private void ClosePopup()
         {
             _panel.SetActive(false);
+            EventBus<DungeonFinishedEvent>.Raise(new DungeonFinishedEvent());
         }
     }
 }

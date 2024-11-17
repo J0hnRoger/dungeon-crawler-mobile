@@ -50,7 +50,7 @@ namespace DungeonCrawler._Project.Scripts.Grid
             if (_model.DungeonClear)
             {
                 _pause = true;
-                EventBus<DungeonFinishedEvent>.Raise(new DungeonFinishedEvent());
+                EventBus<DungeonResultEvent>.Raise(new DungeonResultEvent());
             }
         }
 

@@ -101,7 +101,7 @@ namespace DungeonCrawler._Project.Scripts.Dungeon
 
         private async void HandleDungeonFinished(DungeonFinishedEvent obj)
         {
-            await Task.Delay(4500);
+            await Task.Delay(1500);
             if (_sceneLoader != null)
                 await _sceneLoader.LoadSceneGroup((int)DungeonCrawlerScenes.HUB);
         }
