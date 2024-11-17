@@ -801,8 +801,9 @@ GameObject:
   - component: {fileID: 1730488806}
   - component: {fileID: 1730488805}
   - component: {fileID: 1730488804}
+  - component: {fileID: 1730488807}
   m_Layer: 0
-  m_Name: EventSystem
+  m_Name: InputManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -869,6 +870,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1730488807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730488803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b58090471bd443baf065f3681a0d3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _allInputs: {fileID: -944628639613478452, guid: 63b29a216f2ac8340866c64d2b6dd0a9, type: 3}
 --- !u!1 &1889748251
 GameObject:
   m_ObjectHideFlags: 0
@@ -1136,7 +1150,7 @@ RectTransform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1730488806}
   - {fileID: 1376538503}
   - {fileID: 271461522}
   - {fileID: 2048521018}
-  - {fileID: 1730488806}
