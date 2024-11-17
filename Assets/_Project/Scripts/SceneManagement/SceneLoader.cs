@@ -24,7 +24,7 @@ namespace DungeonCrawler._Project.Scripts.SceneManagement
         private void Awake()
         {
             _manager.OnSceneLoaded += HandleSceneLoaded;
-            _manager.OnSceneUnloaded += scene => Debug.Log($"Unloaded: {scene.name}");
+            _manager.OnSceneUnloaded += HandleSceneUnloaded;
             _manager.OnSceneGroupLoaded += () => Debug.Log($"Scene group loaded");
         }
 
@@ -33,6 +33,11 @@ namespace DungeonCrawler._Project.Scripts.SceneManagement
             EventBus<SceneLoadedEvent>.Raise(new SceneLoadedEvent(scene));
         }
 
+        private void HandleSceneUnloaded(Scene scene)
+        {
+            EventBus<SceneUnloadedEvent>.Raise(new SceneUnloadedEvent(scene));
+        }
+        
         async void Start()
         {
             await LoadSceneGroup(0);

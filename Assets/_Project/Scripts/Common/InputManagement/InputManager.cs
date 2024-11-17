@@ -6,6 +6,7 @@ using DungeonCrawler._Project.Scripts.Events;
 using DungeonCrawler._Project.Scripts.Events.Inputs;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace DungeonCrawler._Project.Scripts.Common.InputManagement
 {
@@ -17,45 +18,61 @@ namespace DungeonCrawler._Project.Scripts.Common.InputManagement
         private Camera _mainCamera;
 
         private EventBinding<SceneLoadedEvent> _sceneLoadedeventBinding;
+        private EventBinding<SceneUnloadedEvent> _sceneUnloadedeventBinding;
 
         private void OnEnable()
         {
             // Update de la main camera
             _sceneLoadedeventBinding = new EventBinding<SceneLoadedEvent>(OnSceneLoaded);
             EventBus<SceneLoadedEvent>.Register(_sceneLoadedeventBinding);
+            
+            _sceneUnloadedeventBinding = new EventBinding<SceneUnloadedEvent>(OnSceneUnloaded);
+            EventBus<SceneUnloadedEvent>.Register(_sceneUnloadedeventBinding);
         }
 
+        /// <summary>
+        /// Action déclenchée à chaque "Destroy" de Singleton sur les scenes
+        /// donc bien penser à ré-activer les Input dans le OnSceneLoaded et rattacher les events dans
+        /// </summary>
         public void OnDisable()
         {
-            EventBus<SceneLoadedEvent>.Deregister(_sceneLoadedeventBinding);
-            _allInputs.Disable();
+            // EventBus<SceneLoadedEvent>.Deregister(_sceneLoadedeventBinding);
+            // _allInputs.Disable();
             // check if null, if disabled by Singleton baseclass
-            if (_attackAction != null)
-                _attackAction.performed -= OnTapPerformed;
+            // if (_attackAction != null)
+            //     _attackAction.performed -= OnTapPerformed;
         }
 
         private void OnSceneLoaded(SceneLoadedEvent sceneLoadedEvent)
         {
             var loadedScene = sceneLoadedEvent.LoadedScene;
+            _mainCamera = GetMainCamera(loadedScene);
+            _allInputs.Enable();
+        }
+        
+        private void OnSceneUnloaded(SceneUnloadedEvent sceneUnloadedEvent)
+        {
+            var loadedScene = sceneUnloadedEvent.UnloadedScene;
+            _mainCamera = GetMainCamera(SceneManager.GetActiveScene());
+            // on re-enable les inputs
+            _allInputs.Enable();
+        }
 
+        private Camera GetMainCamera(Scene loadedScene)
+        {
             var mainCameraInScene = loadedScene.GetRootGameObjects()
                 .SelectMany(go => go.GetComponentsInChildren<Camera>())
                 .FirstOrDefault(cam => cam.CompareTag("MainCamera"));
-            if (mainCameraInScene == null)
-            {
-                _mainCamera = Camera.main; // pour du multi-scene additif
-                if (_mainCamera != null)
-                    Debug.Log($"Main Camera not found: use {Camera.main!.name} instead.");
-                else 
-                    Debug.Log($"No camera on scene.");
-            }
-            else
-            {
-                Debug.Log($"Scene Main Camera : {mainCameraInScene.name}.");
-                _mainCamera = mainCameraInScene;
-            }
 
-            _allInputs.Enable();
+            if (mainCameraInScene != null)
+                return mainCameraInScene;
+
+            var mainCamera = Camera.main; // pour du multi-scene additif
+            if (mainCamera != null)
+                Debug.Log($"Main Camera not found: use {mainCamera.name} instead.");
+            else
+                Debug.Log($"No camera on scene.");
+            return mainCamera;
         }
 
         protected override void AwakeAsSingleton()
