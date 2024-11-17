@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using _Project.Scripts.Common;
 using _Project.Scripts.Common.EventBus;
 using DungeonCrawler._Project.Scripts.Events;
@@ -33,10 +34,28 @@ namespace DungeonCrawler._Project.Scripts.Common.InputManagement
                 _attackAction.performed -= OnTapPerformed;
         }
 
-        private void OnSceneLoaded(SceneLoadedEvent obj)
+        private void OnSceneLoaded(SceneLoadedEvent sceneLoadedEvent)
         {
-            _mainCamera = Camera.main;
-            Debug.Log($"Main Camera set to: {_mainCamera?.name}");
+            var loadedScene = sceneLoadedEvent.LoadedScene;
+
+            var mainCameraInScene = loadedScene.GetRootGameObjects()
+                .SelectMany(go => go.GetComponentsInChildren<Camera>())
+                .FirstOrDefault(cam => cam.CompareTag("MainCamera"));
+            if (mainCameraInScene == null)
+            {
+                _mainCamera = Camera.main; // pour du multi-scene additif
+                if (_mainCamera != null)
+                    Debug.Log($"Main Camera not found: use {Camera.main!.name} instead.");
+                else 
+                    Debug.Log($"No camera on scene.");
+            }
+            else
+            {
+                Debug.Log($"Scene Main Camera : {mainCameraInScene.name}.");
+                _mainCamera = mainCameraInScene;
+            }
+
+            _allInputs.Enable();
         }
 
         protected override void AwakeAsSingleton()
@@ -44,7 +63,7 @@ namespace DungeonCrawler._Project.Scripts.Common.InputManagement
             _mainCamera = Camera.main;
 
             _attackAction = _allInputs.FindActionMap("Gameplay")
-            .FindAction("Attack");
+                .FindAction("Attack");
 
             if (_attackAction == null)
                 throw new Exception("[InputManager] Pas d'action 'Attack' trouvée dans le fichier Inputs");
@@ -67,9 +86,13 @@ namespace DungeonCrawler._Project.Scripts.Common.InputManagement
                 return;
             }
 
-            Vector3 worldPosition = _mainCamera.ScreenToWorldPoint(new Vector3(screenPosition.Value.x, screenPosition.Value.y, 0));
+            Vector3 worldPosition =
+                _mainCamera.ScreenToWorldPoint(new Vector3(screenPosition.Value.x, screenPosition.Value.y, 0));
 
-            EventBus<TapEvent>.Raise(new TapEvent() { WorldPosition = worldPosition, ScreenPosition = screenPosition.Value });
+            EventBus<TapEvent>.Raise(new TapEvent()
+            {
+                WorldPosition = worldPosition, ScreenPosition = screenPosition.Value
+            });
         }
     }
 }
