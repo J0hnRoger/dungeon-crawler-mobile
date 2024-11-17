@@ -61,17 +61,8 @@ namespace DungeonCrawler._Project.Scripts
         private async void HandleLoadGameRequested(GameLoadedEvent gameLoadedEvent)
         {
             _gameData = gameLoadedEvent.GameData;
-            string currentLevelName = _gameData.LevelProgressions.First(l => l.NbRuns == 0).LevelName;
 
-            var currentLevel = _levelSequenceData.Levels
-                .FirstOrDefault(level => level.name == currentLevelName);
-
-            if (currentLevel == null)
-                Debug.LogError($"Level not found: {currentLevelName}");
-
-            await _sceneLoader.LoadSceneGroup((int)DungeonCrawlerScenes.EXPLORATION);
-            // Charger le niveau en cours
-            EventBus<LoadLevelEvent>.Raise(new LoadLevelEvent {LevelPrefab = currentLevel});
+            await _sceneLoader.LoadSceneGroup((int)DungeonCrawlerScenes.HUB);
         }
 
         private async void HandleStartNewLevelRequestedAsync(StartNewLevelEvent startLevelEvent)

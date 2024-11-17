@@ -21,7 +21,6 @@ namespace _Project.Scripts.Common.EventBus
 
         static void Clear()
         {
-            Debug.Log($"Clearing {typeof(T).Name} bindings");
             _bindings.Clear();
         }
     }

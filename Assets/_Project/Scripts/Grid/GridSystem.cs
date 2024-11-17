@@ -37,6 +37,7 @@ namespace DungeonCrawler._Project.Scripts.Grid
 
         private void OnLoadLevel(LoadLevelEvent loadLevelEvent)
         {
+            Debug.Log("[Grid System] OnLoadLevel called");
             // Nettoyer l'ancien niveau si nécessaire
             if (_currentLevel != null)
                 Destroy(_currentLevel);
