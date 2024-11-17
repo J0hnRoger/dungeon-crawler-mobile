@@ -30,9 +30,10 @@ namespace DungeonCrawler._Project.Scripts.Grid
             EventBus<LoadLevelEvent>.Register(_loadLevelBinding);
         }
 
-        private void Start()
+        private void OnDisable()
         {
-            // Initialize(_levelPrefab);
+            EventBus<LoadLevelEvent>.Deregister(_loadLevelBinding); 
+            _controller.OnDisable();
         }
 
         private void OnLoadLevel(LoadLevelEvent loadLevelEvent)
@@ -73,7 +74,5 @@ namespace DungeonCrawler._Project.Scripts.Grid
             var model = new GridModel(startingPoint, combatCells.Concat(bossCell).ToList());
             _controller = new GridController(model, _view);
         }
-
-        private void OnDisable() => _controller.OnDisable();
     }
 }
