@@ -3,7 +3,6 @@ using _Project.Scripts.Common.DependencyInjection;
 using DungeonCrawler._Project.Scripts.Combat.SO;
 using DungeonCrawler._Project.Scripts.Dungeon;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace DungeonCrawler._Project.Scripts.Combat
 {
