@@ -194,8 +194,15 @@ namespace _Project.Scripts.Common.DependencyInjection
                 var providedInstance = method.Invoke(provider, null);
                 if (providedInstance != null)
                 {
-                    _registry.Add(returnType, providedInstance);
-                    Debug.Log($"Registered {provider.GetType().Name} from {returnType.Name}");
+                    if (!_registry.ContainsKey(returnType))
+                    {
+                        _registry.Add(returnType, providedInstance);
+                        Debug.Log($"Registered {provider.GetType().Name} from {returnType.Name}");
+                    }
+                    else
+                    {
+                        Debug.Log($"Registered {provider.GetType().Name} from {returnType.Name} already registered");
+                    }
                 }
                 else
                     throw new Exception($"Provider {provider.GetType().Name} return null for {returnType.Name}");

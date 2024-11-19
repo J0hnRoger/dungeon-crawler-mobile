@@ -67,16 +67,16 @@ namespace DungeonCrawler._Project.Scripts
 
         private async void HandleStartNewLevelRequestedAsync(StartNewLevelEvent startLevelEvent)
         {
-            var firstLevel = _levelSequenceData.Levels
-                .Where(l => l.name == startLevelEvent.LevelName)
-                .First();
+            Debug.Log("HandleStartNewLevelRequestedAsync");
+            var currentLevel = _levelSequenceData.Levels
+                .First(l => l.name == startLevelEvent.LevelName);
 
-            _gameData.UpdateProgression(firstLevel.name);
+            _gameData.UpdateProgression(currentLevel.name);
 
             await _sceneLoader.LoadSceneGroup((int)DungeonCrawlerScenes.EXPLORATION);
 
             // Charger le premier niveau
-            EventBus<LoadLevelEvent>.Raise(new LoadLevelEvent { LevelPrefab = firstLevel });
+            EventBus<LoadLevelEvent>.Raise(new LoadLevelEvent { LevelPrefab = currentLevel });
         }
 
         protected override void AwakeAsSingleton()
