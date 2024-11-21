@@ -1,6 +1,7 @@
 ﻿using System;
 using _Project.Scripts.Common.DependencyInjection;
 using DungeonCrawler._Project.Scripts.Combat.SO;
+using DungeonCrawler._Project.Scripts.Common.ScriptableObjects;
 using DungeonCrawler._Project.Scripts.Dungeon;
 using UnityEngine;
 
@@ -13,8 +14,10 @@ namespace DungeonCrawler._Project.Scripts.Combat
 
         [SerializeField] private CombatView _view;
         
+        [InlineInspector]
         [SerializeField] private EnemyData _enemyData;
         
+        [InlineInspector]
         [SerializeField] private PlayerData _playerData;
         
         [Header("Gameplay")]

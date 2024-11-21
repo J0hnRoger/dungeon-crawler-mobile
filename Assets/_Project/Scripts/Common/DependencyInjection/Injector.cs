@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using _Project.Scripts.Common.EventBus;
+using DungeonCrawler._Project.Scripts.Common.DependencyInjection;
 using DungeonCrawler._Project.Scripts.Events;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ namespace _Project.Scripts.Common.DependencyInjection
 {
     /// <summary>
     /// Injector is a singleton that injects dependencies into MonoBehaviours.
+    /// or destroy it if exists
+    /// - TODO - support lazy loading
     /// </summary>
     [DefaultExecutionOrder(-1000)]
     public class Injector : Singleton<Injector>
@@ -20,7 +23,7 @@ namespace _Project.Scripts.Common.DependencyInjection
                                                   System.Reflection.BindingFlags.Public |
                                                   System.Reflection.BindingFlags.NonPublic;
 
-        private readonly Dictionary<Type, object> _registry = new();
+        private readonly Dictionary<Type, DependencyRegistration> _registry = new();
 
         private void OnEnable()
         {
@@ -41,8 +44,10 @@ namespace _Project.Scripts.Common.DependencyInjection
                 RegisterProvider(provider);
             }
 
-            var injectables = FindMonoBehaviours().Where(IsInjectable);
-            foreach (MonoBehaviour injectable in injectables)
+            var injectables = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
+                .Where(IsInjectable);
+
+            foreach (var injectable in injectables)
             {
                 Inject(injectable);
             }
@@ -82,11 +87,33 @@ namespace _Project.Scripts.Common.DependencyInjection
             foreach (FieldInfo field in injectableFields)
             {
                 var fieldType = field.FieldType;
-                var resolveInstance = Resolve(fieldType);
-                if (resolveInstance == null)
-                    throw new Exception($"Field Failed to inject {field.Name} into {type.Name}");
-                field.SetValue(injectable, resolveInstance);
-                Debug.Log($"Field Injected {fieldType.Name} into {type.Name}");
+                // Vérifie si la dépendance est déjà disponible dans le registre
+                if (_registry.TryGetValue(fieldType, out var registration) && registration.Instance != null)
+                {
+                    // Injecte immédiatement la dépendance
+                    field.SetValue(injectable, registration.Instance);
+                    Debug.Log($"[Injector] Field {fieldType.Name} injected into {type.Name}");
+                }
+                else
+                {
+                    // Si la dépendance n'est pas disponible, crée un WeakPoint
+                    Debug.LogWarning(
+                        $"[Injector] Missing dependency for {fieldType.Name} in {type.Name}. Creating WeakPoint...");
+
+                    if (!_registry.TryGetValue(fieldType, out registration))
+                    {
+                        registration = new DependencyRegistration();
+                        _registry[fieldType] = registration;
+                    }
+
+                    // Ajoute un WeakPoint pour ce champ
+                    var weakPoint = new InjectionPoint(injectable, instance =>
+                    {
+                        field.SetValue(injectable, instance);
+                        Debug.Log($"[Injector] WeakPoint resolved: Field {fieldType.Name} injected into {type.Name}");
+                    });
+                    registration.InjectionPoints.Add(weakPoint);
+                }
             }
 
             var injectableMethods = type.GetMethods(BindingFlags)
@@ -94,17 +121,48 @@ namespace _Project.Scripts.Common.DependencyInjection
 
             foreach (MethodInfo method in injectableMethods)
             {
-                var requiredParameters = method.GetParameters().Select(parameter => parameter.ParameterType)
-                    .ToArray();
+                var parameters = method.GetParameters();
 
-                var resolvedInstances = requiredParameters.Select(Resolve).ToArray();
+                var resolvedInstances = new object[parameters.Length];
+                for (int i = 0; i < parameters.Length; i++)
+                {
+                    var paramType = parameters[i].ParameterType;
+
+                    if (!_registry.TryGetValue(paramType, out var registration) || registration.Instance == null)
+                    {
+                        Debug.LogWarning(
+                            $"[Injector] Missing dependency for parameter {paramType.Name} in method {method.Name} of {type.Name}");
+                        resolvedInstances[i] = null;
+                        continue;
+                    }
+
+                    resolvedInstances[i] = registration.Instance;
+                }
 
                 if (resolvedInstances.Any(resolvedInstance => resolvedInstance == null))
-                    throw new Exception($"Method Failed to inject {method.Name} into {type.Name}");
+                {
+                    Debug.LogWarning(
+                        $"[Injector] Cannot invoke method {method.Name} in {type.Name} due to unresolved dependencies.");
+                    continue;
+                }
 
-                method.Invoke(injectable, resolvedInstances);
-                Debug.Log($"Method Injected {method.Name} into {type.Name}");
+                try
+                {
+                    method.Invoke(injectable, resolvedInstances);
+                    Debug.Log($"[Injector] Method {method.Name} invoked in {type.Name}");
+                }
+                catch (TargetInvocationException ex)
+                {
+                    Debug.LogError(
+                        $"[Injector] Error invoking method {method.Name} in {type.Name}: {ex.InnerException?.Message}");
+                }
             }
+        }
+
+        private DependencyRegistration Resolve(Type type)
+        {
+            _registry.TryGetValue(type, out var resolvedInstance);
+            return resolvedInstance;
         }
 
         public void ValidateDependencies()
@@ -172,11 +230,6 @@ namespace _Project.Scripts.Common.DependencyInjection
             Debug.Log("[Injector] All injectable fields cleared.");
         }
 
-        private object Resolve(Type type)
-        {
-            _registry.TryGetValue(type, out var resolvedInstance);
-            return resolvedInstance;
-        }
 
         static bool IsInjectable(MonoBehaviour obj)
         {
@@ -191,21 +244,48 @@ namespace _Project.Scripts.Common.DependencyInjection
             {
                 if (!Attribute.IsDefined(method, typeof(ProvideAttribute))) continue;
                 var returnType = method.ReturnType;
+                if (returnType == typeof(void))
+                {
+                    Debug.LogWarning(
+                        $"[Injector] Method {method.Name} in {provider.GetType().Name} marked as [Provide] cannot return void.");
+                    continue;
+                }
+
                 var providedInstance = method.Invoke(provider, null);
+
                 if (providedInstance != null)
                 {
-                    if (!_registry.ContainsKey(returnType))
-                    {
-                        _registry.Add(returnType, providedInstance);
-                        Debug.Log($"Registered {provider.GetType().Name} from {returnType.Name}");
-                    }
-                    else
-                    {
-                        Debug.Log($"Registered {provider.GetType().Name} from {returnType.Name} already registered");
-                    }
+                    Register(returnType, providedInstance);
+                    Debug.Log($"Registered {provider.GetType().Name} from {returnType.Name}");
                 }
                 else
                     throw new Exception($"Provider {provider.GetType().Name} return null for {returnType.Name}");
+            }
+        }
+
+        /// <summary>
+        /// Enregistre une instance pour un type donné.
+        /// </summary>
+        private void Register(Type type, object instance)
+        {
+            if (!_registry.TryGetValue(type, out var registration))
+            {
+                registration = new DependencyRegistration();
+                _registry[type] = registration;
+            }
+
+            registration.Instance = instance;
+            UpdateDependencies(registration);
+        }
+
+        /// <summary>
+        /// Mets à jour les dépendances manquantes lorsqu'une nouvelle dépendance est enregistrée.
+        /// </summary>
+        private static void UpdateDependencies(DependencyRegistration registration)
+        {
+            foreach (var injectionPoint in registration.InjectionPoints.ToList())
+            {
+                injectionPoint.Injector(registration.Instance);
             }
         }
 

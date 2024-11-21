@@ -23,9 +23,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/Combat.unity
     guid: 233531642b3a832429b28da43bd1e908
+  - enabled: 0
+    path: Assets/_Project/Scripts/Inventory/UI.unity
+    guid: 6249f9683b45aa44099e5e5b7cbee55c
   - enabled: 1
     path: Assets/_Project/Scenes/UI.unity
-    guid: 6249f9683b45aa44099e5e5b7cbee55c
+    guid: e14814bf52e607044a22b5a62e30732d
   m_configObjects:
     com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: 4ceca2d00132f104e918fa91d0cbfcff, type: 2}
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: cc31c32f1aed32f4fb447ce40897129a, type: 2}

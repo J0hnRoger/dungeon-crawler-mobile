@@ -1,9 +1,16 @@
+using _Project.Scripts.Common.DependencyInjection;
 using UnityEngine;
 
-namespace DungeonCrawler
+namespace DungeonCrawler._Project.Scripts.Inventory
 {
-    public class InventoryView : MonoBehaviour
+    public class InventoryView : MonoBehaviour, IDependencyProvider
     {
+        [Provide]
+        private InventoryView provideInventoryView()
+        {
+            return this;
+        } 
+        
         [SerializeField] private GameObject _container;
         
         // Start is called once before the first execution of Update after the MonoBehaviour is created
