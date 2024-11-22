@@ -1,11 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using DungeonCrawler._Project.Scripts.Common;
 using DungeonCrawler._Project.Scripts.Inventory.SO;
 
 namespace DungeonCrawler._Project.Scripts.Inventory
 {
     public class InventoryModel
     {
-        public List<DungeonItem> Items { get; set; }
+        public ObservableList<DungeonItem> Items { get; set; }
+        
+        public InventoryModel(List<DungeonItemSO> sampleItems)
+        {
+            Items = new ObservableList<DungeonItem>(sampleItems
+                .Select(so => new DungeonItem() {Name = so.Name, Quantity = 1, Data = so})
+                .ToList());
+        }
     }
 
     /// <summary>

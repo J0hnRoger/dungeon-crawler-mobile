@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 namespace DungeonCrawler._Project.Scripts.Inventory.SO
 {
     [CreateAssetMenu(fileName = "New Item", menuName = "ScriptableObjects/Item")]
     public class DungeonItemSO : ScriptableObject
     {
-       public string Name { get; set; } 
-       public Image Icon { get; set; }
-       public GameObject ItemPrefab { get; set; }
+        public string Name;
+        public Sprite Icon;
+        public GameObject ItemPrefab;
     }
 }

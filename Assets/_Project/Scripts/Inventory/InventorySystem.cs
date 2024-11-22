@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using _Project.Scripts.Common.DependencyInjection;
+using DungeonCrawler._Project.Scripts.Common.DependencyInjection;
 using DungeonCrawler._Project.Scripts.Inventory;
+using DungeonCrawler._Project.Scripts.Inventory.SO;
+using DungeonCrawler._Project.Scripts.Persistence;
 using UnityEngine;
 
 namespace DungeonCrawler
@@ -8,18 +12,27 @@ namespace DungeonCrawler
     public class InventorySystem : MonoBehaviour
     {
         [Inject]
-        [SerializeField] 
-        private InventoryView _inventoryView;
+        private Deferred<InventoryView> _deferredInventoryView = new ();
         
+        [Inject] 
+        [SerializeField] 
+        private List<DungeonItemSO> _sampleItems;
+        
+        private InventoryController _controller;
+
         void Start()
         {
-            var model = new InventoryModel();
-            var controller = new InventoryController(model, _inventoryView);
+            _deferredInventoryView.OnLoaded += InitView;
         }
 
-        public void Load()
+        private void InitView(InventoryView instance)
         {
-            _inventoryView.ToggleInventoryUI();
+            var model = new InventoryModel(_sampleItems);
+            _controller = new InventoryController(model, instance);
+        }
+
+        public void InitModel(GameData data)
+        {
         }
     }
 }

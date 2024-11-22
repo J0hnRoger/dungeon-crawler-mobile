@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace _Project.Scripts.Persistence
+namespace DungeonCrawler._Project.Scripts.Persistence
 {
     [Serializable]
     public class GameData

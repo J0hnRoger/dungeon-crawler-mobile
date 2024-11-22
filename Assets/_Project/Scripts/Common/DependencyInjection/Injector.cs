@@ -87,32 +87,62 @@ namespace _Project.Scripts.Common.DependencyInjection
             foreach (FieldInfo field in injectableFields)
             {
                 var fieldType = field.FieldType;
-                // Vérifie si la dépendance est déjà disponible dans le registre
-                if (_registry.TryGetValue(fieldType, out var registration) && registration.Instance != null)
+                if (fieldType.IsGenericType && fieldType.GetGenericTypeDefinition() == typeof(Deferred<>))
                 {
-                    // Injecte immédiatement la dépendance
-                    field.SetValue(injectable, registration.Instance);
-                    Debug.Log($"[Injector] Field {fieldType.Name} injected into {type.Name}");
+                    // Gestion des dépendances différées
+                    var deferredType = fieldType.GetGenericArguments()[0];
+
+                    if (!_registry.TryGetValue(deferredType, out var registration))
+                    {
+                        registration = new DependencyRegistration();
+                        _registry[deferredType] = registration;
+                    }
+
+                    // Crée une instance de Deferred<T> pour le champ
+                    var deferredInstance = Activator.CreateInstance(fieldType);
+                    field.SetValue(injectable, deferredInstance);
+
+                    // Ajoute un InjectionPoint pour notifier le Deferred<T> lorsque la dépendance est résolue
+                    var injectionPoint = new InjectionPoint(injectable, instance =>
+                    {
+                        var resolveMethod = fieldType.GetMethod("Resolve");
+                        resolveMethod?.Invoke(deferredInstance, new[] {instance});
+                    });
+
+                    registration.InjectionPoints.Add(injectionPoint);
+
+                    Debug.Log($"[Injector] Deferred<{deferredType.Name}> created for {type.Name}");
                 }
                 else
                 {
-                    // Si la dépendance n'est pas disponible, crée un WeakPoint
-                    Debug.LogWarning(
-                        $"[Injector] Missing dependency for {fieldType.Name} in {type.Name}. Creating WeakPoint...");
-
-                    if (!_registry.TryGetValue(fieldType, out registration))
+                    // Vérifie si la dépendance est déjà disponible dans le registre
+                    if (_registry.TryGetValue(fieldType, out var registration) && registration.Instance != null)
                     {
-                        registration = new DependencyRegistration();
-                        _registry[fieldType] = registration;
+                        // Injecte immédiatement la dépendance
+                        field.SetValue(injectable, registration.Instance);
+                        Debug.Log($"[Injector] Field {fieldType.Name} injected into {type.Name}");
                     }
-
-                    // Ajoute un WeakPoint pour ce champ
-                    var weakPoint = new InjectionPoint(injectable, instance =>
+                    else
                     {
-                        field.SetValue(injectable, instance);
-                        Debug.Log($"[Injector] WeakPoint resolved: Field {fieldType.Name} injected into {type.Name}");
-                    });
-                    registration.InjectionPoints.Add(weakPoint);
+                        // Si la dépendance n'est pas disponible, crée un WeakPoint
+                        Debug.LogWarning(
+                            $"[Injector] Missing dependency for {fieldType.Name} in {type.Name}. Creating WeakPoint...");
+
+                        if (!_registry.TryGetValue(fieldType, out registration))
+                        {
+                            registration = new DependencyRegistration();
+                            _registry[fieldType] = registration;
+                        }
+
+                        // Ajoute un WeakPoint pour ce champ
+                        var weakPoint = new InjectionPoint(injectable, instance =>
+                        {
+                            field.SetValue(injectable, instance);
+                            Debug.Log(
+                                $"[Injector] WeakPoint resolved: Field {fieldType.Name} injected into {type.Name}");
+                        });
+                        registration.InjectionPoints.Add(weakPoint);
+                    }
                 }
             }
 

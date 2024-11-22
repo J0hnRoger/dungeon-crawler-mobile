@@ -1,4 +1,6 @@
-﻿namespace DungeonCrawler._Project.Scripts.Inventory
+﻿using System.Collections.Generic;
+
+namespace DungeonCrawler._Project.Scripts.Inventory
 {
     public class InventoryController
     {
@@ -12,17 +14,22 @@
 
             ConnectModel();
             ConnectView();
-            
         }
 
         private void ConnectModel()
         {
-            
+            _model.Items.AnyValueChanged += OnItemChanged;
+        }
+
+        private void OnItemChanged(IList<DungeonItem> items)
+        {
+           // Map to View 
+           _view.UpdateItems(items);
         }
 
         private void ConnectView()
         {
-            
+           _view.UpdateItems(_model.Items); 
         }
     }
 }

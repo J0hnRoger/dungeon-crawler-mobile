@@ -374,7 +374,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba43de0a02424dceaaef7974f7438792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inventoryView: {fileID: 0}
+  _sampleItems:
+  - {fileID: 11400000, guid: 6e86a2307341bd04bb66859de3da5787, type: 2}
 --- !u!4 &1359458602
 Transform:
   m_ObjectHideFlags: 0

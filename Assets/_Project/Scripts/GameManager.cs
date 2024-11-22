@@ -6,6 +6,7 @@ using _Project.Scripts.Persistence;
 using DungeonCrawler._Project.Scripts.Dungeon;
 using DungeonCrawler._Project.Scripts.Dungeon.SO;
 using DungeonCrawler._Project.Scripts.Events;
+using DungeonCrawler._Project.Scripts.Persistence;
 using DungeonCrawler._Project.Scripts.SceneManagement;
 using UnityEngine;
 
