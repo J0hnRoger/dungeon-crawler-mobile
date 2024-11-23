@@ -2,6 +2,10 @@
 
 namespace DungeonCrawler._Project.Scripts.Common.DependencyInjection
 {
+    /// <summary>
+    /// Represents a deferred value that can be resolved at a later time.
+    /// </summary>
+    /// <typeparam name="T">The type of the deferred value.</typeparam>
     public class Deferred<T>
     {
         private T _value;

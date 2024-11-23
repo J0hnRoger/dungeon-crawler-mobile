@@ -1,12 +1,14 @@
-﻿using UnityEditor;
+﻿using _Project.Scripts.Common.DependencyInjection;
+using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
 
-namespace _Project.Scripts.Common.DependencyInjection
+namespace DungeonCrawler._Project.Scripts.Common.DependencyInjection.Editor
 {
     [CustomPropertyDrawer(typeof(InjectAttribute))]
     public class InjectPropertyDrawer : PropertyDrawer
     {
-        Texture2D icon;
+        private Texture2D icon;
 
         Texture2D LoadIcon()
         {
@@ -28,12 +30,41 @@ namespace _Project.Scripts.Common.DependencyInjection
             if (icon != null)
             {
                 var savedColor = GUI.color;
-                GUI.color = property.objectReferenceValue == null ? savedColor : Color.green;
+                // Vérifie si la propriété est une référence d'objet avant d'appliquer `objectReferenceValue`.
+                if (property.isArray)
+            {
+                GUI.color = property.arraySize > 0 ? Color.green : savedColor;
+            }
+                if (property.propertyType == SerializedPropertyType.ObjectReference)
+                {
+                    GUI.color = property.objectReferenceValue == null ? savedColor : Color.green;
+                }
+
                 GUI.DrawTexture(iconRect, icon);
                 GUI.color = savedColor;
             }
+            
+            // Handle standard property
+            EditorGUI.PropertyField(position, property, label, true);
+        }
 
-            EditorGUI.PropertyField(position, property, label);
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            if (property.propertyType == SerializedPropertyType.Generic && property.isArray)
+            {
+                float totalHeight = EditorGUIUtility.singleLineHeight; // To allow for a foldout
+                if (property.isExpanded) // Check to expand the elements
+                {
+                    for (int i = 0; i < property.arraySize; i++)
+                    {
+                        totalHeight += EditorGUI.GetPropertyHeight(property.GetArrayElementAtIndex(i), true);
+                    }
+                }
+
+                return totalHeight;
+            }
+
+            return EditorGUI.GetPropertyHeight(property, label, true);
         }
     }
 }
