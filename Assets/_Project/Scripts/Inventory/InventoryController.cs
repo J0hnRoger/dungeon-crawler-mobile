@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using _Project.Scripts.Common.EventBus;
+using DungeonCrawler._Project.Scripts.Events;
+using UnityEditor;
 
 namespace DungeonCrawler._Project.Scripts.Inventory
 {
@@ -7,6 +10,8 @@ namespace DungeonCrawler._Project.Scripts.Inventory
         private readonly InventoryModel _model;
         private readonly InventoryView _view;
 
+        private EventBinding<AddItemIntoInventoryEvent> _itemAddedEventBinding;
+        
         public InventoryController(InventoryModel model, InventoryView view)
         {
             _model = model;
@@ -14,6 +19,18 @@ namespace DungeonCrawler._Project.Scripts.Inventory
 
             ConnectModel();
             ConnectView();
+        }
+
+        public void OnEnable()
+        {
+            _itemAddedEventBinding = new EventBinding<AddItemIntoInventoryEvent>(OnItemAdded);
+            EventBus<AddItemIntoInventoryEvent>.Register(_itemAddedEventBinding);
+        }
+
+        private void OnItemAdded(AddItemIntoInventoryEvent itemAddedEvent)
+        {
+            foreach(var item in itemAddedEvent.Items)
+                _model.Items.Add(item);
         }
 
         private void ConnectModel()

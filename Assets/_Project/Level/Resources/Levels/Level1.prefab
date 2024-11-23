@@ -699,6 +699,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9162576092384750290}
     m_Modifications:
+    - target: {fileID: 1213446726628048034, guid: 822e06fdf3ef75640ac52f6a51857d08, type: 3}
+      propertyPath: _items.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1213446726628048034, guid: 822e06fdf3ef75640ac52f6a51857d08, type: 3}
+      propertyPath: _items.Array.data[1].Data
+      value: 
+      objectReference: {fileID: 11400000, guid: 32d935631a081444fbf0b77c67f962a6, type: 2}
+    - target: {fileID: 1213446726628048034, guid: 822e06fdf3ef75640ac52f6a51857d08, type: 3}
+      propertyPath: _items.Array.data[1].Quantity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2734060741745419041, guid: 822e06fdf3ef75640ac52f6a51857d08, type: 3}
       propertyPath: m_Name
       value: TileChest
@@ -741,6 +753,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3367150382406171035, guid: 822e06fdf3ef75640ac52f6a51857d08, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7724456521827510268, guid: 822e06fdf3ef75640ac52f6a51857d08, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7724456521827510268, guid: 822e06fdf3ef75640ac52f6a51857d08, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7724456521827510268, guid: 822e06fdf3ef75640ac52f6a51857d08, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7724456521827510268, guid: 822e06fdf3ef75640ac52f6a51857d08, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
