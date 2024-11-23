@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using _Project.Scripts.Common.DependencyInjection;
+using TMPro;
 using UnityEngine;
 
 namespace DungeonCrawler._Project.Scripts.Inventory
@@ -15,6 +17,8 @@ namespace DungeonCrawler._Project.Scripts.Inventory
         [SerializeField] private int _nbSlot = 9;
         [SerializeField] private GameObject _container;
         [SerializeField] private GameObject _slotPrefab;
+        [SerializeField] private TMP_Text _inventoryTitle;
+        
         
         private List<ItemSlot> Items = new();
         
@@ -34,17 +38,28 @@ namespace DungeonCrawler._Project.Scripts.Inventory
             Items.Add(slotComponent);
         }
 
-        public void ToggleInventoryUI()
-        {
-           _container.SetActive(!_container.activeSelf); 
-        }
-
         public void UpdateItems(IList<DungeonItem> items)
         {
             for (var i = 0; i < items.Count; i++)
             {
                 Items[i].SetItem(items[i]);
             }
+        }
+        
+        public void CloseInventory()
+        {
+            SetInventoryUIEnable(false);
+        }
+
+        public void ToggleInventoryUI()
+        {
+            SetInventoryUIEnable(!_container.gameObject.activeSelf);
+        }
+        
+        private void SetInventoryUIEnable(bool show)
+        {
+           _inventoryTitle.gameObject.SetActive(show); 
+           _container.SetActive(!_container.activeSelf); 
         }
     }
 }

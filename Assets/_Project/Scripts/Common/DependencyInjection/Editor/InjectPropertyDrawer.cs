@@ -31,11 +31,22 @@ namespace DungeonCrawler._Project.Scripts.Common.DependencyInjection.Editor
             {
                 var savedColor = GUI.color;
                 // Vérifie si la propriété est une référence d'objet avant d'appliquer `objectReferenceValue`.
-                if (property.isArray)
-            {
-                GUI.color = property.arraySize > 0 ? Color.green : savedColor;
-            }
-                if (property.propertyType == SerializedPropertyType.ObjectReference)
+                if (property.propertyPath.EndsWith(".Array.data[0]"))
+                {
+                    // Remonter à la propriété parente (la List elle-même)
+                    string listPath = property.propertyPath.Replace(".Array.data[0]", "");
+                    var listProperty = property.serializedObject.FindProperty(listPath);
+                    GUI.color = listProperty.arraySize > 0 ? Color.green : savedColor;
+                }
+                else if (property.propertyType == SerializedPropertyType.Generic)
+                {
+                    var valueProperty = property.FindPropertyRelative("_value");
+                    if (valueProperty != null)
+                    {
+                        GUI.color = valueProperty.objectReferenceValue != null ? Color.green : savedColor;
+                    }
+                }
+                else if (property.propertyType == SerializedPropertyType.ObjectReference)
                 {
                     GUI.color = property.objectReferenceValue == null ? savedColor : Color.green;
                 }
@@ -43,7 +54,7 @@ namespace DungeonCrawler._Project.Scripts.Common.DependencyInjection.Editor
                 GUI.DrawTexture(iconRect, icon);
                 GUI.color = savedColor;
             }
-            
+
             // Handle standard property
             EditorGUI.PropertyField(position, property, label, true);
         }

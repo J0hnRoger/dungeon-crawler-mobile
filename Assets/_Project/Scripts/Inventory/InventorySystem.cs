@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using _Project.Scripts.Common.DependencyInjection;
 using DungeonCrawler._Project.Scripts.Common.DependencyInjection;
 using DungeonCrawler._Project.Scripts.Persistence;
@@ -9,6 +10,7 @@ namespace DungeonCrawler._Project.Scripts.Inventory
     public class InventorySystem : MonoBehaviour
     {
         [Inject]
+        [SerializeField]
         private Deferred<InventoryView> _deferredInventoryView = new ();
         
         [Inject]
@@ -24,6 +26,7 @@ namespace DungeonCrawler._Project.Scripts.Inventory
 
         private void InitView(InventoryView instance)
         {
+            instance.ToggleInventoryUI();
             var model = new InventoryModel(_sampleItems);
             _controller = new InventoryController(model, instance);
         }

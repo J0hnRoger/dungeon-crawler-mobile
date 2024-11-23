@@ -375,7 +375,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sampleItems:
-  - {fileID: 11400000, guid: 6e86a2307341bd04bb66859de3da5787, type: 2}
+  - Name: Shirt
+    Quantity: 1
+    Data: {fileID: 11400000, guid: 6e86a2307341bd04bb66859de3da5787, type: 2}
 --- !u!4 &1359458602
 Transform:
   m_ObjectHideFlags: 0
@@ -452,8 +454,8 @@ MonoBehaviour:
         guid: 233531642b3a832429b28da43bd1e908
       SceneType: 0
     - Reference:
-        asset: {fileID: 102900000, guid: 6249f9683b45aa44099e5e5b7cbee55c, type: 3}
-        guid: 6249f9683b45aa44099e5e5b7cbee55c
+        asset: {fileID: 102900000, guid: e14814bf52e607044a22b5a62e30732d, type: 3}
+        guid: e14814bf52e607044a22b5a62e30732d
       SceneType: 2
   - GroupName: Hub
     Scenes:
