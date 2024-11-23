@@ -1,0 +1,20 @@
+name: Acquire Unity activation file
+on: workflow_dispatch
+jobs:
+  activation:
+    name: Request manual activation file 🔑
+    runs-on: ubuntu-latest
+    steps:
+      # Request manual activation file
+      - name: Request manual activation file
+        id: getManualLicenseFile
+        uses: GameCI/unity-request-activation-file@v2
+        with:
+          unityVersion: 2022.3.16f1  # Remplacez par votre version Unity
+
+      # Upload artifact (Unity_v20XX.X.XXXX.alf)
+      - name: Expose as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Unity_v2022.x.alf
+          path: ${{ steps.getManualLicenseFile.outputs.filePath }} 
