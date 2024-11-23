@@ -24,10 +24,10 @@ jobs:
 
       # Upload artifact (Unity_v20XX.X.XXXX.alf)
       - name: Expose as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
-          name: ${{ steps.alfFile.outputs.filePath }}
-          path: ${{ steps.alfFile.outputs.filePath }}
+          name: Unity_v2022.x.alf
+          path: ${{ steps.getManualLicenseFile.outputs.filePath }}
 
       - name: Output
         id: output
