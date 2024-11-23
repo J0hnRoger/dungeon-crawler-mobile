@@ -13,7 +13,6 @@ namespace DungeonCrawler._Project.Scripts.Inventory
     [Serializable]
     public class DungeonItem
     {
-        public string Name;
         public int Quantity;
         public DungeonItemSO Data;
     }

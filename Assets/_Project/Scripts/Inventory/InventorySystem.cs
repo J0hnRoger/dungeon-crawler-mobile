@@ -29,6 +29,7 @@ namespace DungeonCrawler._Project.Scripts.Inventory
             instance.ToggleInventoryUI();
             var model = new InventoryModel(_sampleItems);
             _controller = new InventoryController(model, instance);
+            _controller.OnEnable();
         }
 
         public void InitModel(GameData data)

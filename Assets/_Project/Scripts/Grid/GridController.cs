@@ -82,7 +82,6 @@ namespace DungeonCrawler._Project.Scripts.Grid
                     MoveOnCombatCell(selected);
                     break;
                 case GridType.Treasure:
-                    // TODO - Coffre
                     MoveOnTreasureCell(selected);
                     break;
                 case GridType.Boss:
@@ -93,7 +92,7 @@ namespace DungeonCrawler._Project.Scripts.Grid
 
         private void MoveOnTreasureCell(GridCell selected)
         {
-            Debug.Log("Move on Treasure cell");
+            Debug.Log("Move on Treasure cell: TODO play chest open animation");
         }
 
         private void MoveOnGridEmptyCell(GridCell selected)
