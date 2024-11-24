@@ -1,0 +1,36 @@
+name: Acquire Unity activation file
+on: workflow_dispatch
+
+jobs:
+  activation:
+    name: Request manual activation file 🔑
+    runs-on: ubuntu-latest
+    steps:
+      - name: Unity - Request Activation File
+        run: |
+          sudo docker run \
+            -e UNITY_VERSION=2022.3.16f1 \
+            -e UNITY_DOWNLOAD_URL="" \
+            unityci/editor:2022.3.16f1-linux-il2cpp-2 \
+            unity-editor \
+            -batchmode \
+            -nographics \
+            -logFile /dev/stdout \
+            -quit \
+            -createManualActivationFile
+
+      - name: Unity - Get Activation File
+        run: |
+          ACTIVATION_FILE_PATH=$(find . -name 'Unity_v*_*.alf' -type f -print -quit)
+          if [ -z "$ACTIVATION_FILE_PATH" ]; then
+            echo "No .alf file found"
+            exit 1
+          fi
+          echo "Found activation file at: $ACTIVATION_FILE_PATH"
+          cp "$ACTIVATION_FILE_PATH" "Unity_v2022.x.alf"
+
+      - name: Upload activation file
+        uses: actions/upload-artifact@v3
+        with:
+          name: Unity_v2022.x.alf
+          path: Unity_v2022.x.alf
