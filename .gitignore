@@ -100,3 +100,21 @@ Assets/RealToon
 /[Aa]ssets/TextMesh*Pro/
 /[Aa]ssets/Resources/Unity_*.ulf
 /[Aa]ssets/Resources/Unity_*.alf
+
+# Unity Generated Asset Modifications during build
+/[Aa]ssets/**/*.png.meta
+/[Aa]ssets/**/*.jpg.meta
+/[Aa]ssets/**/*.jpeg.meta
+/[Aa]ssets/**/*.tga.meta
+/[Aa]ssets/**/*.gif.meta
+/[Aa]ssets/**/*.psd.meta
+/[Aa]ssets/**/*.tif.meta
+/[Aa]ssets/**/*.tiff.meta
+/[Aa]ssets/**/*.cubemap.meta
+/[Aa]ssets/**/*.rendertexture.meta
+/[Aa]ssets/**/*.physicMaterial.meta
+/[Aa]ssets/**/*.asset.meta
+
+# Unity Temporary Files
+/[Aa]ssets/Temp/
+/[Aa]ssets/StreamingAssets/
