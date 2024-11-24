@@ -84,5 +84,19 @@ Assets/RealToon
 .env
 .utmp
 
-# Game CI 
-/artefacts
+# GameCI specific ignores
+/[Aa]rtifacts/
+/[Cc]odeCoverage/
+/[Tt]est[Rr]esults/
+/.CodeCoverage/
+/[Aa]ssets/InitTestScene*
+/[Aa]ssets/Resources/Unity_*
+/[Aa]ssets/Plugins/GitHub*
+
+# Unity Generated during CI
+/[Aa]ssets/**/*.backup*
+/[Aa]ssets/**/*.backup
+/[Aa]ssets/**/*.meta.backup*
+/[Aa]ssets/TextMesh*Pro/
+/[Aa]ssets/Resources/Unity_*.ulf
+/[Aa]ssets/Resources/Unity_*.alf
