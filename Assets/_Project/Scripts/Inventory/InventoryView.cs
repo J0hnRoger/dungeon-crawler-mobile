@@ -35,7 +35,13 @@ namespace DungeonCrawler._Project.Scripts.Inventory
             var slot = Instantiate(_slotPrefab, _container.transform);
             var slotComponent = slot.GetComponent<ItemSlot>();
             slotComponent.Index = index;
+            slotComponent.OnDropAccepted += ItemSlotDropped;
             Items.Add(slotComponent);
+        }
+
+        private void ItemSlotDropped(ItemSlot itemSlot)
+        {
+            
         }
 
         public void UpdateItems(IList<DungeonItem> items)
