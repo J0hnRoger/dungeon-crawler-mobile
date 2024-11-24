@@ -21,9 +21,9 @@ namespace DungeonCrawler._Project.Scripts.UI
             if (_autoCloseCoroutine != null)
             {
                 StopCoroutine(_autoCloseCoroutine);
-                _canvasGroup.alpha = 1;
             }
             
+            _canvasGroup.alpha = 1;
             _notificationText.text = message;
 
             gameObject.SetActive(true);

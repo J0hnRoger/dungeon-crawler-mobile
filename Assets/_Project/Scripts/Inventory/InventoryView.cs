@@ -19,7 +19,6 @@ namespace DungeonCrawler._Project.Scripts.Inventory
         [SerializeField] private GameObject _slotPrefab;
         [SerializeField] private TMP_Text _inventoryTitle;
         
-        
         private List<ItemSlot> Items = new();
         
         void Awake()
@@ -41,7 +40,7 @@ namespace DungeonCrawler._Project.Scripts.Inventory
 
         private void ItemSlotDropped(ItemSlot itemSlot)
         {
-            
+            itemSlot.EmptySlot();
         }
 
         public void UpdateItems(IList<DungeonItem> items)

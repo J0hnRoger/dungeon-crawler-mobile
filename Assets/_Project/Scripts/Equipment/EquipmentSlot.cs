@@ -57,7 +57,6 @@ namespace DungeonCrawler._Project.Scripts.Equipment
                 else
                 {
                     SetItem(sourceSlot._currentItem);
-                    sourceSlot.EmptySlot();
                 }
             }
         }

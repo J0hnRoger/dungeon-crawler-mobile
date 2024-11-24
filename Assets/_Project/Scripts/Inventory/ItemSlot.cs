@@ -35,6 +35,7 @@ namespace DungeonCrawler._Project.Scripts.Inventory
         {
             _currentItem = item;
             _icon.sprite = item.Data.Icon;
+            _quantityTxt.enabled = true;
             _quantityTxt.text = item.Quantity.ToString();
             _icon.enabled = true;
         }
@@ -42,12 +43,13 @@ namespace DungeonCrawler._Project.Scripts.Inventory
         public void EmptySlot()
         {
             _currentItem = null;
-            _icon.enabled = false;
+            _quantityTxt.enabled = false;
+            _icon.sprite = null;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if (_currentItem == null) return;
+            if (_currentItem == null || _currentItem.Data == null) return;
 
             // Créer une copie temporaire de l'icône
             _draggedIcon = new GameObject("Dragged Icon");
@@ -75,7 +77,7 @@ namespace DungeonCrawler._Project.Scripts.Inventory
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            if (_currentItem == null) return;
+            if (_currentItem == null || _currentItem.Data == null) return;
 
             // Restaurer l'opacité de l'icône originale
             _icon.color = Color.white;

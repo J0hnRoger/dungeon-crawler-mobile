@@ -23,6 +23,8 @@ namespace DungeonCrawler._Project.Scripts.Grid.Components
             {
                 var itemIcon = Instantiate(_iconTemplate, _iconContainer.transform);
                 var imageComponent = itemIcon.GetComponent<Image>();
+                var buttonComponent = itemIcon.GetComponent<Button>();
+                buttonComponent.onClick.AddListener(() => PickupItem(itemIcon, dungeonItem));
                 imageComponent.sprite = dungeonItem.Data.Icon;
                 
                 _itemIcons.Add(imageComponent);
@@ -30,13 +32,14 @@ namespace DungeonCrawler._Project.Scripts.Grid.Components
             _iconTemplate.gameObject.SetActive(false);
         }
 
-        public void PickupItem()
+        private void PickupItem(Image go, DungeonItem pickedItem)
         {
             EventBus<AddItemIntoInventoryEvent>.Raise(new AddItemIntoInventoryEvent()
             {
-               Items = _items 
+               Items = new List<DungeonItem>() { pickedItem } 
             });
-            DialogEvent.ShowNotification("Items added to inventory!");
+            Destroy(go.gameObject);
+            DialogEvent.ShowNotification($"Items {pickedItem.Data.Name} added to inventory!");
         }
     }
 }
