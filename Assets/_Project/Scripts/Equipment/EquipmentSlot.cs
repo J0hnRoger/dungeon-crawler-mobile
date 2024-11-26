@@ -1,4 +1,5 @@
-﻿using DungeonCrawler._Project.Scripts.Inventory;
+﻿using System;
+using DungeonCrawler._Project.Scripts.Inventory;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,21 +7,14 @@ using UnityEngine.EventSystems;
 
 namespace DungeonCrawler._Project.Scripts.Equipment
 {
-    public enum BodyPart
-    {
-        HEAD,
-        CHEST,
-        LEFT,
-        RIGHT,
-        LEGS
-    }
-    
     public class EquipmentSlot : MonoBehaviour, IDropHandler
     {
         [CanBeNull] public DungeonItem _currentItem = null;
         
         [SerializeField] private Image _icon;
         [SerializeField] private BodyPart _bodyPart;
+
+        public Action<DungeonItem> OnEquip;  
         
         public void SetItem(DungeonItem item)
         {
@@ -57,6 +51,7 @@ namespace DungeonCrawler._Project.Scripts.Equipment
                 else
                 {
                     SetItem(sourceSlot._currentItem);
+                    OnEquip?.Invoke(sourceSlot._currentItem);
                 }
             }
         }

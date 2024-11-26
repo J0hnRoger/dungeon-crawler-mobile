@@ -9,6 +9,12 @@
         {
             _model = model;
             _view = view;
+            ConnectView();
+        }
+
+        private void ConnectView()
+        {
+            // TODO
         }
 
         public void OnEnable()

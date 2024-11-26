@@ -4,7 +4,7 @@ using System.Linq;
 using _Project.Scripts.Common;
 using _Project.Scripts.Common.EventBus;
 using _Project.Scripts.Persistence;
-using DungeonCrawler._Project.Scripts.Events;
+using DungeonCrawler._Project.Scripts.Inventory;
 using UnityEngine;
 
 namespace DungeonCrawler._Project.Scripts.Persistence
@@ -17,7 +17,7 @@ namespace DungeonCrawler._Project.Scripts.Persistence
 
         protected override void AwakeAsSingleton()
         {
-            _dataService = new FileDataService(new JsonSerializer());
+            _dataService = new FileDataService(new NewtonsoftJsonSerializer());
         }
 
         public void NewGame()
@@ -25,7 +25,9 @@ namespace DungeonCrawler._Project.Scripts.Persistence
             string date = DateTime.UtcNow.ToString("D");
             GameData = new GameData()
             {
-                Name = $"Demo {date}"
+                Name = $"Demo {date}",
+                Inventory = new List<DungeonItem>(),
+                Equipments = new List<DungeonItem>()
             };
             
             EventBus<NewGameEvent>.Raise(new NewGameEvent()
@@ -39,39 +41,18 @@ namespace DungeonCrawler._Project.Scripts.Persistence
            _dataService.Save(GameData); 
         }
 
-        public void LoadLastGame()
+        public GameData LoadLastGame()
         {
             var lastGame = _dataService.ListSaves().FirstOrDefault();
-            // if (lastGame == null)
-                // throw new Exception("No existing saves, start a new game");
-            LoadGame(lastGame);
+            if (lastGame == null)
+                throw new Exception("No existing saves, start a new game");
+            return LoadGame(lastGame);
         }
         
-        public void LoadGame(string gameName)
+        public GameData LoadGame(string gameName)
         {
-            // var data = _dataService.Load(gameName);
-            EventBus<GameLoadedEvent>.Raise(new GameLoadedEvent()
-            {
-                SaveName = gameName,
-                GameData = new GameData()
-                {
-                    LevelProgressions = new List<LevelProgression>()
-                    {
-                        new LevelProgression()
-                        {
-                           LevelName = "Level1",
-                           IsActive = false,
-                            NbRuns = 1
-                        },
-                        new LevelProgression()
-                        {
-                           LevelName = "Level2",
-                           IsActive = true,
-                            NbRuns = 0
-                        }
-                    }
-                } 
-            });
+            var data = _dataService.Load(gameName);
+            return data;
         }
         
         public void DeleteGame(string gameName)

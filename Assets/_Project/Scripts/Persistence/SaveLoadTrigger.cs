@@ -1,19 +1,29 @@
 ﻿using _Project.Scripts.Common.DependencyInjection;
-using DungeonCrawler._Project.Scripts.Persistence;
+using _Project.Scripts.Common.EventBus;
+using DungeonCrawler._Project.Scripts.Events;
+using DungeonCrawler._Project.Scripts.Persistence.Events;
 using UnityEngine;
 
-namespace _Project.Scripts.Persistence
+namespace DungeonCrawler._Project.Scripts.Persistence
 {
     public class SaveLoadTrigger : MonoBehaviour
     {
         [Inject] private SaveLoadSystem _saveLoadSystem;
 
+        public void SaveCurrentGame()
+        {
+            if (_saveLoadSystem == null)
+                Debug.LogWarning($"[SaveLoadTrigger] Save Game asked");
+            else 
+                EventBus<SaveGameEvent>.Raise(new SaveGameEvent());
+        }
+        
         public void NewGame()
         {
             if (_saveLoadSystem == null)
                 Debug.LogWarning($"[SaveLoadTrigger] New Game created");
             else
-                _saveLoadSystem.NewGame();
+                EventBus<NewGameEvent>.Raise(new NewGameEvent());
         }
         
         
@@ -22,7 +32,7 @@ namespace _Project.Scripts.Persistence
             if (_saveLoadSystem == null)
                 Debug.LogWarning($"[SaveLoadTrigger] Load last Game");
             else
-                _saveLoadSystem.LoadLastGame();
+                EventBus<ContinueGameEvent>.Raise(new ContinueGameEvent());
         }
     }
 }

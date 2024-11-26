@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using DungeonCrawler._Project.Scripts.Persistence;
+using _Project.Scripts.Persistence;
 using UnityEngine;
 
-namespace _Project.Scripts.Persistence
+namespace DungeonCrawler._Project.Scripts.Persistence
 {
     public class FileDataService : IDataService
     {
@@ -15,12 +16,12 @@ namespace _Project.Scripts.Persistence
         {
             _serializer = serializer;
             _dataPath = Application.persistentDataPath;
-            _fileExtension = "json";
+            _fileExtension = ".json";
         }
 
         string GetPathToFile(string fileName)
         {
-            return Path.Combine(_dataPath, string.Concat(fileName, ".", _fileExtension));
+            return Path.Combine(_dataPath, string.Concat(fileName, _fileExtension));
         }
 
         public void Save(GameData data, bool overwrite = true)
@@ -29,8 +30,9 @@ namespace _Project.Scripts.Persistence
 
             if (!overwrite && File.Exists(fileLocation))
                 throw new IOException($"The file {fileLocation} already exists and cannot be overwrite");
-
-            File.WriteAllText(fileLocation, _serializer.Serialize(data));
+            
+            var serialized = _serializer.Serialize(data);
+            File.WriteAllText(fileLocation, serialized);
         }
 
         public GameData Load(string name)
@@ -39,8 +41,11 @@ namespace _Project.Scripts.Persistence
 
             if (!File.Exists(fileLocation))
                 throw new IOException($"No data with name {name}");
-
-            return _serializer.Deserialize<GameData>(fileLocation);
+            string content = File.ReadAllText(fileLocation);
+            if (String.IsNullOrWhiteSpace(content))
+                throw new IOException($"Save file is empty or corrupted");
+            
+            return _serializer.Deserialize<GameData>(content);
         }
 
         public void Delete(string name)
