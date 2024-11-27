@@ -7,12 +7,13 @@ using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using System.Linq;
 using DungeonCrawler._Project.Scripts.Equipment;
+using UnityEngine.Serialization;
 
 namespace DungeonCrawler._Project.Scripts.Inventory
 {
     public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        [CanBeNull] public DungeonItem _currentItem;
+        [CanBeNull] public DungeonItem CurrentItem;
 
         public Action<ItemSlot> OnDropAccepted;
         
@@ -33,7 +34,7 @@ namespace DungeonCrawler._Project.Scripts.Inventory
 
         public void SetItem(DungeonItem item)
         {
-            _currentItem = item;
+            CurrentItem = item;
             _icon.sprite = item.Data.Icon;
             _quantityTxt.enabled = true;
             _quantityTxt.text = item.Quantity.ToString();
@@ -42,14 +43,14 @@ namespace DungeonCrawler._Project.Scripts.Inventory
 
         public void EmptySlot()
         {
-            _currentItem = null;
+            CurrentItem = null;
             _quantityTxt.enabled = false;
             _icon.sprite = null;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if (_currentItem == null || _currentItem.Data == null) return;
+            if (CurrentItem == null || CurrentItem.Data == null) return;
 
             // Créer une copie temporaire de l'icône
             _draggedIcon = new GameObject("Dragged Icon");
@@ -77,7 +78,7 @@ namespace DungeonCrawler._Project.Scripts.Inventory
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            if (_currentItem == null || _currentItem.Data == null) return;
+            if (CurrentItem == null || CurrentItem.Data == null) return;
 
             // Restaurer l'opacité de l'icône originale
             _icon.color = Color.white;
@@ -94,7 +95,7 @@ namespace DungeonCrawler._Project.Scripts.Inventory
                 .Select(r => r.gameObject.GetComponent<EquipmentSlot>())
                 .FirstOrDefault(s => s != null);
 
-            if (equipmentSlot != null && equipmentSlot.CanEquipItem(_currentItem))
+            if (equipmentSlot != null && equipmentSlot.CanEquipItem(CurrentItem))
             {
                 OnDropAccepted?.Invoke(this);
             }

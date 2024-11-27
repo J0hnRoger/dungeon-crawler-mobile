@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using _Project.Scripts.Common.DependencyInjection;
 using TMPro;
@@ -19,6 +20,8 @@ namespace DungeonCrawler._Project.Scripts.Inventory
         [SerializeField] private TMP_Text _inventoryTitle;
         
         private List<ItemSlot> Items = new();
+
+        public Action<DungeonItem> OnItemDropped;
         
         void Awake()
         {
@@ -39,6 +42,7 @@ namespace DungeonCrawler._Project.Scripts.Inventory
 
         private void ItemSlotDropped(ItemSlot itemSlot)
         {
+            OnItemDropped(itemSlot.CurrentItem);
             itemSlot.EmptySlot();
         }
 

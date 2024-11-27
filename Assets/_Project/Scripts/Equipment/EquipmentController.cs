@@ -1,4 +1,8 @@
-﻿namespace DungeonCrawler._Project.Scripts.Equipment
+﻿using System.Collections.Generic;
+using System.Linq;
+using DungeonCrawler._Project.Scripts.Inventory;
+
+namespace DungeonCrawler._Project.Scripts.Equipment
 {
     public class EquipmentController
     {
@@ -9,12 +13,29 @@
         {
             _model = model;
             _view = view;
+            ConnectModel();
             ConnectView();
+        }
+
+        private void ConnectModel()
+        {
+            _model.EquippedItems.AnyValueChanged += HandleEquippedItemChanged;
         }
 
         private void ConnectView()
         {
+           _view.UpdateItems(_model.EquippedItems.ToList());
+            _view.OnItemEquipped += HandleItemEquipped;
+        }
+
+        private void HandleEquippedItemChanged(IList<DungeonItem> obj)
+        {
             // TODO
+        }
+
+        private void HandleItemEquipped(DungeonItem equipment)
+        {
+            _model.EquipItem(equipment);
         }
 
         public void OnEnable()

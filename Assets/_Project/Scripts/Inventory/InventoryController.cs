@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using _Project.Scripts.Common.EventBus;
 using DungeonCrawler._Project.Scripts.Events;
-using UnityEditor;
 
 namespace DungeonCrawler._Project.Scripts.Inventory
 {
@@ -46,7 +45,13 @@ namespace DungeonCrawler._Project.Scripts.Inventory
 
         private void ConnectView()
         {
-           _view.UpdateItems(_model.Items); 
+           _view.UpdateItems(_model.Items);
+           _view.OnItemDropped += HandleItemEquipped;
+        }
+
+        private void HandleItemEquipped(DungeonItem item)
+        {
+            _model.RemoveItem(item);
         }
     }
 }

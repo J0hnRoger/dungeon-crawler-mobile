@@ -38,20 +38,20 @@ namespace DungeonCrawler._Project.Scripts.Equipment
         public void OnDrop(PointerEventData eventData)
         {
             var sourceSlot = eventData.pointerDrag?.GetComponent<ItemSlot>();
-            if (sourceSlot == null || sourceSlot._currentItem == null) return;
+            if (sourceSlot == null || sourceSlot.CurrentItem == null) return;
 
-            if (CanEquipItem(sourceSlot._currentItem))
+            if (CanEquipItem(sourceSlot.CurrentItem))
             {
                 if (_currentItem != null && _currentItem.Data != null)
                 {
                     var tempItem = _currentItem;
-                    SetItem(sourceSlot._currentItem);
+                    SetItem(sourceSlot.CurrentItem);
                     sourceSlot.SetItem(tempItem);
                 }
                 else
                 {
-                    SetItem(sourceSlot._currentItem);
-                    OnEquip?.Invoke(sourceSlot._currentItem);
+                    SetItem(sourceSlot.CurrentItem);
+                    OnEquip?.Invoke(sourceSlot.CurrentItem);
                 }
             }
         }

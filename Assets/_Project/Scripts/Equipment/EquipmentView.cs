@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using _Project.Scripts.Common.DependencyInjection;
 using DungeonCrawler._Project.Scripts.Inventory;
 using TMPro;
@@ -19,6 +20,8 @@ namespace DungeonCrawler._Project.Scripts.Equipment
             return this;
         }
 
+        public Action<DungeonItem> OnItemEquipped;
+        
         public void Awake()
         {
             foreach (var equipmentSlot in EquipmentSlots)
@@ -29,7 +32,7 @@ namespace DungeonCrawler._Project.Scripts.Equipment
 
         private void HandleItemEquiped(DungeonItem equippedItem)
         {
-            // TODO
+            OnItemEquipped?.Invoke(equippedItem);
         }
 
         public void ToggleUI()
@@ -41,6 +44,12 @@ namespace DungeonCrawler._Project.Scripts.Equipment
         {
            _equipmentTitle.gameObject.SetActive(show); 
            _container.SetActive(!_container.activeSelf); 
+        }
+
+        public void UpdateItems(IList<DungeonItem> equipments)
+        {
+            for (var i = 0; i < equipments.Count; i++)
+                EquipmentSlots[i].SetItem(equipments[i]);
         }
     }
 }

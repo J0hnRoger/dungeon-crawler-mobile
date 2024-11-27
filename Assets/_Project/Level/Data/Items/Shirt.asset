@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1886b43291ea470f850781f86460aea9, type: 3}
   m_Name: Shirt
   m_EditorClassIdentifier: 
+  Guid: 54100b07-23f9-413f-b1d1-6db25c0dfd84
   Name: Shirt
   Icon: {fileID: 21300000, guid: 4f2a32d50c0e39e4a96995befc9aae0c, type: 3}
   ItemPrefab: {fileID: 8819008868031770074, guid: 7039ec890788a2d4794383fa7c7eee88, type: 3}
