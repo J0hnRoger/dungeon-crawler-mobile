@@ -20,19 +20,16 @@ namespace DungeonCrawler._Project.Scripts.Equipment
             return this;
         }
 
-        public Action<DungeonItem> OnItemEquipped;
+        public Action<EquipmentItem> OnItemEquipped;
+        public Action<EquipmentItem> OnItemUnequipped;
         
         public void Awake()
         {
             foreach (var equipmentSlot in EquipmentSlots)
             {
-                equipmentSlot.OnEquip += HandleItemEquiped;
+                equipmentSlot.OnEquip += (item) => OnItemEquipped?.Invoke(item);
+                equipmentSlot.OnUnequip += (item)  => OnItemUnequipped?.Invoke(item);;
             }
-        }
-
-        private void HandleItemEquiped(DungeonItem equippedItem)
-        {
-            OnItemEquipped?.Invoke(equippedItem);
         }
 
         public void ToggleUI()
@@ -46,7 +43,7 @@ namespace DungeonCrawler._Project.Scripts.Equipment
            _container.SetActive(!_container.activeSelf); 
         }
 
-        public void UpdateItems(IList<DungeonItem> equipments)
+        public void UpdateItems(IList<EquipmentItem> equipments)
         {
             for (var i = 0; i < equipments.Count; i++)
                 EquipmentSlots[i].SetItem(equipments[i]);

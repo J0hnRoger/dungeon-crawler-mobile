@@ -26,18 +26,25 @@ namespace DungeonCrawler._Project.Scripts.Equipment
         {
            _view.UpdateItems(_model.EquippedItems.ToList());
             _view.OnItemEquipped += HandleItemEquipped;
+            _view.OnItemUnequipped += HandleItemUnequipped;
         }
 
-        private void HandleEquippedItemChanged(IList<DungeonItem> obj)
+
+        private void HandleEquippedItemChanged(IList<EquipmentItem> obj)
         {
             // TODO
         }
 
-        private void HandleItemEquipped(DungeonItem equipment)
+        private void HandleItemEquipped(EquipmentItem equipment)
         {
             _model.EquipItem(equipment);
         }
 
+        private void HandleItemUnequipped(EquipmentItem equipment)
+        {
+            _model.UnequipItem(equipment);
+        }
+        
         public void OnEnable()
         {
             // TODO - Bind equip events 

@@ -1,8 +1,9 @@
-﻿using _Project.Scripts.Common.DependencyInjection;
+﻿using System.Linq;
+using _Project.Scripts.Common.DependencyInjection;
+using DungeonCrawler._Project.Scripts.Common;
 using DungeonCrawler._Project.Scripts.Common.Architecture;
 using DungeonCrawler._Project.Scripts.Common.Architecture.Events;
 using DungeonCrawler._Project.Scripts.Common.DependencyInjection;
-using DungeonCrawler._Project.Scripts.Persistence;
 using UnityEngine;
 
 namespace DungeonCrawler._Project.Scripts.Equipment
@@ -16,15 +17,27 @@ namespace DungeonCrawler._Project.Scripts.Equipment
         [SerializeField]
         private Deferred<EquipmentView> _deferredEquipmentView = new ();
 
+        [SerializeField]
+        private InterfaceReference<IEquipmentStore> EquipmentStore;
+
+        [SerializeField] 
+        private EquipmentView _equipmentView;
+        
         [Inject]
-        private EquipmentStore _store;
+        private IEquipmentStore _injectedStore;
+
+        private IEquipmentStore Store => _injectedStore ?? EquipmentStore?.Value;
         
         private EquipmentController _controller;
         private EquipmentModel _model;
 
         void Start()
         {
-            _deferredEquipmentView.OnLoaded += InitView;
+            InitModel(Store);
+            if (_equipmentView != null)
+                InitView(_equipmentView);
+            else
+                _deferredEquipmentView.OnLoaded += InitView;
         }
 
         private void InitView(EquipmentView equipmentView)
@@ -34,13 +47,14 @@ namespace DungeonCrawler._Project.Scripts.Equipment
             _controller.OnEnable();
         }
 
-        public void InitModel(GameData data)
+        private void InitModel(IEquipmentStore store)
         {
+            _model = new EquipmentModel(store);
         }
-
+        
         protected override void OnGameReady(GameReadyEvent gameReadyEvent)
         {
-            _model = new EquipmentModel(_store.Equipments);
+            InitModel(Store);
         }
     }
 }

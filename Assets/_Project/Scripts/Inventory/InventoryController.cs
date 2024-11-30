@@ -46,10 +46,16 @@ namespace DungeonCrawler._Project.Scripts.Inventory
         private void ConnectView()
         {
            _view.UpdateItems(_model.Items);
-           _view.OnItemDropped += HandleItemEquipped;
+           _view.OnItemDropped += HandleItemDropped;
+           _view.OnItemPicked += HandleItemPickup;
         }
 
-        private void HandleItemEquipped(DungeonItem item)
+        private void HandleItemPickup(DungeonItem item)
+        {
+            _model.AddItem(item);
+        }
+
+        private void HandleItemDropped(DungeonItem item)
         {
             _model.RemoveItem(item);
         }

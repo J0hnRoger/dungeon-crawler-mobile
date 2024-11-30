@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using _Project.Scripts.Common.DependencyInjection;
+using DungeonCrawler._Project.Scripts.Common;
+using DungeonCrawler._Project.Scripts.Equipment;
 using DungeonCrawler._Project.Scripts.Inventory;
 using DungeonCrawler._Project.Scripts.Persistence;
 using UnityEngine;
@@ -16,10 +18,18 @@ namespace DungeonCrawler._Project.Scripts
         public string Name;
         
         public List<DungeonItem> Items = new();
-        public List<DungeonItem> Equipments = new();
+        public List<EquipmentItem> Equipments = new();
         
         public List<LevelProgression> LevelProgressions = new();
         
+        private EquipmentStore _equipmentStore;
+
+        private void OnDisable()
+        {
+            if (_equipmentStore != null)
+                _equipmentStore.Disable();
+        }
+
         public void UpdateProgression(string levelName)
         {
             var levelProgression = LevelProgressions
@@ -49,21 +59,23 @@ namespace DungeonCrawler._Project.Scripts
         }
 
         [Provide]
-        public EquipmentStore ProvideEquipment()
+        public IEquipmentStore ProvideEquipment()
         {
-            return new EquipmentStore() { Equipments = Equipments };
+            _equipmentStore = new EquipmentStore()
+            {
+                Equipments = new ObservableList<EquipmentItem>(Equipments)
+            };
+            
+            // TODO- meilleur emplacement à l'initialisation du MB? 
+            _equipmentStore.Enable();
+            
+            return _equipmentStore;
         }
     }
 
     [Serializable]
-    public class InventoryStore
+    public class InventoryStore 
     {
         public List<DungeonItem> Items { get; set; }
-    }
-
-    [Serializable]
-    public class EquipmentStore
-    {
-        public List<DungeonItem> Equipments { get; set; }
     }
 }

@@ -7,15 +7,15 @@ using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using System.Linq;
 using DungeonCrawler._Project.Scripts.Equipment;
-using UnityEngine.Serialization;
 
 namespace DungeonCrawler._Project.Scripts.Inventory
 {
-    public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class ItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
     {
         [CanBeNull] public DungeonItem CurrentItem;
 
         public Action<ItemSlot> OnDropAccepted;
+        public Action<ItemSlot> OnPickUpAccepted;
         
         public int Index;
         public int quantity;
@@ -98,7 +98,25 @@ namespace DungeonCrawler._Project.Scripts.Inventory
             if (equipmentSlot != null && equipmentSlot.CanEquipItem(CurrentItem))
             {
                 OnDropAccepted?.Invoke(this);
+                EmptySlot();
             }
+        }
+
+        public void OnDrop(PointerEventData eventData)
+        {
+            var sourceSlot = eventData.pointerDrag?.GetComponent<EquipmentSlot>();
+            if (sourceSlot == null || sourceSlot.CurrentItem == null) return;
+
+            if (CanPickUpItem(sourceSlot.CurrentItem))
+            {
+                SetItem(sourceSlot.CurrentItem);
+                OnPickUpAccepted?.Invoke(this);
+            }
+        }
+
+        public bool CanPickUpItem(DungeonItem item)
+        {
+            return CurrentItem == null || CurrentItem.Data == null || item == CurrentItem;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DungeonCrawler._Project.Scripts.Equipment;
 using DungeonCrawler._Project.Scripts.Inventory;
 
 namespace DungeonCrawler._Project.Scripts.Persistence
@@ -11,7 +12,7 @@ namespace DungeonCrawler._Project.Scripts.Persistence
         public string Name;
         public List<LevelProgression> LevelProgressions = new();
         public List<DungeonItem> Inventory = new();
-        public List<DungeonItem> Equipments = new();
+        public List<EquipmentItem> Equipments = new();
         
         public void UpdateProgression(string levelName)
         {

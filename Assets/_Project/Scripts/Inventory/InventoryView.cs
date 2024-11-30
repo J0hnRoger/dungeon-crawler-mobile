@@ -22,6 +22,7 @@ namespace DungeonCrawler._Project.Scripts.Inventory
         private List<ItemSlot> Items = new();
 
         public Action<DungeonItem> OnItemDropped;
+        public Action<DungeonItem> OnItemPicked;
         
         void Awake()
         {
@@ -37,21 +38,23 @@ namespace DungeonCrawler._Project.Scripts.Inventory
             var slotComponent = slot.GetComponent<ItemSlot>();
             slotComponent.Index = index;
             slotComponent.OnDropAccepted += ItemSlotDropped;
+            slotComponent.OnPickUpAccepted += ItemSlotPicked;
             Items.Add(slotComponent);
+        }
+
+        private void ItemSlotPicked(ItemSlot itemSlot)
+        {
+            OnItemPicked?.Invoke(itemSlot.CurrentItem);
         }
 
         private void ItemSlotDropped(ItemSlot itemSlot)
         {
-            OnItemDropped(itemSlot.CurrentItem);
-            itemSlot.EmptySlot();
+            OnItemDropped?.Invoke(itemSlot.CurrentItem);
         }
 
         public void UpdateItems(IList<DungeonItem> items)
         {
-            for (var i = 0; i < items.Count; i++)
-            {
-                Items[i].SetItem(items[i]);
-            }
+            
         }
         
         public void CloseInventory()

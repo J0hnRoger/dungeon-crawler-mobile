@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 170be8d8a7f847d9b7dae65f63142747, type: 3}
-  m_Name: Shirt
+  m_Name: Green Shirt
   m_EditorClassIdentifier: 
-  Guid: 5f041945-6cba-4345-bdb5-18a79a07890c
-  Name: Shirt
+  Guid: 3a3665f6-e29b-44b5-a2b0-49556981b829
+  Name: Green Shirt
   Icon: {fileID: 21300000, guid: 4f2a32d50c0e39e4a96995befc9aae0c, type: 3}
   ItemPrefab: {fileID: 8819008868031770074, guid: 7039ec890788a2d4794383fa7c7eee88, type: 3}
   BodyPart: 1
-  Mesh: {fileID: 3900480760133451625, guid: 211bde861fc7b4e4dba6692b795f52d0, type: 3}
-  Material: {fileID: 2100000, guid: d3dbadf1ba2e15f42a10b22df0e4118a, type: 2}
+  Mesh: {fileID: 3900480760133451625, guid: 025992e179a89de45a0fb14d38441aa7, type: 3}
+  Material: {fileID: 2100000, guid: 5c6b22dfaee050e4b99ac5c59f0a64eb, type: 2}

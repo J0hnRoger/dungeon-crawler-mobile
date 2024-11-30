@@ -7,6 +7,7 @@ using _Project.Scripts.Common.EventBus;
 using DungeonCrawler._Project.Scripts.Common.Architecture.Events;
 using DungeonCrawler._Project.Scripts.Dungeon;
 using DungeonCrawler._Project.Scripts.Dungeon.SO;
+using DungeonCrawler._Project.Scripts.Equipment;
 using DungeonCrawler._Project.Scripts.Events;
 using DungeonCrawler._Project.Scripts.Inventory;
 using DungeonCrawler._Project.Scripts.Persistence;
@@ -73,7 +74,7 @@ namespace DungeonCrawler._Project.Scripts
             var firstLevel = _levelSequenceData.Levels.First();
             var newGameData = new GameData()
             {
-                Equipments = new List<DungeonItem>(),
+                Equipments = new List<EquipmentItem>(),
                 Inventory = new List<DungeonItem>(),
                 LevelProgressions = new List<LevelProgression>(),
                 Name = DateTime.Now.ToString("d-M-yy")

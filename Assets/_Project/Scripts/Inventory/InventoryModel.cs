@@ -22,5 +22,12 @@ namespace DungeonCrawler._Project.Scripts.Inventory
             
             Items.Remove(item);
         }
+
+        public void AddItem(DungeonItem item)
+        {
+            if (Items.Contains(item))
+                throw new Exception($"Item {item.Data.Name} already in the inventory");
+            Items.Add(item);
+        }
     }
 }

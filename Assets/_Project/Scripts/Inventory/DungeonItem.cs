@@ -1,4 +1,6 @@
 ﻿using System;
+using DungeonCrawler._Project.Scripts.Equipment;
+using DungeonCrawler._Project.Scripts.Equipment.SO;
 using DungeonCrawler._Project.Scripts.Inventory.SO;
 
 namespace DungeonCrawler._Project.Scripts.Inventory
@@ -15,5 +17,19 @@ namespace DungeonCrawler._Project.Scripts.Inventory
     {
         public int Quantity;
         public DungeonItemSO Data;
+
+        protected DungeonItem()
+        {
+        }
+
+        public static DungeonItem CreateItem(int quantity, DungeonItemSO data)
+        {
+            if (data is DungeonEquipmentSO equipmentSo)
+            {
+                return new EquipmentItem { Data = equipmentSo, Quantity = quantity };
+            }
+
+            return new DungeonItem { Data = data, Quantity = quantity };
+        }
     }
 }

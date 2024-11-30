@@ -4,6 +4,7 @@ using System.Linq;
 using _Project.Scripts.Common;
 using _Project.Scripts.Common.EventBus;
 using _Project.Scripts.Persistence;
+using DungeonCrawler._Project.Scripts.Equipment;
 using DungeonCrawler._Project.Scripts.Inventory;
 using UnityEngine;
 
@@ -27,7 +28,7 @@ namespace DungeonCrawler._Project.Scripts.Persistence
             {
                 Name = $"Demo {date}",
                 Inventory = new List<DungeonItem>(),
-                Equipments = new List<DungeonItem>()
+                Equipments = new List<EquipmentItem>()
             };
             
             EventBus<NewGameEvent>.Raise(new NewGameEvent()
