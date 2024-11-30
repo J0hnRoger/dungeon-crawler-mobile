@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using _Project.Scripts.Common.DependencyInjection;
 using TMPro;
 using UnityEngine;
@@ -19,7 +20,7 @@ namespace DungeonCrawler._Project.Scripts.Inventory
         [SerializeField] private GameObject _slotPrefab;
         [SerializeField] private TMP_Text _inventoryTitle;
         
-        private List<ItemSlot> Items = new();
+        private List<ItemSlot> ItemSlots = new();
 
         public Action<DungeonItem> OnItemDropped;
         public Action<DungeonItem> OnItemPicked;
@@ -39,7 +40,7 @@ namespace DungeonCrawler._Project.Scripts.Inventory
             slotComponent.Index = index;
             slotComponent.OnDropAccepted += ItemSlotDropped;
             slotComponent.OnPickUpAccepted += ItemSlotPicked;
-            Items.Add(slotComponent);
+            ItemSlots.Add(slotComponent);
         }
 
         private void ItemSlotPicked(ItemSlot itemSlot)
@@ -54,7 +55,10 @@ namespace DungeonCrawler._Project.Scripts.Inventory
 
         public void UpdateItems(IList<DungeonItem> items)
         {
-            
+            for (var i = 0; i < items.Count; i++)
+            {
+                ItemSlots[i].SetItem(items[i]);
+            }
         }
         
         public void CloseInventory()

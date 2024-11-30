@@ -24,12 +24,6 @@ namespace DungeonCrawler._Project.Scripts
         
         private EquipmentStore _equipmentStore;
 
-        private void OnDisable()
-        {
-            if (_equipmentStore != null)
-                _equipmentStore.Disable();
-        }
-
         public void UpdateProgression(string levelName)
         {
             var levelProgression = LevelProgressions
@@ -55,7 +49,7 @@ namespace DungeonCrawler._Project.Scripts
         [Provide]
         public InventoryStore ProvideInventory()
         {
-            return new InventoryStore() { Items = Items };
+            return new InventoryStore() { Items = new ObservableList<DungeonItem>(Items) };
         }
 
         [Provide]
@@ -66,9 +60,6 @@ namespace DungeonCrawler._Project.Scripts
                 Equipments = new ObservableList<EquipmentItem>(Equipments)
             };
             
-            // TODO- meilleur emplacement à l'initialisation du MB? 
-            _equipmentStore.Enable();
-            
             return _equipmentStore;
         }
     }
@@ -76,6 +67,6 @@ namespace DungeonCrawler._Project.Scripts
     [Serializable]
     public class InventoryStore 
     {
-        public List<DungeonItem> Items { get; set; }
+        public ObservableList<DungeonItem> Items { get; set; }
     }
 }

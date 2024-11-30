@@ -7,11 +7,11 @@ namespace DungeonCrawler._Project.Scripts.Inventory
 {
     public class InventoryModel
     {
-        public ObservableList<DungeonItem> Items { get; set; }
+        public readonly ObservableList<DungeonItem> Items;
         
-        public InventoryModel(List<DungeonItem> sampleItems)
+        public InventoryModel(ObservableList<DungeonItem> items)
         {
-            Items = new ObservableList<DungeonItem>(sampleItems);
+            Items = items;
         }
 
         public void RemoveItem(DungeonItem dropped)

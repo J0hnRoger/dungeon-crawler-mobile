@@ -21,9 +21,6 @@ namespace DungeonCrawler._Project.Scripts.Player
     {
         private EventBinding<EmptyCellClickedEvent> _gridClickedBinding;
 
-        private EventBinding<ItemEquippedEvent> _itemEquippedEventBinding;
-        private EventBinding<ItemUnequippedEvent> _itemUneqquipedEventBinding;
-
         [SerializeField]
         private List<BodyPartRenderer> _bodyPartRenderers;
         

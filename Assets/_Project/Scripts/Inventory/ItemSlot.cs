@@ -26,6 +26,7 @@ namespace DungeonCrawler._Project.Scripts.Inventory
         private GameObject _draggedIcon;
         private RectTransform _draggedRect;
         private Canvas _canvas;
+        public bool IsEmpty => CurrentItem == null || CurrentItem.Data == null;
 
         private void Awake()
         {
@@ -50,7 +51,7 @@ namespace DungeonCrawler._Project.Scripts.Inventory
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if (CurrentItem == null || CurrentItem.Data == null) return;
+            if (IsEmpty) return;
 
             // Créer une copie temporaire de l'icône
             _draggedIcon = new GameObject("Dragged Icon");

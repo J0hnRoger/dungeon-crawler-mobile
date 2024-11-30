@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 211bde861fc7b4e4dba6692b795f52d0, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 211bde861fc7b4e4dba6692b795f52d0, type: 3}
       propertyPath: m_LocalRotation.x
@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 211bde861fc7b4e4dba6692b795f52d0, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 211bde861fc7b4e4dba6692b795f52d0, type: 3}
       propertyPath: m_LocalRotation.z
@@ -42,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 211bde861fc7b4e4dba6692b795f52d0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 211bde861fc7b4e4dba6692b795f52d0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -75,5 +75,35 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 211bde861fc7b4e4dba6692b795f52d0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9199225662530677120}
   m_SourcePrefab: {fileID: 100100000, guid: 211bde861fc7b4e4dba6692b795f52d0, type: 3}
+--- !u!1 &4158154263420635070 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 211bde861fc7b4e4dba6692b795f52d0, type: 3}
+  m_PrefabInstance: {fileID: 3852216591336585967}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9199225662530677120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4158154263420635070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca8f1003d15ca1449285a4e34336233, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bodyPartRenderers:
+  - bodyPart: 1
+    renderer: {fileID: 8641040236055604178}
+  EquipmentStore:
+    underlyingValue: {fileID: 0}
+--- !u!137 &8641040236055604178 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4800545675622748477, guid: 211bde861fc7b4e4dba6692b795f52d0, type: 3}
+  m_PrefabInstance: {fileID: 3852216591336585967}
+  m_PrefabAsset: {fileID: 0}

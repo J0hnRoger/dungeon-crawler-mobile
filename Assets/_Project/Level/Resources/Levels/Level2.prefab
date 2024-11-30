@@ -114,6 +114,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6820490812607213451}
     m_Modifications:
+    - target: {fileID: 1213446726628048034, guid: 822e06fdf3ef75640ac52f6a51857d08, type: 3}
+      propertyPath: _items.Array.data[0].Data
+      value: 
+      objectReference: {fileID: 11400000, guid: c98f73e5c54d2b6498abdaf43081d449, type: 2}
     - target: {fileID: 2734060741745419041, guid: 822e06fdf3ef75640ac52f6a51857d08, type: 3}
       propertyPath: m_Name
       value: TileChest
