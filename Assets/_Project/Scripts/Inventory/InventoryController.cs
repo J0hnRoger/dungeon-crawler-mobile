@@ -28,7 +28,7 @@ namespace DungeonCrawler._Project.Scripts.Inventory
 
         private void OnItemAdded(AddItemIntoInventoryEvent itemAddedEvent)
         {
-            foreach(var item in itemAddedEvent.Items)
+            foreach (var item in itemAddedEvent.Items)
                 _model.Items.Add(item);
         }
 

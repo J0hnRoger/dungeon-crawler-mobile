@@ -19,8 +19,10 @@ namespace DungeonCrawler._Project.Scripts.Grid.Components
         
         public void Awake()
         {
-            foreach (DungeonItem dungeonItem in _items)
+            foreach (DungeonItem serializedItem in _items)
             {
+                // Convert EquipmentItems 
+                var dungeonItem = DungeonItem.CreateItem(serializedItem.Quantity, serializedItem.Data);
                 var itemIcon = Instantiate(_iconTemplate, _iconContainer.transform);
                 var imageComponent = itemIcon.GetComponent<Image>();
                 var buttonComponent = itemIcon.GetComponent<Button>();
