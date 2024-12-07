@@ -38,7 +38,7 @@ namespace DungeonCrawler._Project.Scripts.Grid.Components
         {
             EventBus<AddItemIntoInventoryEvent>.Raise(new AddItemIntoInventoryEvent()
             {
-               Items = new List<DungeonItem>() { pickedItem } 
+               Item = pickedItem
             });
             Destroy(go.gameObject);
             DialogEvent.ShowNotification($"Items {pickedItem.Data.Name} added to inventory!");

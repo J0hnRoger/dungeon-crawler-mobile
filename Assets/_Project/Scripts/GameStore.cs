@@ -50,7 +50,10 @@ namespace DungeonCrawler._Project.Scripts
         [Provide]
         public InventoryStore ProvideInventory()
         {
-            return new InventoryStore() { Items = new ObservableList<DungeonItem>(Items) };
+            return new InventoryStore()
+            {
+                Items = new ObservableList<DungeonItem>(Items),
+            };
         }
 
         [Provide]

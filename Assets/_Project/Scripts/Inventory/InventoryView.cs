@@ -19,12 +19,12 @@ namespace DungeonCrawler._Project.Scripts.Inventory
         [SerializeField] private GameObject _container;
         [SerializeField] private GameObject _slotPrefab;
         [SerializeField] private TMP_Text _inventoryTitle;
-        
+
         private List<ItemSlot> ItemSlots = new();
 
-        public Action<DungeonItem> OnItemDropped;
-        public Action<DungeonItem> OnItemPicked;
-        
+        public Action<int> OnItemDropped;
+        public Action<DungeonItem, int> OnItemPicked;
+
         void Awake()
         {
             for (int i = 0; i < _nbSlot; i++)
@@ -43,24 +43,38 @@ namespace DungeonCrawler._Project.Scripts.Inventory
             ItemSlots.Add(slotComponent);
         }
 
-        private void ItemSlotPicked(ItemSlot itemSlot)
+        private void ItemSlotPicked(ItemSlot itemSlot, DungeonItem droppedItem)
         {
-            OnItemPicked?.Invoke(itemSlot.CurrentItem);
+            OnItemPicked?.Invoke(droppedItem, itemSlot.Index);
         }
 
         private void ItemSlotDropped(ItemSlot itemSlot)
         {
-            OnItemDropped?.Invoke(itemSlot.CurrentItem);
+            OnItemDropped?.Invoke(itemSlot.Index);
+        }
+
+        public void UpdateItems(Dictionary<int, DungeonItem> modelItemSlots)
+        {
+            foreach (ItemSlot itemSlot in ItemSlots)
+                itemSlot.EmptySlot();
+            
+            foreach (var slot in modelItemSlots)
+            {
+                ItemSlots[slot.Key].SetItem(slot.Value);
+            }
+        }
+
+        public void UpdateSlot(int index, DungeonItem item)
+        {
+            ItemSlots[index].SetItem(item);
         }
 
         public void UpdateItems(IList<DungeonItem> items)
         {
             for (var i = 0; i < items.Count; i++)
-            {
                 ItemSlots[i].SetItem(items[i]);
-            }
         }
-        
+
         public void CloseInventory()
         {
             SetInventoryUIEnable(false);
@@ -70,11 +84,11 @@ namespace DungeonCrawler._Project.Scripts.Inventory
         {
             SetInventoryUIEnable(!_container.gameObject.activeSelf);
         }
-        
+
         private void SetInventoryUIEnable(bool show)
         {
-           _inventoryTitle.gameObject.SetActive(show); 
-           _container.SetActive(!_container.activeSelf); 
+            _inventoryTitle.gameObject.SetActive(show);
+            _container.SetActive(!_container.activeSelf);
         }
     }
 }

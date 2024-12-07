@@ -3,7 +3,7 @@ using DungeonCrawler._Project.Scripts.Inventory;
 
 namespace DungeonCrawler._Project.Scripts.Events
 {
-    public class AddItemIntoInventoryEvent : IEvent
+    public class RemoveItemIntoInventoryEvent : IEvent
     {
         public DungeonItem Item;
         public int? SlotIndex;

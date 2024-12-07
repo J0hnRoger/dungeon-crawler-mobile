@@ -15,7 +15,7 @@ namespace DungeonCrawler._Project.Scripts.Inventory
         [CanBeNull] public DungeonItem CurrentItem;
 
         public Action<ItemSlot> OnDropAccepted;
-        public Action<ItemSlot> OnPickUpAccepted;
+        public Action<ItemSlot, DungeonItem> OnPickUpAccepted;
         
         public int Index;
         public int quantity;
@@ -110,8 +110,8 @@ namespace DungeonCrawler._Project.Scripts.Inventory
 
             if (CanPickUpItem(sourceSlot.CurrentItem))
             {
-                SetItem(sourceSlot.CurrentItem);
-                OnPickUpAccepted?.Invoke(this);
+                // SetItem(sourceSlot.CurrentItem);
+                OnPickUpAccepted?.Invoke(this, sourceSlot.CurrentItem);
             }
         }
 

@@ -28,8 +28,7 @@ namespace DungeonCrawler._Project.Scripts.Inventory
 
         private void OnItemAdded(AddItemIntoInventoryEvent itemAddedEvent)
         {
-            foreach (var item in itemAddedEvent.Items)
-                _model.Items.Add(item);
+            _model.AddItem(itemAddedEvent.Item, itemAddedEvent.SlotIndex);
         }
 
         private void ConnectModel()
@@ -39,6 +38,7 @@ namespace DungeonCrawler._Project.Scripts.Inventory
 
         private void OnItemChanged(IList<DungeonItem> items)
         {
+           _view.UpdateItems(_model.ItemSlots); 
         }
 
         private void ConnectView()
@@ -48,14 +48,14 @@ namespace DungeonCrawler._Project.Scripts.Inventory
            _view.OnItemPicked += HandleItemPickup;
         }
 
-        private void HandleItemPickup(DungeonItem item)
+        private void HandleItemPickup(DungeonItem item, int index)
         {
-            _model.AddItem(item);
+            _model.AddItem(item, index);
         }
 
-        private void HandleItemDropped(DungeonItem item)
+        private void HandleItemDropped(int index)
         {
-            _model.RemoveItem(item);
+            _model.RemoveItem(index);
         }
     }
 }
