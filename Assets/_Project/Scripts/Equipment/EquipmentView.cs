@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Project.Scripts.Common.DependencyInjection;
-using DungeonCrawler._Project.Scripts.Inventory;
 using TMPro;
 using UnityEngine;
 

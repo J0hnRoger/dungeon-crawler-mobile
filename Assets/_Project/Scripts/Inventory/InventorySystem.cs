@@ -36,10 +36,5 @@ namespace DungeonCrawler._Project.Scripts.Inventory
             _controller = new InventoryController(_model, instance);
             _controller.OnEnable();
         }
-
-        public void InitModel(GameData data)
-        {
-        }
-
     }
 }

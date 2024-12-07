@@ -39,8 +39,6 @@ namespace DungeonCrawler._Project.Scripts.Inventory
 
         private void OnItemChanged(IList<DungeonItem> items)
         {
-           // Map to View 
-           _view.UpdateItems(items);
         }
 
         private void ConnectView()

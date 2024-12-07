@@ -24,11 +24,10 @@ namespace DungeonCrawler._Project.Scripts.Equipment
 
         private void ConnectView()
         {
-           _view.UpdateItems(_model.EquippedItems.ToList());
+            _view.UpdateItems(_model.EquippedItems.ToList());
             _view.OnItemEquipped += HandleItemEquipped;
             _view.OnItemUnequipped += HandleItemUnequipped;
         }
-
 
         private void HandleEquippedItemChanged(IList<EquipmentItem> obj)
         {
