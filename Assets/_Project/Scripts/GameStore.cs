@@ -41,8 +41,9 @@ namespace DungeonCrawler._Project.Scripts
         
         public void Initialize(GameData gameData)
         {
+            // TODO - trouver un moyen plus élégant que de cast un EquipmentItem au runtime en fonction de son SO
             Equipments.AddRange(gameData.Equipments);
-            Items.AddRange(gameData.Inventory);
+            Items.AddRange(gameData.Inventory.Select(s => DungeonItem.CreateItem(s.Quantity, s.Data)));
             LevelProgressions = new List<LevelProgression>();
         }
 
